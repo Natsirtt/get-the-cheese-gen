@@ -39,24 +39,23 @@ int main(int argc, char* argv[]) {
     bool running = true;
     SDL_Event event;
     while (running) {
-        while (SDL_PollEvent(&event)) {
-            // On traite l'évènement
-            switch (event.type) {
-                case SDL_QUIT:
-                    // On a fermé la fenetre
+        SDL_WaitEvent(&event);
+        // On traite l'évènement
+        switch (event.type) {
+            case SDL_QUIT:
+                // On a fermé la fenetre
+                running = false;
+                break;
+            case SDL_VIDEORESIZE:
+                reshape(event.resize.w, event.resize.h);
+            case SDL_KEYUP:
+                if (event.key.keysym.sym == SDLK_ESCAPE) {
                     running = false;
-                    break;
-                case SDL_VIDEORESIZE:
-                    reshape(event.resize.w, event.resize.h);
-                case SDL_KEYUP:
-                    if (event.key.keysym.sym == SDLK_ESCAPE) {
-                        running = false;
-                    }
-                    break;
-                default:
-                    gw.postEvent(event);
-                    break;
-            }
+                }
+                break;
+            default:
+                gw.postEvent(event);
+                break;
         }
         // On met à jour
         gw.update(0);
@@ -77,7 +76,7 @@ void initSDL() {
        throw std::runtime_error("Impossible d'activer le double buffer\n");
     }
 
-    SDL_WM_SetCaption("CityGenerator", NULL);
+    SDL_WM_SetCaption("Graph generator", NULL);
 
     if (SDL_SetVideoMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 32, SDL_OPENGL | SDL_RESIZABLE) == NULL) {
         throw std::runtime_error("Impossible de passer en mode OpenGL."/*, SDL_GetError()*/);
