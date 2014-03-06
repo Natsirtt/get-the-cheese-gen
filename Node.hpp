@@ -1,41 +1,46 @@
-#ifndef INODE_HPP
-#define INODE_HPP
+#ifndef NODE_HPP
+#define NODE_HPP
 
-#include <vector>
+#include <map>
+#include "INode.hpp"
 
-#include "Enum.hpp"
+class IGraph;
 
-/**
- * Représente un noeud dans le réseau de pétri.
- * Un noeud peut être connecté à d'autres noeuds par le biais de transitions.
- */
-class INode {
+class Node : public INode {
 public:
-    virtual ~INode() {};
+    Node(IGraph* graph);
+
+    virtual ~Node();
     /**
      * Attribue un id au noeud.
      */
-    virtual void setId(Id nid) = 0;
+    virtual void setId(Id nid);
     /**
      * Renvoie l'ID du noeud.
      */
-    virtual Id getID() = 0;
+    virtual Id getID();
     /**
      * Renvoie les transitions accessiblent pour un joueur.
      * @param p Le joueur pour lequel on veux les transitions.
      * @return La liste des Id des transitions accessiblent.
      */
-    virtual std::vector<Id> getTransitions(Perso p) = 0;
+    virtual std::vector<Id> getTransitions(Perso p);
     /**
      * Renvoie les transitions accessiblent par ce noeud.
      * @return La liste des Id des transitions accessiblent.
      */
-    virtual std::vector<Id> getTransitions() = 0;
+    virtual std::vector<Id> getTransitions();
     /**
      * Ajoute une transition au noeud.
      */
-    virtual void addTransition(Id gid) = 0;
+    virtual void addTransition(Id gid);
+
+private:
+    IGraph* mGraph;
+    Id mId;
+    std::vector<Id> mGates;
+    std::map<Perso, std::vector<Id>> mGatesMap;
 };
 
-#endif // INODE_HPP
+#endif // NODE_HPP
 

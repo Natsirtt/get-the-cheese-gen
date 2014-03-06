@@ -1,32 +1,38 @@
-#ifndef IGATE_HPP
-#define IGATE_HPP
+#ifndef GATE_HPP
+#define GATE_HPP
 
-#include "Enum.hpp"
+#include "IGate.hpp"
 
-/**
- * Représente une transition dans le réseau de pétri.
- * Une transition ne peut être connectée qu'à 2 noeuds.
- */
-class IGate {
+class IGraph;
+
+class Gate : public IGate {
 public:
-    virtual ~IGate() {};
+    /**
+     * Constructeur d'une transition.
+     * @param graph Le graphe dans lequel se situe la transition.
+     * @param first Le noeud d'origine.
+     * @param second Le noeud destination.
+     */
+    Gate(IGraph* graph, Id first, Id second);
+
+    virtual ~Gate();
 
     /**
      * Attribue un id à la transition.
      */
-    virtual void setId(Id nid) = 0;
+    virtual void setId(Id gid);
     /**
      * Renvoie l'ID de la transition.
      */
-    virtual Id getID() = 0;
+    virtual Id getID();
     /**
      * Renvoie l'ID du premier noeud.
      */
-    virtual Id getFirstNode() = 0;
+    virtual Id getFirstNode();
     /**
      * Renvoie l'ID du second noeud.
      */
-    virtual Id getSecondNode() = 0;
+    virtual Id getSecondNode();
     /**
      * Teste si un joeur peut passer la transition.
      * @param p Le joueur à tester.
@@ -39,7 +45,13 @@ public:
      * Demande à la transition de changer d'état.
      */
     virtual void changeState() = 0;
+
+private:
+    IGraph* mGraph;
+    Id mId;
+    Id mFirst;
+    Id mSecond;
 };
 
-#endif // IGATE_HPP
+#endif // GATE_HPP
 

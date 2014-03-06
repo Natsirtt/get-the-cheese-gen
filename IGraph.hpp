@@ -25,7 +25,7 @@ public:
      * NOTE : La référence peut être invalidée par
      *          la modification du graphe (ajout de noeud, etc...)
      */
-    virtual INode& getNode(Id nid) = 0;
+    virtual INode* getNode(Id nid) = 0;
     /**
      * Renvoie une transition en fonction de son id.
      * @param nid L'id de la transition à récupérer.
@@ -33,7 +33,7 @@ public:
      * NOTE : La référence peut être invalidée par
      *          la modification du graphe (ajout de transitions, etc...)
      */
-    virtual IGate& getGate(Id gid) = 0;
+    virtual IGate* getGate(Id gid) = 0;
     /**
      * Ajoute un noeud au graphe.
      * @param node Le noeud à ajouter.
@@ -41,7 +41,7 @@ public:
      * NOTE : Ne plus se servir du noeud une fois ajouté
      *          (Récupérer une référence avec getNode(..) plutot).
      */
-    virtual Id addNode(INode&& node);
+    virtual Id addNode(INode* node) = 0;
     /**
      * Ajoute une transition au graphe.
      * @param gate La transition à ajouter un graphe.
@@ -49,7 +49,19 @@ public:
      * NOTE : Ne plus se servir de la transition une fois ajouté
      *          (Récupérer une référence avec getGate(..) plutot).
      */
-    virtual Id addGate(IGate&& gate);
+    virtual Id addGate(IGate* gate) = 0;
+    /**
+     * Teste si un id de noeud est valide.
+     * @param nid L'id du noeud à tester.
+     * @return true si l'id est valide.
+     */
+    virtual bool isValidNode(Id nid) = 0;
+    /**
+     * Teste si un id de transition est valide.
+     * @param gid L'id de la transition à tester.
+     * @return true si l'id est valide.
+     */
+    virtual bool isValidGate(Id gid) = 0;
 };
 
 #endif // IGRAPH_HPP

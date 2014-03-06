@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "IGate.hpp"
-#include "INode.hpp"
+#include "Gate.hpp"
+#include "Node.hpp"
 #include "IGraph.hpp"
 
 int main(int argc, char* argv[]) {
