@@ -40,11 +40,11 @@ public:
      *   true Si le joueur peux passer.
      *   false Si le joueur ne peux pas passer.
      */
-    virtual bool canPass(Perso p) = 0;
+    virtual bool canPass(Perso p) {}/*= 0*/;
     /**
      * Demande à la transition de changer d'état.
      */
-    virtual void changeState() = 0;
+    virtual void changeState() {}/*= 0*/;
 
 private:
     IGraph* mGraph;

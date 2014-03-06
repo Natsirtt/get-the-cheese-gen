@@ -62,6 +62,14 @@ public:
      * @return true si l'id est valide.
      */
     virtual bool isValidGate(Id gid) = 0;
+    /**
+     * Renvoie le nombre de noeuds dans le graphe.
+     */
+    virtual unsigned int getNodeCount() = 0;
+    /**
+     * Renvoie le nombre de transition dans le graphe.
+     */
+    virtual unsigned int getGateCount() = 0;
 };
 
 #endif // IGRAPH_HPP

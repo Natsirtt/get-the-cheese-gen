@@ -29,9 +29,32 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Linker>
+			<Add option="-lfreeglut -lglu32 -lopengl32 -lglew32 -lmingw32 -lSDLmain -lSDL -lSDL_image" />
+		</Linker>
+		<Unit filename="Enum.hpp" />
+		<Unit filename="Gate.cpp" />
+		<Unit filename="Gate.hpp" />
+		<Unit filename="Graph.cpp" />
+		<Unit filename="Graph.hpp" />
+		<Unit filename="IGate.hpp" />
+		<Unit filename="IGraph.hpp" />
+		<Unit filename="INode.hpp" />
+		<Unit filename="Node.cpp" />
+		<Unit filename="Node.hpp" />
+		<Unit filename="Viewer/GateViewer.cpp" />
+		<Unit filename="Viewer/GateViewer.hpp" />
+		<Unit filename="Viewer/GraphViewer.cpp" />
+		<Unit filename="Viewer/GraphViewer.hpp" />
+		<Unit filename="Viewer/NodeViewer.cpp" />
+		<Unit filename="Viewer/NodeViewer.hpp" />
+		<Unit filename="Viewer/Shape.hpp" />
+		<Unit filename="Viewer/Vector.cpp" />
+		<Unit filename="Viewer/Vector.hpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

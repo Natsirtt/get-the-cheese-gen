@@ -50,6 +50,14 @@ public:
      * @return true si l'id est valide.
      */
     virtual bool isValidGate(Id gid);
+    /**
+     * Renvoie le nombre de noeuds dans le graphe.
+     */
+    virtual unsigned int getNodeCount();
+    /**
+     * Renvoie le nombre de transition dans le graphe.
+     */
+    virtual unsigned int getGateCount();
 
 private:
     std::vector<INode*> mNodes;

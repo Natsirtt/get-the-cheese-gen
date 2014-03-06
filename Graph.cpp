@@ -59,3 +59,10 @@ bool Graph::isValidNode(Id nid) {
 bool Graph::isValidGate(Id gid) {
     return (gid != ID_ERROR) && (gid <= mGates.size());
 }
+
+unsigned int Graph::getNodeCount() {
+    return mNodes.size();
+}
+unsigned int Graph::getGateCount() {
+    return mGates.size();
+}
