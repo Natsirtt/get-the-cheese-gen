@@ -4,11 +4,11 @@
 #include "Shape.hpp"
 #include "../Enum.hpp"
 
-class IGraph;
+class GraphViewer;
 
 class NodeViewer : public Shape {
 public:
-    NodeViewer(IGraph* graph, Id nid);
+    NodeViewer(GraphViewer* gw, Id nid);
     void update(int dt);
     void draw();
 
@@ -17,7 +17,7 @@ public:
     bool isInside(Vector p);
 
 private:
-    IGraph* mGraph;
+    GraphViewer* mGraphViewer;
     Id mId;
 
     int mNodeSize;

@@ -24,12 +24,15 @@ int main(int argc, char* argv[]) {
     Graph g;
     Node* node1 = new Node{&g};
     Id nid1 = g.addNode(node1);
+
     Node* node2 = new Node{&g};
     Id nid2 = g.addNode(node2);
+
     Gate* g1 = new Gate{&g, nid1, nid2};
     Id gid1 = g.addGate(g1);
-    node1->addTransition(gid1);
-    node2->addTransition(gid1);
+
+    Gate* g2 = new Gate{&g, 1, nid2};
+    Id gid2 = g.addGate(g2);
 
     GraphViewer gw{&g};
 

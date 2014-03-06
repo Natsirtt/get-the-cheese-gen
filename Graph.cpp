@@ -49,6 +49,11 @@ Id Graph::addNode(INode* node) {
 Id Graph::addGate(IGate* gate) {
     gate->setId(mGates.size() + 1);
     mGates.push_back(gate);
+
+    INode* n1 = getNode(gate->getFirstNode());
+    n1->addTransition(mGates.size());
+    INode* n2 = getNode(gate->getSecondNode());
+    n2->addTransition(mGates.size());
     return mGates.size();
 }
 

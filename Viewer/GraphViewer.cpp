@@ -10,10 +10,12 @@
 
 GraphViewer::GraphViewer(IGraph* graph) : mGraph{graph}, mNodeSize{10} {
     for (unsigned int i = 1; i <= mGraph->getNodeCount(); ++i) {
-        mShapes.push_back(new NodeViewer{mGraph, i});
+        NodeViewer* nw = new NodeViewer{this, i};
+        mShapes.push_back(nw);
+        mNodes.push_back(nw);
     }
     for (unsigned int i = 1; i <= mGraph->getGateCount(); ++i) {
-        mShapes.push_back(new GateViewer{mGraph, i});
+        mShapes.push_back(new GateViewer{this, i});
     }
 }
 
@@ -35,4 +37,20 @@ void GraphViewer::postEvent(SDL_Event& event) {
             return;
         }
     }
+}
+
+IGraph* GraphViewer::getGraph() {
+    return mGraph;
+}
+
+NodeViewer* GraphViewer::getNodeViewer(Id nid) {
+    try {
+        NodeViewer* nw = mNodes.at(nid - 1);
+        return nw;
+    } catch (const std::exception& e) {
+        std::cout << "getNodeViewer : Erreur d'index, size : " << mNodes.size()
+                    << ", nid : " << nid << std::endl;
+        throw e;
+    }
+    return nullptr;
 }

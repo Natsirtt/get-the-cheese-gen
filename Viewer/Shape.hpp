@@ -4,10 +4,13 @@
 #include <iostream>
 #include <SDL/SDL.h>
 #include "Vector.hpp"
+#include "Random.hpp"
 
 class Shape {
 public:
-    Shape() : mPosition{400, 400, 0.0}, mDragging{false} {}
+    Shape() : mPosition(Rand_Int(0, 800)(), Rand_Int(0, 800)(), 0.0), mDragging{false} {
+
+    }
     virtual void update(int dt) = 0;
     virtual void draw() = 0;
 

@@ -1,5 +1,5 @@
 #include "NodeViewer.hpp"
-
+#include "GraphViewer.hpp"
 #include "../IGraph.hpp"
 
 #include <stdexcept>
@@ -8,8 +8,8 @@
 #include <GL/gl.h>
 #include <GL/glut.h>
 
-NodeViewer::NodeViewer(IGraph* graph, Id nid) : mGraph{graph}, mId{nid}, mNodeSize{10} {
-    if (!graph->isValidNode(nid)) {
+NodeViewer::NodeViewer(GraphViewer* gw, Id nid) : mGraphViewer{gw}, mId{nid}, mNodeSize{10} {
+    if (!gw->getGraph()->isValidNode(nid)) {
         throw std::runtime_error("NodeViewer : nid invalide");
     }
 }
