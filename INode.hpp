@@ -21,12 +21,12 @@ public:
      * @param p Le joueur pour lequel on veux les transitions.
      * @return La liste des Id des transitions accessiblent.
      */
-    virtual std::vector<Id> getTransition(Perso p) = 0;
+    virtual std::vector<Id> getTransitions(Perso p) = 0;
     /**
      * Renvoie les transitions accessiblent par ce noeud.
      * @return La liste des Id des transitions accessiblent.
      */
-    virtual std::vector<Id> getTransition() = 0;
+    virtual std::vector<Id> getTransitions() = 0;
     /**
      * Ajoute une transition au noeud.
      */
