@@ -15,6 +15,11 @@ public:
     virtual ~IGraph() {};
 
     /**
+     * Vide le graphe.
+     */
+    virtual void clear() = 0;
+
+    /**
      * Teste la validité d'un graphe.
      */
     virtual bool isValid() = 0;

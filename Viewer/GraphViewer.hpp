@@ -16,6 +16,8 @@ class GraphViewer {
 public:
     GraphViewer(IGraph* graph);
     ~GraphViewer();
+    void clear();
+    void reset(IGraph* graph);
 
     void update(int dt);
     void draw();

@@ -21,6 +21,23 @@ Graph::~Graph() {
     }
 }
 
+void Graph::clear() {
+    for (auto& n : mNodes) {
+        delete n;
+        n = nullptr;
+    }
+    mNodes = std::vector<INode*>();
+    for (auto& g : mGates) {
+        delete g;
+        g = nullptr;
+    }
+    mGates = std::vector<IGate*>();
+
+    Node* n = new Node{this, NodeType::Start, 0};
+    n->setId(mNodes.size() + 1);
+    mNodes.push_back(n);
+}
+
 bool Graph::isValid() {
     // TODO
     return true;

@@ -43,20 +43,68 @@ GraphViewer::GraphViewer(IGraph* graph) : mGraph{graph}, mNodeSize{10} {
 }
 
 GraphViewer::~GraphViewer() {
+    clear();
+}
+
+void GraphViewer::clear() {
     for (auto& shape : mShapes) {
         delete shape;
+        shape = nullptr;
+    }
+    mGraph = nullptr;
+
+    mNodes = std::vector<NodeViewer*>();
+    mShapes = std::vector<Shape*>();
+}
+
+void GraphViewer::reset(IGraph* graph) {
+    clear();
+    mGraph = graph;
+    std::map<int, std::vector<Shape*>> shapeMap;
+    int maxDepth = 0;
+    for (unsigned int i = 1; i <= mGraph->getNodeCount(); ++i) {
+        NodeViewer* nw = new NodeViewer{this, i};
+        mShapes.push_back(nw);
+        mNodes.push_back(nw);
+
+        INode* n = mGraph->getNode(i);
+        shapeMap[n->getDepth()].push_back(nw);
+        maxDepth = std::max(maxDepth, n->getDepth());
+    }
+    const SDL_VideoInfo* videoInfo = SDL_GetVideoInfo();
+    double screenY = videoInfo->current_h - 20;
+    double screenX = videoInfo->current_w - 20;
+    double yPerDepth = screenY / maxDepth;
+
+    for (auto& it : shapeMap) {
+        int depth = it.first;
+        std::vector<Shape*>& shapes = it.second;
+        for (int i = 0; i < shapes.size(); ++i) {
+            double halfSize = ((double)shapes.size() - 1.0) / 2.0;
+            double x = screenX / 2.0 + (screenX / 2.0) * ((double)i - halfSize) / (double)shapes.size();
+            Vector v(x, depth * yPerDepth, 0.0);
+            shapes[i]->setPosition(v);
+        }
+    }
+
+    for (unsigned int i = 1; i <= mGraph->getGateCount(); ++i) {
+        mShapes.push_back(new GateViewer{this, i});
     }
 }
 
 void GraphViewer::update(int dt) {
     for (auto& shape : mShapes) {
-        shape->update(dt);
+        if (shape != nullptr) {
+            shape->update(dt);
+        }
     }
 }
 
 void GraphViewer::draw() {
     for (auto& shape : mShapes) {
-        shape->draw();
+        if (shape != nullptr) {
+            shape->draw();
+        }
     }
 }
 

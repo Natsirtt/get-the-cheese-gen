@@ -44,6 +44,13 @@ int main(int argc, char* argv[]) {
                 if (event.key.keysym.sym == SDLK_ESCAPE) {
                     running = false;
                 }
+                if (event.key.keysym.sym == SDLK_SPACE) {
+                    gw.clear();
+                    g.clear();
+                    bool finished = false;
+                    genGraph(&g, 0, 1, 1, &finished);
+                    gw.reset(&g);
+                }
                 break;
             default:
                 gw.postEvent(event);

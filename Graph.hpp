@@ -9,7 +9,10 @@ public:
     Graph();
 
     virtual ~Graph();
-
+    /**
+     * Vide le graphe.
+     */
+    virtual void clear();
     /**
      * Teste la validité d'un graphe.
      */
