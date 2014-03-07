@@ -18,7 +18,7 @@ public:
     virtual ~Gate();
 
     /**
-     * Attribue un id à la transition.
+     * Attribue un id ï¿½ la transition.
      */
     virtual void setId(Id gid);
     /**
@@ -34,15 +34,18 @@ public:
      */
     virtual Id getSecondNode();
     /**
-     * Teste si un joeur peut passer la transition.
-     * @param p Le joueur à tester.
+     * Teste si un joueur peut passer la transition.
+     * @param p Le joueur ï¿½ tester.
+     * @param origin l'id du noeud d'origin du joueur. Doit Ãªtre Ã©gale Ã  first ou second
      * @return
      *   true Si le joueur peux passer.
      *   false Si le joueur ne peux pas passer.
      */
-    virtual bool canPass(Perso p) {return false;}/*= 0*/;
+
+    virtual bool canPass(Perso p, Id origin) {return false;}/*= 0*/;
+    
     /**
-     * Demande à la transition de changer d'état.
+     * Demande ï¿½ la transition de changer d'ï¿½tat.
      */
     virtual void changeState() {}/*= 0*/;
 
