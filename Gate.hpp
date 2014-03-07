@@ -34,6 +34,11 @@ public:
      */
     virtual Id getSecondNode();
     /**
+     * Renvoie l'ID du noeud de la transition qui n'est pas celui passé en paramètre. 
+     */
+    virtual Id getOtherNode(INode n);
+
+    /**
      * Teste si un joueur peut passer la transition.
      * @param p Le joueur � tester.
      * @param origin l'id du noeud d'origin du joueur. Doit être égale à first ou second
