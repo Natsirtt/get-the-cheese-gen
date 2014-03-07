@@ -15,7 +15,7 @@
 void initSDL();
 void reshape(int w, int h);
 void initGL();
-void genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished);
+bool genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished);
 
 int main(int argc, char* argv[]) {
     glutInit(&argc, argv);
@@ -97,7 +97,7 @@ void initGL() {
 	glMatrixMode(GL_MODELVIEW);
 }
 
-void genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished) {
+bool genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished) {
     do {
         int branch = 0;
         { // Permet de se débarrasser des variables locales inutiles
@@ -126,6 +126,7 @@ void genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished) {
             Gate* gate = new Gate{graph, lastId, nid};
             graph->addGate(gate);
             *finished = true;
+            return true;
         } else if (branch == 1) {
             // Repliage
             Node* node = new Node{graph, NodeType::Room, p + 1};
@@ -146,15 +147,22 @@ void genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished) {
             if (branch > 2) {
                 newOldBranch = nid;
             }
+            bool f = false;
             for (int i = 0; i < branch - 1; ++i) {
-                genGraph(graph, p + 1, nid, newOldBranch, finished);
+                f = f || genGraph(graph, p + 1, nid, newOldBranch, finished);
             }
-            if ((newOldBranch == nid) && (!*finished)) {
+            if ((newOldBranch == nid) && (!f)) {
                 // On boucle
                 Gate* gate = new Gate{graph, nid, lastBranch};
                 graph->addGate(gate);
             }
+            if (f) {
+                // ATTENTION pas de "return f;"
+                return true;
+            }
         }
     } while ((lastId == 1) && (!*finished));
+
+    return false;
 }
 
