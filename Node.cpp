@@ -35,7 +35,7 @@ void Node::addTransition(Id gid) {
     Perso persos[] = {Perso::Acrobate, Perso::Gadget,
                     Perso::Yamakasi, Perso::Costaud};
     for (auto p : persos) {
-        if (g->canPass(p)) {
+        if (g->canPass(p, 0)) { // TODO remplacer 0 par l'origine
             mGatesMap[p].push_back(gid);
         }
     }
