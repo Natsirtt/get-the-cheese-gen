@@ -30,7 +30,7 @@ public:
     /**
      * Renvoie l'ID du noeud de la transition qui n'est pas celui passé en paramètre.
      */
-    virtual Id getOtherNode(INode n) = 0;
+    virtual Id getOtherNode(Id n) = 0;
     /**
      * Teste si un joeur peut passer la transition.
      * @param p Le joueur � tester.
