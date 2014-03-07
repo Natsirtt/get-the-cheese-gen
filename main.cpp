@@ -142,12 +142,17 @@ void genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished) {
             // On le relie au dernier noeud
             Gate* gate = new Gate{graph, lastId, nid};
             graph->addGate(gate);
-
+            Id newOldBranch = lastBranch;
             if (branch > 2) {
-                lastBranch = nid;
+                newOldBranch = nid;
             }
             for (int i = 0; i < branch - 1; ++i) {
-                genGraph(graph, p + 1, nid, lastBranch, finished);
+                genGraph(graph, p + 1, nid, newOldBranch, finished);
+            }
+            if ((newOldBranch == nid) && (!*finished)) {
+                // On boucle
+                Gate* gate = new Gate{graph, nid, lastBranch};
+                graph->addGate(gate);
             }
         }
     } while ((lastId == 1) && (!*finished));
