@@ -2,21 +2,28 @@
 #define RANDOM_HPP
 
 #include <random>
+#include <chrono>
 
+template <class T = std::uniform_int_distribution<>>
 class Rand_Int {
     public:
     Rand_Int(int low, int hight) : dist{low, hight} {
 
     }
+    Rand_Int(T dist) : dist{dist} {
 
+    }
     int operator()() {
         return dist(re);
     }
 
     private:
     static std::default_random_engine re;
-    std::uniform_int_distribution<> dist;
+    T dist;
 };
+
+template <class T>
+std::default_random_engine Rand_Int<T>::re(std::chrono::system_clock::now().time_since_epoch().count());
 
 class Rand_Float {
     public:

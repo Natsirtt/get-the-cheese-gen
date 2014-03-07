@@ -11,7 +11,7 @@
 #include <GL/glut.h>
 
 GateViewer::GateViewer(GraphViewer* gw, Id nid) : mGraphViewer{gw}, mId{nid}, mNodeSize{20} {
-    if (!gw->getGraph()->isValidNode(nid)) {
+    if (!gw->getGraph()->isValidGate(nid)) {
         throw std::runtime_error("GateViewer : nid invalide");
     }
 }

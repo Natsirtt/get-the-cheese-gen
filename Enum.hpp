@@ -27,6 +27,13 @@ enum class Perso {
     Costaud
 };
 
+enum class NodeType {
+    Start,
+    Finish,
+    Room,
+    Empty
+};
+
 using Id = unsigned int;
 
 #define ID_ERROR 0

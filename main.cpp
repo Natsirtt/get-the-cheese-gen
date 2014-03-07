@@ -15,6 +15,7 @@
 void initSDL();
 void reshape(int w, int h);
 void initGL();
+void genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished);
 
 int main(int argc, char* argv[]) {
     glutInit(&argc, argv);
@@ -22,17 +23,8 @@ int main(int argc, char* argv[]) {
     initGL();
 
     Graph g;
-    Node* node1 = new Node{&g};
-    Id nid1 = g.addNode(node1);
-
-    Node* node2 = new Node{&g};
-    Id nid2 = g.addNode(node2);
-
-    Gate* g1 = new Gate{&g, nid1, nid2};
-    Id gid1 = g.addGate(g1);
-
-    Gate* g2 = new Gate{&g, 1, nid2};
-    Id gid2 = g.addGate(g2);
+    bool finished = false;
+    genGraph(&g, 0, 1, 1, &finished);
 
     GraphViewer gw{&g};
 
@@ -104,3 +96,56 @@ void initGL() {
 	glOrtho(0.0, SCREEN_SIZE_X, 0, SCREEN_SIZE_Y, -1.0, 1.0);
 	glMatrixMode(GL_MODELVIEW);
 }
+
+void genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished) {
+    do {
+        double interval[] = {0, 1, 2, 3, 4};
+        double first = std::min(p * 0.05, 1.0);
+        if (*finished) {
+            first = 0.0;
+        }
+        double weights[] =  {first,
+                            (1.0 - first) * 0.2,
+                            (1.0 - first) * 0.5,
+                            (1.0 - first) * 0.3};
+        std::piecewise_constant_distribution<> dist(std::begin(interval),
+                                                    std::end(interval),
+                                                    std::begin(weights));
+        Rand_Int<std::piecewise_constant_distribution<>> rand(dist);
+        int branch = rand();
+
+        if (branch == 0) {
+            // Fin du level
+            Node* node = new Node{graph, NodeType::Finish};
+            Id nid = graph->addNode(node);
+            // On le relie au dernier noeud
+            Gate* gate = new Gate{graph, lastId, nid};
+            graph->addGate(gate);
+            *finished = true;
+        } else if (branch == 1) {
+            // Repliage
+            Node* node = new Node{graph, NodeType::Room};
+            Id nid = graph->addNode(node);
+            // On le relie au dernier noeud
+            Gate* gate = new Gate{graph, lastId, nid};
+            graph->addGate(gate);
+
+            gate = new Gate{graph, nid, lastBranch};
+            graph->addGate(gate);
+        } else {
+            Node* node = new Node{graph, NodeType::Room};
+            Id nid = graph->addNode(node);
+            // On le relie au dernier noeud
+            Gate* gate = new Gate{graph, lastId, nid};
+            graph->addGate(gate);
+
+            if (branch == 2) {
+                lastBranch = nid;
+            }
+            for (int i = 0; i < branch - 1; ++i) {
+                genGraph(graph, p + 1, nid, lastBranch, finished);
+            }
+        }
+    } while ((lastId == 1) && (!*finished));
+}
+
