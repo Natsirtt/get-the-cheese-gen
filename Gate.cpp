@@ -36,3 +36,13 @@ Id Gate::getFirstNode() {
 Id Gate::getSecondNode() {
     return mSecond;
 }
+
+Id Gate::getOtherNode(Id n) {
+    if ((n != mFirst) && (n != mSecond)) {
+        throw std::runtime_error("Le noeud n'appartient pas à la transition");
+    }
+    if (n == mFirst) {
+        return mFirst;
+    }
+    return mSecond;
+}
