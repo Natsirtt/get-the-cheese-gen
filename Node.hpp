@@ -8,7 +8,7 @@ class IGraph;
 
 class Node : public INode {
 public:
-    Node(IGraph* graph, NodeType type);
+    Node(IGraph* graph, NodeType type, int depth);
 
     virtual ~Node();
     /**
@@ -38,12 +38,17 @@ public:
      * Renvoie le type du noeud.
      */
     virtual NodeType getType();
+    /**
+     * Renvoie la profondeur du noeud.
+     */
+    virtual int getDepth();
 private:
     IGraph* mGraph;
     Id mId;
     std::vector<Id> mGates;
     std::map<Perso, std::vector<Id>> mGatesMap;
     NodeType mType;
+    int mDepth;
 };
 
 #endif // NODE_HPP

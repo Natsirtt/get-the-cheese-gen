@@ -14,6 +14,11 @@ GateViewer::GateViewer(GraphViewer* gw, Id nid) : mGraphViewer{gw}, mId{nid}, mN
     if (!gw->getGraph()->isValidGate(nid)) {
         throw std::runtime_error("GateViewer : nid invalide");
     }
+    IGate* g = mGraphViewer->getGraph()->getGate(mId);
+    Vector vn1 = mGraphViewer->getNodeViewer(g->getFirstNode())->getPosition();
+    Vector vn2 = mGraphViewer->getNodeViewer(g->getSecondNode())->getPosition();
+    Vector v = (vn1 + vn2 ) * 0.5;
+    setPosition(v);
 }
 
 void GateViewer::update(int dt) {

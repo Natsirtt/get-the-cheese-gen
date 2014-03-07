@@ -15,6 +15,7 @@ class NodeViewer;
 class GraphViewer {
 public:
     GraphViewer(IGraph* graph);
+    ~GraphViewer();
 
     void update(int dt);
     void draw();

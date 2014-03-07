@@ -11,6 +11,7 @@ public:
     Shape() : mPosition(Rand_Int<>(0, 800)(), Rand_Int<>(0, 800)(), 0.0), mDragging{false} {
 
     }
+    virtual ~Shape() {};
     virtual void update(int dt) = 0;
     virtual void draw() = 0;
 
@@ -32,6 +33,10 @@ public:
     }
 
     virtual void setSize(int size) = 0;
+
+    virtual void setPosition(Vector v) {
+        mPosition = v;
+    }
 
     virtual Vector getPosition() {
         return mPosition;

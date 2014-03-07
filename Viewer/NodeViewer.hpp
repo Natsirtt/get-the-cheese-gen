@@ -9,6 +9,7 @@ class GraphViewer;
 class NodeViewer : public Shape {
 public:
     NodeViewer(GraphViewer* gw, Id nid);
+    virtual ~NodeViewer() {};
     void update(int dt);
     void draw();
 

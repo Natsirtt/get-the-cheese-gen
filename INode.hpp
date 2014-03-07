@@ -39,6 +39,10 @@ public:
      * Renvoie le type du noeud.
      */
     virtual NodeType getType() = 0;
+    /**
+     * Renvoie la profondeur du noeud.
+     */
+    virtual int getDepth() = 0;
 };
 
 #endif // INODE_HPP

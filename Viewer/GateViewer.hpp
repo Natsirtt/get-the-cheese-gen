@@ -9,6 +9,7 @@ class GraphViewer;
 class GateViewer : public Shape {
 public:
     GateViewer(GraphViewer* gw, Id gid);
+    virtual ~GateViewer() {};
     void update(int dt);
     void draw();
 

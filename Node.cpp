@@ -2,7 +2,7 @@
 #include "IGraph.hpp"
 #include "IGate.hpp"
 
-Node::Node(IGraph* graph, NodeType type) : mGraph{graph}, mId{0}, mType{type} {
+Node::Node(IGraph* graph, NodeType type, int depth) : mGraph{graph}, mId{0}, mType{type}, mDepth{depth} {
 }
 
 Node::~Node() {
@@ -43,4 +43,8 @@ void Node::addTransition(Id gid) {
 
 NodeType Node::getType() {
     return mType;
+}
+
+int Node::getDepth() {
+    return mDepth;
 }
