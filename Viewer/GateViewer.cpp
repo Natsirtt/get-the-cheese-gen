@@ -51,7 +51,7 @@ void GateViewer::draw() {
 }
 
 void GateViewer::setSize(int size) {
-    mNodeSize = size;
+    mNodeSize = 2 * size;
 }
 
 bool GateViewer::isInside(Vector p) {

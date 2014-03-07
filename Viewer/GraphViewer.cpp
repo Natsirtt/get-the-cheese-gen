@@ -32,6 +32,21 @@ void GraphViewer::draw() {
 }
 
 void GraphViewer::postEvent(SDL_Event& event) {
+    if ((event.type == SDL_MOUSEBUTTONUP) &&
+        (event.button.button == SDL_BUTTON_WHEELUP)) {
+        mNodeSize++;
+        for (auto& shape : mShapes) {
+            shape->setSize(mNodeSize);
+        }
+        return;
+    } else if ((event.type == SDL_MOUSEBUTTONUP) &&
+                (event.button.button == SDL_BUTTON_WHEELDOWN)) {
+        mNodeSize = std::max(mNodeSize - 1, 1);
+        for (auto& shape : mShapes) {
+            shape->setSize(mNodeSize);
+        }
+        return;
+    }
     for (auto& shape : mShapes) {
         if (shape->postEvent(event)) {
             return;
