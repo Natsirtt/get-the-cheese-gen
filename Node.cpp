@@ -2,7 +2,7 @@
 #include "IGraph.hpp"
 #include "IGate.hpp"
 
-Node::Node(IGraph* graph) : mGraph{graph}, mId{0} {
+Node::Node(IGraph* graph, NodeType type) : mGraph{graph}, mId{0}, mType{type} {
 }
 
 Node::~Node() {
@@ -39,4 +39,8 @@ void Node::addTransition(Id gid) {
             mGatesMap[p].push_back(gid);
         }
     }
+}
+
+NodeType Node::getType() {
+    return mType;
 }

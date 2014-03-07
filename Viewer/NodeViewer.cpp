@@ -1,6 +1,7 @@
 #include "NodeViewer.hpp"
 #include "GraphViewer.hpp"
 #include "../IGraph.hpp"
+#include "../INode.hpp"
 
 #include <stdexcept>
 #include <sstream>
@@ -26,8 +27,20 @@ void NodeViewer::draw() {
     glBegin(GL_POINTS);
     glVertex2d(v.getX(), v.getY());
     glEnd();
+
+    INode* n = mGraphViewer->getGraph()->getNode(mId);
+
     std::stringstream ss;
-    ss << "Node" << mId;
+    if (n->getType() == NodeType::Start) {
+        ss << "Node" << mId << " Start";
+    } else if (n->getType() == NodeType::Finish) {
+        ss << "Node" << mId << " Finish";
+    } else if (n->getType() == NodeType::Room) {
+        ss << "Node" << mId << " Room";
+    } else {
+        ss << "Node" << mId << " Room";
+    }
+
     std::string s = ss.str();
     glRasterPos2f(v.getX(), v.getY() + 10);
     for (unsigned j = 0; j < s.size(); ++j) {

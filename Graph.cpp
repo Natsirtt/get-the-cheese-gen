@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 Graph::Graph() {
-    Node* n = new Node{this};
+    Node* n = new Node{this, NodeType::Start};
     n->setId(mNodes.size() + 1);
     mNodes.push_back(n);
 }

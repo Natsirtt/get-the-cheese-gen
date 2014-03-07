@@ -8,7 +8,7 @@
 
 class Shape {
 public:
-    Shape() : mPosition(Rand_Int(0, 800)(), Rand_Int(0, 800)(), 0.0), mDragging{false} {
+    Shape() : mPosition(Rand_Int<>(0, 800)(), Rand_Int<>(0, 800)(), 0.0), mDragging{false} {
 
     }
     virtual void update(int dt) = 0;

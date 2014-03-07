@@ -35,6 +35,10 @@ public:
      * Ajoute une transition au noeud.
      */
     virtual void addTransition(Id gid) = 0;
+    /**
+     * Renvoie le type du noeud.
+     */
+    virtual NodeType getType() = 0;
 };
 
 #endif // INODE_HPP

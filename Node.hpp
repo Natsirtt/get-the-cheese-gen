@@ -8,7 +8,7 @@ class IGraph;
 
 class Node : public INode {
 public:
-    Node(IGraph* graph);
+    Node(IGraph* graph, NodeType type);
 
     virtual ~Node();
     /**
@@ -34,12 +34,16 @@ public:
      * Ajoute une transition au noeud.
      */
     virtual void addTransition(Id gid);
-
+    /**
+     * Renvoie le type du noeud.
+     */
+    virtual NodeType getType();
 private:
     IGraph* mGraph;
     Id mId;
     std::vector<Id> mGates;
     std::map<Perso, std::vector<Id>> mGatesMap;
+    NodeType mType;
 };
 
 #endif // NODE_HPP
