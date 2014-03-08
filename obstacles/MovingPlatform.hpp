@@ -14,10 +14,18 @@ public:
         return true;
     }
 
+    bool canPass(Perso p) {
+        return true;
+    }
+
     void changeState() {
-        //rien
+    }
+
+    bool canChangeState() {
+        return false;
     }
 private:
+    friend ObstacleChooser;
     MovingPlatform() : Gate() {
     }
 

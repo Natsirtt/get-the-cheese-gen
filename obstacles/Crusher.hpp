@@ -17,10 +17,19 @@ public:
         return (mStateOn && ((p & Perso::Yamakasi) != Perso::None)) || !mStateOn;
     }
 
+    bool canPass(Perso p) {
+        return (mStateOn && ((p & Perso::Yamakasi) != Perso::None)) || !mStateOn;
+    }
+
     void changeState() {
         mStateOn = !mStateOn;
     }
+
+    bool canChangeState() {
+        return mStateOn;
+    }
 private:
+    friend ObstacleChooser;
     Crusher() : Gate() {
     }
 

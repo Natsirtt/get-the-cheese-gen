@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <SDL/SDL.h>
-#include "Vector.hpp"
-#include "Random.hpp"
+#include "../Utils/Vector.hpp"
+#include "../Utils/Random.hpp"
 
 class Shape {
 public:

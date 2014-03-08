@@ -26,10 +26,19 @@ public:
         return !mStateOn || (origin == Gate::getFirstNode());
     }
 
+    bool canPass(Perso p) {
+        return !mStateOn;
+    }
+
     void changeState() {
         mStateOn = !mStateOn;
     }
+
+    bool canChangeState() {
+        return mStateOn;
+    }
 private:
+    friend ObstacleChooser;
     MovingSideWalk() : Gate(), mStateOn{true} {
     }
 

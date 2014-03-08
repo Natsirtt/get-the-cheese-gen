@@ -14,10 +14,19 @@ public:
         return (p & Perso::Acrobate) != Perso::None;
     }
 
+    bool canPass(Perso p) {
+        return (p & Perso::Acrobate) != Perso::None;
+    }
+
     void changeState() {
     }
 
+    bool canChangeState() {
+        return false;
+    }
+
 private:
+    friend ObstacleChooser;
     WidthHole() : Gate() {
     }
 

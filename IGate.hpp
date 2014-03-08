@@ -1,7 +1,11 @@
 #ifndef IGATE_HPP
 #define IGATE_HPP
 
+#include <string>
 #include "Enum.hpp"
+
+class IGraph;
+class ObstacleChooser;
 
 /**
  * Représente une transition dans le réseau de pétri.
@@ -57,6 +61,14 @@ public:
      * Spécifie si la transition peut changer d'état.
      */
     virtual bool canChangeState() = 0;
+    /**
+     * Renvoie le nom de cet obstacle.
+     */
+    virtual std::string getName() = 0;
+
+protected:
+    friend ObstacleChooser;
+    virtual IGate* allocate(IGraph* graph, Id first, Id second) = 0;
 };
 
 #endif // IGATE_HPP

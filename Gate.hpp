@@ -45,7 +45,7 @@ public:
      *   true Si le joueur peux passer.
      *   false Si le joueur ne peux pas passer.
      */
-    virtual bool canPass(Perso p, Id origin) {return false;}/*= 0*/; // TODO supprimer une fois les obstacles et la génération complétés
+    virtual bool canPass(Perso p, Id origin) = 0;
     /**
      * Teste si un joeur peut passer la transition.
      * On considère que le joueur passe de 'first' vers 'second'.
@@ -54,19 +54,23 @@ public:
      *   true Si le joueur peux passer.
      *   false Si le joueur ne peux pas passer.
      */
-    virtual bool canPass(Perso p) {return false;}/*= 0*/; // TODO supprimer une fois les obstacles et la génération complétés
+    virtual bool canPass(Perso p) = 0;
     /**
      * Demande � la transition de changer d'�tat.
      */
-    virtual void changeState() {}/*= 0*/; // TODO supprimer une fois les obstacles et la génération complétés
+    virtual void changeState() = 0;
     /**
      * Spécifie si la transition peut changer d'état.
      */
-    virtual bool canChangeState() {return false;}/*= 0*/; // TODO supprimer une fois les obstacles et la génération complétés
-
+    virtual bool canChangeState() = 0;
+    /**
+     * Renvoie le nom de cet obstacle.
+     */
+    virtual std::string getName();
 protected:
+    friend ObstacleChooser;
     Gate() : mGraph{nullptr}, mId{0}, mFirst{0}, mSecond{0} {};
-    virtual IGate* allocate(IGraph* graph, Id first, Id second) {return nullptr;} /*= 0*/;
+    virtual IGate* allocate(IGraph* graph, Id first, Id second) = 0;
 
 private:
     IGraph* mGraph;

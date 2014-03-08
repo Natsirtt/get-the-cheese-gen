@@ -14,7 +14,15 @@ public:
         return true;
     }
 
+    bool canPass(Perso p) {
+        return true;
+    }
+
     void changeState() {
+    }
+
+    bool canChangeState() {
+        return false;
     }
 private:
     Hole() : Gate() {

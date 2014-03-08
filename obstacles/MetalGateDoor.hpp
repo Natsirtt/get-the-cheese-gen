@@ -17,13 +17,25 @@ public:
         if (mStateOn) {
             return true;
         }
-        return p == Perso::Yamakasi;
+        return (p & Perso::Yamakasi) != Perso::None;
+    }
+
+    bool canPass(Perso p) {
+        if (mStateOn) {
+            return true;
+        }
+        return (p & Perso::Yamakasi) != Perso::None;
     }
 
     void changeState() {
         mStateOn = !mStateOn;
     }
+
+    bool canChangeState() {
+        return !mStateOn;
+    }
 private:
+    friend ObstacleChooser;
     MetalGateDoor() : Gate(), mStateOn{true} {
     }
 

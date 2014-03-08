@@ -17,10 +17,19 @@ public:
         return mStateOn;
     }
 
+    bool canPass(Perso p) {
+        return true;
+    }
+
     void changeState() {
         mStateOn = !mStateOn;
     }
+
+    bool canChangeState() {
+        return !mStateOn;
+    }
 private:
+    friend ObstacleChooser;
     Door() : Gate(), mStateOn{true} {
     }
 

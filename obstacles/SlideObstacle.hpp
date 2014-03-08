@@ -18,10 +18,18 @@ public:
         return (p & Perso::Yamakasi) != Perso::None;
     }
 
+    bool canPass(Perso p) {
+        return (p & Perso::Yamakasi) != Perso::None;
+    }
+
     void changeState() {
-        //rien
+    }
+
+    bool canChangeState() {
+        return false;
     }
 private:
+    friend ObstacleChooser;
     SlideObstacle() : Gate() {
     }
 

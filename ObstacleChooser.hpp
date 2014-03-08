@@ -2,18 +2,20 @@
 #define OBSTACLECHOOSER_HPP
 
 #include <vector>
+#include <memory>
 #include "Enum.hpp"
 
 class IGate;
+class IGraph;
 
 class ObstacleChooser {
 public:
     ObstacleChooser();
 
-    IGate* choose(Perso p);
+    IGate* choose(IGraph* graph, Id first, Id second, Perso p);
 
 private:
-    std::vector<IGate*> mObstacles;
+    std::vector<std::unique_ptr<IGate>> mObstacles;
 };
 
 #endif // OBSTACLECHOOSER_HPP

@@ -32,7 +32,7 @@ enum class Perso {
     AcYa = 5,
     AcCo = 9,
     AcGaYa = 7,
-    AcGaYaCo = 15,
+    All = 15,
     AcGaCo = 11,
     AcYaCo = 13,
     GaYa = 6,

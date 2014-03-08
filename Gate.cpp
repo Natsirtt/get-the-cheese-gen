@@ -46,3 +46,7 @@ Id Gate::getOtherNode(Id n) {
     }
     return mSecond;
 }
+
+std::string Gate::getName() {
+    return "Gate";
+}

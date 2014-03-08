@@ -18,10 +18,19 @@ public:
         return true;
     }
 
+    bool canPass(Perso p) {
+        return (p & Perso::Acrobate) != Perso::None;
+    }
+
     void changeState() {
         //rien
     }
-private:
+
+    bool canChangeState() {
+        return false;
+    }
+protected:
+    friend ObstacleChooser;
     ClimbWall() : Gate() {
     }
 

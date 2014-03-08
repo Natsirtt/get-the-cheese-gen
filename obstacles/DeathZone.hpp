@@ -16,10 +16,19 @@ public:
         return true;
     }
 
+    bool canPass(Perso p) {
+        return true;
+    }
+
     void changeState() {
-        //rien
+        //RIEN
+    }
+
+    bool canChangeState() {
+        return false;
     }
 private:
+    friend ObstacleChooser;
     DeathZone() : Gate() {
     }
 

@@ -8,6 +8,7 @@
 #include "Node.hpp"
 #include "Graph.hpp"
 #include "Viewer/GraphViewer.hpp"
+#include "ObstacleChooser.hpp"
 
 #define SCREEN_SIZE_X 800
 #define SCREEN_SIZE_Y 800
@@ -15,7 +16,8 @@
 void initSDL();
 void reshape(int w, int h);
 void initGL();
-bool genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished);
+
+void genGraph(IGraph* graph);
 
 int main(int argc, char* argv[]) {
     glutInit(&argc, argv);
@@ -23,8 +25,7 @@ int main(int argc, char* argv[]) {
     initGL();
 
     Graph g;
-    bool finished = false;
-    genGraph(&g, 0, 1, 1, &finished);
+    genGraph(&g);
 
     GraphViewer gw{&g};
 
@@ -47,8 +48,7 @@ int main(int argc, char* argv[]) {
                 if (event.key.keysym.sym == SDLK_SPACE) {
                     gw.clear();
                     g.clear();
-                    bool finished = false;
-                    genGraph(&g, 0, 1, 1, &finished);
+                    genGraph(&g);
                     gw.reset(&g);
                 }
                 break;
@@ -104,7 +104,7 @@ void initGL() {
 	glMatrixMode(GL_MODELVIEW);
 }
 
-bool genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished) {
+bool genGraph_Handler(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished, Perso perso, ObstacleChooser& chooser) {
     do {
         int branch = 0;
         { // Permet de se débarrasser des variables locales inutiles
@@ -130,7 +130,7 @@ bool genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished) {
             Node* node = new Node{graph, NodeType::Finish, p + 1};
             Id nid = graph->addNode(node);
             // On le relie au dernier noeud
-            Gate* gate = new Gate{graph, lastId, nid};
+            IGate* gate = chooser.choose(graph, lastId, nid, perso);
             graph->addGate(gate);
             *finished = true;
             return true;
@@ -139,16 +139,16 @@ bool genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished) {
             Node* node = new Node{graph, NodeType::Room, p + 1};
             Id nid = graph->addNode(node);
             // On le relie au dernier noeud
-            Gate* gate = new Gate{graph, lastId, nid};
+            IGate* gate = chooser.choose(graph, lastId, nid, perso);
             graph->addGate(gate);
             // On boucle
-            gate = new Gate{graph, nid, lastBranch};
+            gate = chooser.choose(graph, nid, lastBranch, perso);
             graph->addGate(gate);
         } else {
             Node* node = new Node{graph, NodeType::Room, p + 1};
             Id nid = graph->addNode(node);
             // On le relie au dernier noeud
-            Gate* gate = new Gate{graph, lastId, nid};
+            IGate* gate = chooser.choose(graph, lastId, nid, perso);
             graph->addGate(gate);
             Id newOldBranch = lastBranch;
             if (branch > 2) {
@@ -156,11 +156,11 @@ bool genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished) {
             }
             bool f = false;
             for (int i = 0; i < branch - 1; ++i) {
-                f = f || genGraph(graph, p + 1, nid, newOldBranch, finished);
+                f = f || genGraph_Handler(graph, p + 1, nid, newOldBranch, finished, perso, chooser);
             }
             if ((newOldBranch == nid) && (!f)) {
                 // On boucle
-                Gate* gate = new Gate{graph, nid, lastBranch};
+                IGate* gate = chooser.choose(graph, nid, lastBranch, perso);
                 graph->addGate(gate);
             }
             if (f) {
@@ -173,3 +173,8 @@ bool genGraph(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished) {
     return false;
 }
 
+void genGraph(IGraph* graph) {
+    bool finished = false;
+    ObstacleChooser chooser;
+    genGraph_Handler(graph, 0, 1, 1, &finished, Perso::All, chooser);
+}
