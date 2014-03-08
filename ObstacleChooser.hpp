@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <string>
 #include "Enum.hpp"
 
 class IGate;
@@ -13,6 +14,8 @@ public:
     ObstacleChooser();
 
     IGate* choose(IGraph* graph, Id first, Id second, Perso p);
+
+    IGate* getGateByName(IGraph* graph, Id first, Id second, std::string name);
 
 private:
     std::vector<std::unique_ptr<IGate>> mObstacles;

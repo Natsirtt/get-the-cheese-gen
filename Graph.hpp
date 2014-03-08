@@ -61,7 +61,16 @@ public:
      * Renvoie le nombre de transition dans le graphe.
      */
     virtual unsigned int getGateCount();
-
+    /**
+     * Charge le graphe à partir d'un fichier.
+     * @param filename Le nom du fichier à charger.
+     */
+    virtual void load(std::string filename);
+     /**
+     * Sauvegarde le graphe dans un fichier.
+     * @param filename Le nom du fichier dans lequel sauvegarder.
+     */
+    virtual void save(std::string filename);
 private:
     std::vector<INode*> mNodes;
     std::vector<IGate*> mGates;

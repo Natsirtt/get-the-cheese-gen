@@ -52,3 +52,12 @@ IGate* ObstacleChooser::choose(IGraph* graph, Id first, Id second, Perso p) {
     throw std::runtime_error("ObstacleChooser::choose -> Impossible de choisir une transition");
     return nullptr;
 }
+
+IGate* ObstacleChooser::getGateByName(IGraph* graph, Id first, Id second, std::string name) {
+    for (auto& g : mObstacles) {
+        if (name == g->getName()) {
+            return g->allocate(graph, first, second);
+        }
+    }
+    return nullptr;
+}

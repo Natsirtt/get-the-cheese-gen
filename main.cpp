@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <SDL/SDL.h>
 #include <GL/glew.h>
 #include <GL/gl.h>
@@ -25,7 +27,11 @@ int main(int argc, char* argv[]) {
     initGL();
 
     Graph g;
-    genGraph(&g);
+    if (argc > 1) {
+        g.load(argv[1]);
+    } else {
+        genGraph(&g);
+    }
 
     GraphViewer gw{&g};
 
@@ -41,6 +47,7 @@ int main(int argc, char* argv[]) {
                 break;
             case SDL_VIDEORESIZE:
                 reshape(event.resize.w, event.resize.h);
+                break;
             case SDL_KEYUP:
                 if (event.key.keysym.sym == SDLK_ESCAPE) {
                     running = false;
@@ -50,6 +57,22 @@ int main(int argc, char* argv[]) {
                     g.clear();
                     genGraph(&g);
                     gw.reset(&g);
+                }
+                if (event.key.keysym.sym == SDLK_s) {
+                    std::string filename;
+                    bool found = false;
+                    int i = 0;
+                    while (!found) {
+                        std::stringstream ss;
+                        ss << "Graphe" << i << ".gra";
+                        std::ifstream file(ss.str());
+                        if (!file.is_open()) {
+                            found = true;
+                            filename = ss.str();
+                        }
+                        i++;
+                    }
+                    g.save(filename);
                 }
                 break;
             default:
@@ -168,7 +191,7 @@ bool genGraph_Handler(IGraph* graph, int p, Id lastId, Id lastBranch, bool* fini
                 return true;
             }
         }
-    } while ((lastId == 1) && (!*finished));
+    } while ((lastId == 1) && (!*finished)); // Si on est le noeud de départ et qu'aucun noeud de fin n'à été créé
 
     return false;
 }

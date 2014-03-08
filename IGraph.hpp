@@ -1,6 +1,7 @@
 #ifndef IGRAPH_HPP
 #define IGRAPH_HPP
 
+#include <string>
 #include "Enum.hpp"
 
 class INode;
@@ -75,6 +76,16 @@ public:
      * Renvoie le nombre de transition dans le graphe.
      */
     virtual unsigned int getGateCount() = 0;
+    /**
+     * Charge le graphe à partir d'un fichier.
+     * @param filename Le nom du fichier à charger.
+     */
+    virtual void load(std::string filename) = 0;
+     /**
+     * Sauvegarde le graphe dans un fichier.
+     * @param filename Le nom du fichier dans lequel sauvegarder.
+     */
+    virtual void save(std::string filename) = 0;
 };
 
 #endif // IGRAPH_HPP

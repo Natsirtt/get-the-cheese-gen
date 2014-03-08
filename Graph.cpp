@@ -1,8 +1,10 @@
 #include "Graph.hpp"
 #include "Node.hpp"
 #include "IGate.hpp"
+#include "ObstacleChooser.hpp"
 
 #include <stdexcept>
+#include <fstream>
 
 Graph::Graph() {
     Node* n = new Node{this, NodeType::Start, 0};
@@ -87,4 +89,73 @@ unsigned int Graph::getNodeCount() {
 }
 unsigned int Graph::getGateCount() {
     return mGates.size();
+}
+
+void Graph::load(std::string filename) {
+    for (auto& n : mNodes) {
+        delete n;
+        n = nullptr;
+    }
+    mNodes = std::vector<INode*>();
+    for (auto& g : mGates) {
+        delete g;
+        g = nullptr;
+    }
+    mGates = std::vector<IGate*>();
+
+    ObstacleChooser chooser;
+    std::ifstream file(filename);
+    int nodeNb = 0;
+    file >> nodeNb;
+    for (int i = 0; i < nodeNb; ++i) {
+        std::string nodeTypeName;
+        file >> nodeTypeName;
+        int depth = 0;
+        file >> depth;
+        INode* node = nullptr;
+        if (nodeTypeName == "empty") {
+            node = new Node(this, NodeType::Empty, depth);
+        } else if (nodeTypeName == "room") {
+            node = new Node(this, NodeType::Room, depth);
+        } else if (nodeTypeName == "start") {
+            node = new Node(this, NodeType::Start, depth);
+        } else if (nodeTypeName == "finish") {
+            node = new Node(this, NodeType::Finish, depth);
+        }
+        addNode(node);
+    }
+    int gateNb = 0;
+    file >> gateNb;
+    for (int i = 0; i < gateNb; ++i) {
+        std::string gateTypeName;
+        file >> gateTypeName;
+        int first = 0;
+        file >> first;
+        int second = 0;
+        file >> second;
+        IGate* gate = chooser.getGateByName(this, first, second, gateTypeName);
+        addGate(gate);
+    }
+}
+
+void Graph::save(std::string filename) {
+    std::ofstream file(filename);
+    file << mNodes.size() << "\n";
+    for (auto& n : mNodes) {
+        NodeType nt = n->getType();
+        if (nt == NodeType::Empty) {
+            file << "empty";
+        } else if (nt == NodeType::Room) {
+            file << "room";
+        } else if (nt == NodeType::Start) {
+            file << "start";
+        } else if (nt == NodeType::Finish) {
+            file << "finish";
+        }
+        file << " " << n->getDepth() << "\n";
+    }
+    file << mGates.size() << "\n";
+    for (auto& g : mGates) {
+        file << g->getName() << " " << g->getFirstNode() << " " << g->getSecondNode() << "\n";
+    }
 }
