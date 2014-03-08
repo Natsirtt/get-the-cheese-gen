@@ -47,7 +47,7 @@ void GateViewer::draw() {
     glEnd();
 
     std::stringstream ss;
-    ss << "Gate" << mId;
+    ss << g->getName() << " " << mId;
     std::string s = ss.str();
     glRasterPos2f(vg.getX(), vg.getY() + 10);
     for (unsigned j = 0; j < s.size(); ++j) {

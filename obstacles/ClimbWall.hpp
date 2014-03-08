@@ -29,6 +29,9 @@ public:
     bool canChangeState() {
         return false;
     }
+    std::string getName() {
+        return "ClimbWall";
+    }
 protected:
     friend ObstacleChooser;
     ClimbWall() : Gate() {

@@ -25,6 +25,9 @@ public:
     bool canChangeState() {
         return false;
     }
+    std::string getName() {
+        return "MetalGate";
+    }
 private:
     friend ObstacleChooser;
     MetalGate() : Gate() {

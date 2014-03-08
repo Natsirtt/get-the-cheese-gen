@@ -27,6 +27,9 @@ public:
     bool canChangeState() {
         return false;
     }
+    std::string getName() {
+        return "DeathZone";
+    }
 private:
     friend ObstacleChooser;
     DeathZone() : Gate() {

@@ -28,6 +28,9 @@ public:
     bool canChangeState() {
         return false;
     }
+    std::string getName() {
+        return "SlideObstacle";
+    }
 private:
     friend ObstacleChooser;
     SlideObstacle() : Gate() {

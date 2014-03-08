@@ -24,7 +24,9 @@ public:
     bool canChangeState() {
         return false;
     }
-
+    std::string getName() {
+        return "WidthHole";
+    }
 private:
     friend ObstacleChooser;
     WidthHole() : Gate() {

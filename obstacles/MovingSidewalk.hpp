@@ -37,6 +37,9 @@ public:
     bool canChangeState() {
         return mStateOn;
     }
+    std::string getName() {
+        return "MovingSideWalk";
+    }
 private:
     friend ObstacleChooser;
     MovingSideWalk() : Gate(), mStateOn{true} {

@@ -26,6 +26,9 @@ public:
     bool canChangeState() {
         return true;
     }
+    std::string getName() {
+        return "Trap";
+    }
 private:
     friend ObstacleChooser;
     Trap() : Gate() {

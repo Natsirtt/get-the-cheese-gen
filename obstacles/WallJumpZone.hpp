@@ -25,7 +25,9 @@ public:
     bool canChangeState() {
         return false;
     }
-
+    std::string getName() {
+        return "WallJump";
+    }
 private:
     friend ObstacleChooser;
     WallJumpZone() : Gate() {

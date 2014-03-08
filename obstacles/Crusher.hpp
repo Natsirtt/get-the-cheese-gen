@@ -28,6 +28,9 @@ public:
     bool canChangeState() {
         return mStateOn;
     }
+    std::string getName() {
+        return "Crusher";
+    }
 private:
     friend ObstacleChooser;
     Crusher() : Gate() {

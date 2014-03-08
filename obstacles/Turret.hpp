@@ -31,7 +31,9 @@ public:
     bool canChangeState() {
         return mStateOn;
     }
-
+    std::string getName() {
+        return "Turret";
+    }
 private:
     friend ObstacleChooser;
     Turret() : Gate(), mStateOn{true} {

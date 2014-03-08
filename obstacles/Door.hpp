@@ -28,6 +28,9 @@ public:
     bool canChangeState() {
         return !mStateOn;
     }
+    std::string getName() {
+        return "Door";
+    }
 private:
     friend ObstacleChooser;
     Door() : Gate(), mStateOn{true} {

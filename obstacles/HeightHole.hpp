@@ -25,6 +25,9 @@ public:
     bool canChangeState() {
         return false;
     }
+    std::string getName() {
+        return "HeightHole";
+    }
 private:
     friend ObstacleChooser;
     HeightHole() : Gate() {

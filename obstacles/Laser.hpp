@@ -26,7 +26,9 @@ public:
     bool canChangeState() {
         return false;
     }
-
+    std::string getName() {
+        return "Laser";
+    }
 private:
     friend ObstacleChooser;
     Laser() : Gate() {

@@ -24,6 +24,9 @@ public:
     bool canChangeState() {
         return false;
     }
+    std::string getName() {
+        return "Hole";
+    }
 private:
     Hole() : Gate() {
     }
