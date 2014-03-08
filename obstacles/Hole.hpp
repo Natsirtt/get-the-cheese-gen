@@ -5,18 +5,18 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
-class WidthHole : public Gate {
+class Hole : public Gate {
 public:
-    Hole() : Gate(), mStateOn{false} {
-    }
+    /*Hole() : Gate() {
+    }*/
 
-    Hole(IGraph *graph, Id first, Id second) : Gate(graph, Id first, Id second), mStateOn{false} {
+    Hole(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
 
     bool canPass(Perso p, Id origin) {
         return true;
     }
-    
+
     void changeState() {
     }
 };

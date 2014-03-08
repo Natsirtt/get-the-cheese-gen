@@ -7,16 +7,17 @@
 
 
 class WallJumpZone : public Gate {
-    WallJumpZone() : Gate() {
+public:
+    /*WallJumpZone() : Gate() {
+    }*/
+
+    WallJumpZone(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
-    
-    WallJumpZone(IGraph *graph, Id first, Id second) : Gate(graph, Id first, Id second) {
-    }
-    
+
     bool canPass(Perso p, Id origin) {
-        return p == Perso.Yamakasi;
+        return (p & Perso::Yamakasi) != Perso::None;
     }
-    
+
     void changeState() {
         //rien
     }

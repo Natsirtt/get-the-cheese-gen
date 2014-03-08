@@ -11,14 +11,14 @@ private:
 
 public:
 
-    Crusher() : Gate(), mStateOn{true} {
-    }
+    /*Crusher() : Gate(), mStateOn{true} {
+    }*/
 
-    Crusher(IGraph *graph, Id first, Id second) : Gate(graph, Id first, Id second), mStateOn{true} {
+    Crusher(IGraph* graph, Id first, Id second) : Gate(graph, first, second), mStateOn{true} {
     }
 
     bool canPass(Perso p, Id origin) {
-        return (mStateOn && p == Perso.Yamakasi) || !mStateOn;
+        return (mStateOn && ((p & Perso::Yamakasi) != Perso::None)) || !mStateOn;
     }
 
     void changeState() {

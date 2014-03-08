@@ -2,21 +2,22 @@
 #define	METALGATE_HPP
 
 #include "../Gate.hpp"
-#include "../IGraph.hpp"
 #include "../Enum.hpp"
 
+class IGraph;
 
 class MetalGate : public Gate {
-    MetalGate() : Gate() {
+public:
+    /*MetalGate() : Gate() {
+    }*/
+
+    MetalGate(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
-    
-    MetalGate(IGraph *graph, Id first, Id second) : Gate(graph, Id first, Id second) {
-    }
-    
+
     bool canPass(Perso p, Id origin) {
-        return p == Perso.Yamakasi;
+        return (p & Perso::Yamakasi) != Perso::None;
     }
-    
+
     void changeState() {
         //rien
     }

@@ -46,16 +46,36 @@
 		<Unit filename="INode.hpp" />
 		<Unit filename="Node.cpp" />
 		<Unit filename="Node.hpp" />
+		<Unit filename="ObstacleChooser.cpp" />
+		<Unit filename="ObstacleChooser.hpp" />
 		<Unit filename="Viewer/GateViewer.cpp" />
 		<Unit filename="Viewer/GateViewer.hpp" />
 		<Unit filename="Viewer/GraphViewer.cpp" />
 		<Unit filename="Viewer/GraphViewer.hpp" />
 		<Unit filename="Viewer/NodeViewer.cpp" />
 		<Unit filename="Viewer/NodeViewer.hpp" />
+		<Unit filename="Viewer/Random.cpp" />
+		<Unit filename="Viewer/Random.hpp" />
 		<Unit filename="Viewer/Shape.hpp" />
 		<Unit filename="Viewer/Vector.cpp" />
 		<Unit filename="Viewer/Vector.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="obstacles/ClimbWall.hpp" />
+		<Unit filename="obstacles/Crusher.hpp" />
+		<Unit filename="obstacles/DeathZone.hpp" />
+		<Unit filename="obstacles/Door.hpp" />
+		<Unit filename="obstacles/HeightHole.hpp" />
+		<Unit filename="obstacles/Hole.hpp" />
+		<Unit filename="obstacles/Laser.hpp" />
+		<Unit filename="obstacles/MetalGate.hpp" />
+		<Unit filename="obstacles/MetalGateDoor.hpp" />
+		<Unit filename="obstacles/MovingPlatform.hpp" />
+		<Unit filename="obstacles/MovingSidewalk.hpp" />
+		<Unit filename="obstacles/SlideObstacle.hpp" />
+		<Unit filename="obstacles/Trap.hpp" />
+		<Unit filename="obstacles/Turret.hpp" />
+		<Unit filename="obstacles/WallJumpZone.hpp" />
+		<Unit filename="obstacles/WidthHole.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

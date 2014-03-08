@@ -5,13 +5,12 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
-class Crusher : public Gate {
+class MovingPlatform : public Gate {
 public:
+    /*MovingPlatform() : Gate() {
+    }*/
 
-    MovingPlatform() : Gate() {
-    }
-
-    MovingPlatform(IGraph *graph, Id first, Id second) : Gate(graph, Id first, Id second) {
+    MovingPlatform(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
 
     bool canPass(Perso p, Id origin) {

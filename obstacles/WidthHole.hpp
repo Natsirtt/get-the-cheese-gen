@@ -7,16 +7,16 @@
 
 class WidthHole : public Gate {
 public:
-    WidthHole() : Gate(), mStateOn{false} {
-    }
+    /*WidthHole() : Gate() {
+    }*/
 
-    WidthHole(IGraph *graph, Id first, Id second) : Gate(graph, Id first, Id second), mStateOn{false} {
+    WidthHole(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
 
     bool canPass(Perso p, Id origin) {
-        return return p == Perso.Acrobate;
+        return (p & Perso::Acrobate) != Perso::None;
     }
-    
+
     void changeState() {
     }
 };

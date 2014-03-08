@@ -10,14 +10,14 @@ private:
     bool mStateOn;
 
 public:
-    Turret() : Gate(), mStateOn{true} {
-    }
+    /*Turret() : Gate(), mStateOn{true} {
+    }*/
 
-    Turret(IGraph *graph, Id first, Id second) : Gate(graph, Id first, Id second), mStateOn{true} {
+    Turret(IGraph* graph, Id first, Id second) : Gate(graph, first, second), mStateOn{true} {
     }
 
     bool canPass(Perso p, Id origin) {
-        return mStateOn && (p == Perso.Yamakasi) || !mStateOn;
+        return (mStateOn && ((p & Perso::Yamakasi) != Perso::None)) || !mStateOn;
     }
 
     void changeState() {

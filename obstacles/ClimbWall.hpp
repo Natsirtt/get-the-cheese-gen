@@ -7,19 +7,20 @@
 
 
 class ClimbWall : public Gate {
-    ClimbWall() : Gate() {
+public:
+    /*ClimbWall() : Gate() {
+    }*/
+
+    ClimbWall(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
-    
-    ClimbWall(IGraph *graph, Id first, Id second) : Gate(graph, Id first, Id second) {
-    }
-    
+
     bool canPass(Perso p, Id origin) {
         if (origin == Gate::getFirstNode()) {
-            return p == Perso.Acrobate;
+            return (p & Perso::Acrobate) != Perso::None;
         }
         return true;
     }
-    
+
     void changeState() {
         //rien
     }

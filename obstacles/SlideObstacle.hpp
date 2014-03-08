@@ -7,19 +7,17 @@
 
 
 class SlideObstacle : public Gate {
-    SlideObstacle() : Gate() {
+public:
+    /*SlideObstacle() : Gate() {
+    }*/
+
+    SlideObstacle(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
-    
-    SlideObstacle(IGraph *graph, Id first, Id second) : Gate(graph, Id first, Id second) {
-    }
-    
+
     bool canPass(Perso p, Id origin) {
-        if (p == Perso.Yamakasi) {
-            return true;
-        }
-        return false;
+        return (p & Perso::Yamakasi) != Perso::None;
     }
-    
+
     void changeState() {
         //rien
     }

@@ -7,17 +7,18 @@
 
 
 class DeathZone : public Gate {
-    DeathZone() : Gate() {
+public:
+    /*DeathZone() : Gate() {
+    }*/
+
+    DeathZone(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
-    
-    DeathZone(IGraph *graph, Id first, Id second) : Gate(graph, Id first, Id second) {
-    }
-    
+
     bool canPass(Perso p, Id origin) {
         //Non blocant, seulement pour embêter le joueur
         return true;
     }
-    
+
     void changeState() {
         //rien
     }
