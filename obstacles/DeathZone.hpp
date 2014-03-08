@@ -8,9 +8,6 @@
 
 class DeathZone : public Gate {
 public:
-    /*DeathZone() : Gate() {
-    }*/
-
     DeathZone(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
 
@@ -22,7 +19,13 @@ public:
     void changeState() {
         //rien
     }
+private:
+    DeathZone() : Gate() {
+    }
 
+    IGate* allocate(IGraph* graph, Id first, Id second) {
+        return new DeathZone(graph, first, second);
+    }
 };
 
 #endif	/* DEATHZONE_HPP */

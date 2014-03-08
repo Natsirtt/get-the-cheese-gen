@@ -29,6 +29,13 @@ public:
     void changeState() {
         mStateOn = !mStateOn;
     }
+private:
+    MovingSideWalk() : Gate(), mStateOn{true} {
+    }
+
+    IGate* allocate(IGraph* graph, Id first, Id second) {
+        return new MovingSideWalk(graph, first, second);
+    }
 };
 
 #endif	/* MOVINGSIDEWALK_HPP */

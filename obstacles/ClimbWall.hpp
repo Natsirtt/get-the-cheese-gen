@@ -8,9 +8,6 @@
 
 class ClimbWall : public Gate {
 public:
-    /*ClimbWall() : Gate() {
-    }*/
-
     ClimbWall(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
 
@@ -23,6 +20,13 @@ public:
 
     void changeState() {
         //rien
+    }
+private:
+    ClimbWall() : Gate() {
+    }
+
+    IGate* allocate(IGraph* graph, Id first, Id second) {
+        return new ClimbWall(graph, first, second);
     }
 };
 

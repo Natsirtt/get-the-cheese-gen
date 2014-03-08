@@ -10,9 +10,6 @@ private:
     bool mStateOn;
 
 public:
-    /*Door() : Gate(), mStateOn{false} {
-    }*/
-
     Door(IGraph* graph, Id first, Id second) : Gate(graph, first, second), mStateOn{false} {
     }
 
@@ -22,6 +19,13 @@ public:
 
     void changeState() {
         mStateOn = !mStateOn;
+    }
+private:
+    Door() : Gate(), mStateOn{true} {
+    }
+
+    IGate* allocate(IGraph* graph, Id first, Id second) {
+        return new Door(graph, first, second);
     }
 };
 

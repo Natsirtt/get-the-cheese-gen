@@ -8,9 +8,6 @@
 
 class WallJumpZone : public Gate {
 public:
-    /*WallJumpZone() : Gate() {
-    }*/
-
     WallJumpZone(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
 
@@ -20,6 +17,14 @@ public:
 
     void changeState() {
         //rien
+    }
+
+private:
+    WallJumpZone() : Gate() {
+    }
+
+    IGate* allocate(IGraph* graph, Id first, Id second) {
+        return new WallJumpZone(graph, first, second);
     }
 };
 

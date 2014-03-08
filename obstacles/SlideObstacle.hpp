@@ -21,6 +21,13 @@ public:
     void changeState() {
         //rien
     }
+private:
+    SlideObstacle() : Gate() {
+    }
+
+    IGate* allocate(IGraph* graph, Id first, Id second) {
+        return new SlideObstacle(graph, first, second);
+    }
 };
 
 #endif	/* SLIDEOBSTACLE_HPP */

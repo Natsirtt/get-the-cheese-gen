@@ -8,9 +8,6 @@ class IGraph;
 
 class MetalGate : public Gate {
 public:
-    /*MetalGate() : Gate() {
-    }*/
-
     MetalGate(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
 
@@ -20,6 +17,13 @@ public:
 
     void changeState() {
         //rien
+    }
+private:
+    MetalGate() : Gate() {
+    }
+
+    IGate* allocate(IGraph* graph, Id first, Id second) {
+        return new MetalGate(graph, first, second);
     }
 };
 

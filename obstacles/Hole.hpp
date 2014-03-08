@@ -7,9 +7,6 @@
 
 class Hole : public Gate {
 public:
-    /*Hole() : Gate() {
-    }*/
-
     Hole(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
 
@@ -18,6 +15,13 @@ public:
     }
 
     void changeState() {
+    }
+private:
+    Hole() : Gate() {
+    }
+
+    IGate* allocate(IGraph* graph, Id first, Id second) {
+        return new Hole(graph, first, second);
     }
 };
 

@@ -7,9 +7,6 @@
 
 class WidthHole : public Gate {
 public:
-    /*WidthHole() : Gate() {
-    }*/
-
     WidthHole(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
 
@@ -18,6 +15,14 @@ public:
     }
 
     void changeState() {
+    }
+
+private:
+    WidthHole() : Gate() {
+    }
+
+    WidthHole* allocate(IGraph* graph, Id first, Id second) {
+        return new WidthHole(graph, first, second);
     }
 };
 

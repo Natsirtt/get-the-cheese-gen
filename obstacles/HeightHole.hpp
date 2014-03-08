@@ -7,9 +7,6 @@
 
 class HeightHole : public Gate {
 public:
-    /*HeightHole() : Gate() {
-    }*/
-
     HeightHole(IGraph* graph, Id first, Id second) : Gate(graph, first, second){
     }
 
@@ -19,6 +16,13 @@ public:
     }
 
     void changeState() {
+    }
+private:
+    HeightHole() : Gate() {
+    }
+
+    IGate* allocate(IGraph* graph, Id first, Id second) {
+        return new HeightHole(graph, first, second);
     }
 };
 

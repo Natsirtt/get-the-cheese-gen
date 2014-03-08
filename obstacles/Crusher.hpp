@@ -10,10 +10,6 @@ private:
     bool mStateOn;
 
 public:
-
-    /*Crusher() : Gate(), mStateOn{true} {
-    }*/
-
     Crusher(IGraph* graph, Id first, Id second) : Gate(graph, first, second), mStateOn{true} {
     }
 
@@ -24,7 +20,13 @@ public:
     void changeState() {
         mStateOn = !mStateOn;
     }
+private:
+    Crusher() : Gate() {
+    }
 
+    IGate* allocate(IGraph* graph, Id first, Id second) {
+        return new Crusher(graph, first, second);
+    }
 };
 
 #endif	/* CRUSHER_HPP */

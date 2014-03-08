@@ -23,6 +23,14 @@ public:
     void changeState() {
         mStateOn = !mStateOn;
     }
+
+private:
+    Turret() : Gate(), mStateOn{true} {
+    }
+
+    IGate* allocate(IGraph* graph, Id first, Id second) {
+        return new Turret(graph, first, second);
+    }
 };
 
 #endif	/* TURRET_HPP */

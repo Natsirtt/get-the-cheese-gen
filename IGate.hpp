@@ -4,15 +4,15 @@
 #include "Enum.hpp"
 
 /**
- * Repr�sente une transition dans le r�seau de p�tri.
- * Une transition ne peut �tre connect�e qu'� 2 noeuds.
+ * Représente une transition dans le réseau de pétri.
+ * Une transition ne peut être connectée qu'à 2 noeuds.
  */
 class IGate {
 public:
     virtual ~IGate() {};
 
     /**
-     * Attribue un id � la transition.
+     * Attribue un id à la transition.
      */
     virtual void setId(Id nid) = 0;
     /**
@@ -33,16 +33,30 @@ public:
     virtual Id getOtherNode(Id n) = 0;
     /**
      * Teste si un joeur peut passer la transition.
-     * @param p Le joueur � tester.
+     * @param p Le joueur à tester.
+     * @param origin Le noeud d'origine du joueur
      * @return
      *   true Si le joueur peux passer.
      *   false Si le joueur ne peux pas passer.
      */
     virtual bool canPass(Perso p, Id origin) = 0;
     /**
-     * Demande � la transition de changer d'�tat.
+     * Teste si un joeur peut passer la transition.
+     * On considère que le joueur passe de 'first' vers 'second'.
+     * @param p Le joueur à tester.
+     * @return
+     *   true Si le joueur peux passer.
+     *   false Si le joueur ne peux pas passer.
+     */
+    virtual bool canPass(Perso p) = 0;
+    /**
+     * Demande à la transition de changer d'état.
      */
     virtual void changeState() = 0;
+    /**
+     * Spécifie si la transition peut changer d'état.
+     */
+    virtual bool canChangeState() = 0;
 };
 
 #endif // IGATE_HPP

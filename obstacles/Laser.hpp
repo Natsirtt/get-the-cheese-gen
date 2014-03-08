@@ -8,9 +8,6 @@
 
 class Laser : public Gate {
 public:
-    /*Laser() : Gate() {
-    }*/
-
     Laser(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
     }
 
@@ -22,7 +19,13 @@ public:
     void changeState() {
         //rien
     }
+private:
+    Laser() : Gate() {
+    }
 
+    IGate* allocate(IGraph* graph, Id first, Id second) {
+        return new Laser(graph, first, second);
+    }
 };
 
 #endif	/* LASER_HPP */
