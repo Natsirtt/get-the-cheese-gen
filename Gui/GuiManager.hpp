@@ -20,7 +20,7 @@ public:
 	void postEvent(SDL_Event* e);
 
 private:
-	std::vector<std::unique_ptr<GuiElement>> mElements;
+	std::vector<GuiElement*> mElements;
 };
 
 #endif

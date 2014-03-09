@@ -11,7 +11,7 @@ void GuiManager::add(GuiElement* elmnt) {
     if (elmnt == NULL) {
         throw std::runtime_error("GuiManager::add : elmnt NULL");
     }
-    mElements.push_back(std::unique_ptr<GuiElement>{elmnt});
+    mElements.push_back(elmnt);
 }
 
 void GuiManager::clean() {

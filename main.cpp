@@ -41,16 +41,18 @@ int main(int argc, char* argv[]) {
 
     GuiManager gui;
     FileWalker filewalker{"./", ".gra"};
-    filewalker.setLocation(10, 40);
+    filewalker.setLocation(10, 50);
     filewalker.setSize(100, 50);
     gui.add(&filewalker);
 
     GuiButton loadButton(10, 10, 100, 25, "Charger");
     loadButton.setAction([&]{
-        gw.clear();
-        g.clear();
-        g.load(filewalker.getSelectedFile());
-        gw.reset(&g);
+        if (filewalker.isValid()) {
+            gw.clear();
+            g.clear();
+            g.load(filewalker.getSelectedFile());
+            gw.reset(&g);
+        }
     });
     gui.add(&loadButton);
 

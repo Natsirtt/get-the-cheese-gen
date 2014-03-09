@@ -163,3 +163,7 @@ double FileWalker::getWidth() {
 double FileWalker::getHeight() {
     return std::max((double)13 * mFiles.size(), GuiElement::getHeight());
 }
+
+bool FileWalker::isValid() {
+    return (mSelected >= 0) && (mSelected < mFiles.size());
+}

@@ -17,6 +17,7 @@ public:
 
 	double getWidth();
 	double getHeight();
+	bool isValid();
 
 private:
     std::vector<std::string> mFiles;
