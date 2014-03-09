@@ -19,4 +19,5 @@ obj
 # Codeblocks files
 *.layout
 *.depend
+*.gra
 
