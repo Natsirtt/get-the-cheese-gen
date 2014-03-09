@@ -12,6 +12,9 @@
 #include "Viewer/GraphViewer.hpp"
 #include "ObstacleChooser.hpp"
 
+#include "Gui/GuiManager.hpp"
+#include "Gui/GuiFileWalker.hpp"
+
 #define SCREEN_SIZE_X 800
 #define SCREEN_SIZE_Y 800
 
@@ -34,6 +37,18 @@ int main(int argc, char* argv[]) {
     }
 
     GraphViewer gw{&g};
+
+    GuiManager gui;
+    FileWalker filewalker{"./", ".gra"};
+    filewalker.setLocation(10, 10);
+    filewalker.setSize(100, 100);
+    filewalker.setAction([&]{
+        gw.clear();
+        g.clear();
+        g.load(filewalker.getSelectedFile());
+        gw.reset(&g);
+    });
+    gui.add(&filewalker);
 
     bool running = true;
     SDL_Event event;
@@ -73,9 +88,11 @@ int main(int argc, char* argv[]) {
                         i++;
                     }
                     g.save(filename);
+                    filewalker.update();
                 }
                 break;
             default:
+                gui.postEvent(&event);
                 gw.postEvent(event);
                 break;
         }
@@ -84,6 +101,7 @@ int main(int argc, char* argv[]) {
         // On dessine
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         gw.draw();
+        gui.drawAll();
         SDL_GL_SwapBuffers();
     }
 
