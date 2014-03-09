@@ -41,6 +41,16 @@
 		<Unit filename="Gate.hpp" />
 		<Unit filename="Graph.cpp" />
 		<Unit filename="Graph.hpp" />
+		<Unit filename="Gui/Font.cpp" />
+		<Unit filename="Gui/Font.hpp" />
+		<Unit filename="Gui/GuiButton.cpp" />
+		<Unit filename="Gui/GuiButton.hpp" />
+		<Unit filename="Gui/GuiElement.cpp" />
+		<Unit filename="Gui/GuiElement.hpp" />
+		<Unit filename="Gui/GuiFileWalker.cpp" />
+		<Unit filename="Gui/GuiFileWalker.hpp" />
+		<Unit filename="Gui/GuiManager.cpp" />
+		<Unit filename="Gui/GuiManager.hpp" />
 		<Unit filename="IGate.hpp" />
 		<Unit filename="IGraph.hpp" />
 		<Unit filename="INode.hpp" />
