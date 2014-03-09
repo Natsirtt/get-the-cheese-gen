@@ -34,14 +34,6 @@ bool GuiElement::isActive() {
     return mActive;
 }
 
-/*void GuiElement::setAction(void (*action)(GuiElement*)) {
-    if (elmnt == NULL) {
-        fprintf(stderr, "elmnt NULL");
-        return;
-    }
-    elmnt->_action = action;
-}*/
-
 std::string GuiElement::getName() {
     return mName;
 }
@@ -64,4 +56,14 @@ double GuiElement::getWidth() {
 
 double GuiElement::getHeight() {
     return mH;
+}
+
+void GuiElement::setAction(std::function<void ()> action) {
+    mAction = action;
+}
+
+void GuiElement::action() {
+    if (mAction) {
+        mAction();
+    }
 }

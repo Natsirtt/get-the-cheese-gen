@@ -2,6 +2,7 @@
 #define GUIELEMENT_HPP
 
 #include <iostream>
+#include <functional>
 #include <SDL/SDL.h>
 
 class GuiElement {
@@ -25,7 +26,10 @@ public:
     void setName(std::string name);
     void active(bool active);
 
+    void setAction(std::function<void ()> action);
+protected:
     void action();
+
 private:
     double mX;
     double mY;
@@ -34,6 +38,8 @@ private:
     int mVisible;
     int mActive;
     std::string mName;
+
+    std::function<void ()> mAction;
 };
 
 #endif

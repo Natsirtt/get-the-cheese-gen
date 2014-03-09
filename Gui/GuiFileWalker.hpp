@@ -18,8 +18,6 @@ public:
 	double getWidth();
 	double getHeight();
 
-	void setAction(std::function<void ()> action);
-
 private:
     std::vector<std::string> mFiles;
     int mScrolled;
@@ -27,8 +25,6 @@ private:
     std::string mDirectory;
     std::string mFilter;
     int mMaxXSize;
-
-    std::function<void ()> mAction;
 };
 
 #endif // GUIFILEWALKER_HPP

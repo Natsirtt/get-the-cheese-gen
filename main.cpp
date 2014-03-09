@@ -14,6 +14,7 @@
 
 #include "Gui/GuiManager.hpp"
 #include "Gui/GuiFileWalker.hpp"
+#include "Gui/GuiButton.hpp"
 
 #define SCREEN_SIZE_X 800
 #define SCREEN_SIZE_Y 800
@@ -40,15 +41,39 @@ int main(int argc, char* argv[]) {
 
     GuiManager gui;
     FileWalker filewalker{"./", ".gra"};
-    filewalker.setLocation(10, 10);
-    filewalker.setSize(100, 100);
-    filewalker.setAction([&]{
+    filewalker.setLocation(10, 40);
+    filewalker.setSize(100, 50);
+    gui.add(&filewalker);
+
+    GuiButton loadButton(10, 10, 100, 25, "Charger");
+    loadButton.setAction([&]{
         gw.clear();
         g.clear();
         g.load(filewalker.getSelectedFile());
         gw.reset(&g);
     });
-    gui.add(&filewalker);
+    gui.add(&loadButton);
+
+    GuiButton saveButton(filewalker.getX() + filewalker.getWidth() + 10, 10, 100, 25, "Sauvegarder");
+    saveButton.setAction([&]{
+        std::string filename;
+        bool found = false;
+        int i = 0;
+        while (!found) {
+            std::stringstream ss;
+            ss << "Graphe" << i << ".gra";
+            std::ifstream file(ss.str());
+            if (!file.is_open()) {
+                found = true;
+                filename = ss.str();
+            }
+            i++;
+        }
+        g.save(filename);
+        filewalker.update();
+        saveButton.setLocation(filewalker.getX() + filewalker.getWidth() + 10, 10);
+    });
+    gui.add(&saveButton);
 
     bool running = true;
     SDL_Event event;
@@ -72,23 +97,6 @@ int main(int argc, char* argv[]) {
                     g.clear();
                     genGraph(&g);
                     gw.reset(&g);
-                }
-                if (event.key.keysym.sym == SDLK_s) {
-                    std::string filename;
-                    bool found = false;
-                    int i = 0;
-                    while (!found) {
-                        std::stringstream ss;
-                        ss << "Graphe" << i << ".gra";
-                        std::ifstream file(ss.str());
-                        if (!file.is_open()) {
-                            found = true;
-                            filename = ss.str();
-                        }
-                        i++;
-                    }
-                    g.save(filename);
-                    filewalker.update();
                 }
                 break;
             default:

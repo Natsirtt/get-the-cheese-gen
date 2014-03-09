@@ -28,8 +28,8 @@ void FileWalker::update() {
 	while (ent != NULL) {
 		if (ent->d_name[0] != '.') {
 			std::string name(ent->d_name);
-            if ((name.size() > 0) && (mFilter.size() == 0) ||
-                ((mFilter.size() != 0) && (name.find(mFilter) != std::string::npos))) {
+            if ((name.size() > 0) && ((mFilter.size() == 0) ||
+                ((mFilter.size() != 0) && (name.find(mFilter) != std::string::npos)))) {
                 mFiles.push_back(name);
                 mMaxXSize = std::max(mMaxXSize, stringSizeX(name));
             }
@@ -141,7 +141,7 @@ void FileWalker::postEvent(SDL_Event* e) {
             int index = dy / size;
             if ((index < mFiles.size()) && (index >= 0)) {
                 mSelected = mFiles.size() - 1 - index;
-                mAction();
+                action();
             }
         }
     }
@@ -162,8 +162,4 @@ double FileWalker::getWidth() {
 
 double FileWalker::getHeight() {
     return std::max((double)13 * mFiles.size(), GuiElement::getHeight());
-}
-
-void FileWalker::setAction(std::function<void ()> action) {
-    mAction = action;
 }
