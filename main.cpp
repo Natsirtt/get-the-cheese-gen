@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cstdio>
 #include <SDL/SDL.h>
 #include <GL/glew.h>
 #include <GL/gl.h>
@@ -76,6 +77,15 @@ int main(int argc, char* argv[]) {
         saveButton.setLocation(filewalker.getX() + filewalker.getWidth() + 10, 10);
     });
     gui.add(&saveButton);
+
+    GuiButton deleteButton(filewalker.getX() + filewalker.getWidth() + 10, 40, 100, 25, "Supprimer");
+    deleteButton.setAction([&]{
+        if (filewalker.isValid()) {
+            remove(filewalker.getSelectedFile().c_str());
+            filewalker.update();
+        }
+    });
+    gui.add(&deleteButton);
 
     bool running = true;
     SDL_Event event;
