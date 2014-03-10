@@ -71,6 +71,7 @@ public:
      * @param filename Le nom du fichier dans lequel sauvegarder.
      */
     virtual void save(std::string filename);
+
 private:
     std::vector<INode*> mNodes;
     std::vector<IGate*> mGates;

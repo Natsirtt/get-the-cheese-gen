@@ -9,37 +9,8 @@
 #include <GL/gl.h>
 #include <map>
 
-GraphViewer::GraphViewer(IGraph* graph) : mGraph{graph}, mNodeSize{10} {
-    std::map<int, std::vector<Shape*>> shapeMap;
-    int maxDepth = 0;
-    for (unsigned int i = 1; i <= mGraph->getNodeCount(); ++i) {
-        NodeViewer* nw = new NodeViewer{this, i};
-        mShapes.push_back(nw);
-        mNodes.push_back(nw);
-
-        INode* n = mGraph->getNode(i);
-        shapeMap[n->getDepth()].push_back(nw);
-        maxDepth = std::max(maxDepth, n->getDepth());
-    }
-    const SDL_VideoInfo* videoInfo = SDL_GetVideoInfo();
-    double screenY = videoInfo->current_h - 20;
-    double screenX = videoInfo->current_w - 20;
-    double yPerDepth = screenY / maxDepth;
-
-    for (auto& it : shapeMap) {
-        int depth = it.first;
-        std::vector<Shape*>& shapes = it.second;
-        for (int i = 0; i < shapes.size(); ++i) {
-            double halfSize = ((double)shapes.size() - 1.0) / 2.0;
-            double x = screenX / 2.0 + (screenX / 2.0) * ((double)i - halfSize) / (double)shapes.size();
-            Vector v(x, depth * yPerDepth, 0.0);
-            shapes[i]->setPosition(v);
-        }
-    }
-
-    for (unsigned int i = 1; i <= mGraph->getGateCount(); ++i) {
-        mShapes.push_back(new GateViewer{this, i});
-    }
+GraphViewer::GraphViewer(IGraph* graph) : mGraph{graph}, mNodeSize{10}, mShowNames{true} {
+    reset(graph);
 }
 
 GraphViewer::~GraphViewer() {
@@ -54,6 +25,7 @@ void GraphViewer::clear() {
     mGraph = nullptr;
 
     mNodes = std::vector<NodeViewer*>();
+    mGates = std::vector<GateViewer*>();
     mShapes = std::vector<Shape*>();
 }
 
@@ -88,7 +60,9 @@ void GraphViewer::reset(IGraph* graph) {
     }
 
     for (unsigned int i = 1; i <= mGraph->getGateCount(); ++i) {
-        mShapes.push_back(new GateViewer{this, i});
+        GateViewer* gw = new GateViewer{this, i};
+        mShapes.push_back(gw);
+        mGates.push_back(gw);
     }
 }
 
@@ -124,6 +98,11 @@ void GraphViewer::postEvent(SDL_Event& event) {
         }
         return;
     }
+    if (event.type == SDL_KEYUP) {
+        if (event.key.keysym.sym == SDLK_v) {
+            mShowNames = !mShowNames;
+        }
+    }
     for (auto& shape : mShapes) {
         if (shape->postEvent(event)) {
             return;
@@ -145,4 +124,20 @@ NodeViewer* GraphViewer::getNodeViewer(Id nid) {
         throw e;
     }
     return nullptr;
+}
+
+GateViewer* GraphViewer::getGateViewer(Id gid) {
+    try {
+        GateViewer* gw = mGates.at(gid - 1);
+        return gw;
+    } catch (const std::exception& e) {
+        std::cout << "getGateViewer : Erreur d'index, size : " << mGates.size()
+                    << ", gid : " << gid << std::endl;
+        throw e;
+    }
+    return nullptr;
+}
+
+bool GraphViewer::isNameVisible() {
+    return mShowNames;
 }

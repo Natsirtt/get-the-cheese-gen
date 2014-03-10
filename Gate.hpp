@@ -67,6 +67,10 @@ public:
      * Renvoie le nom de cet obstacle.
      */
     virtual std::string getName();
+    /**
+     * Modifie le noeud d'origine de la transition.
+     */
+    virtual void changeFirst(Id newFirst);
 protected:
     friend ObstacleChooser;
     Gate() : mGraph{nullptr}, mId{0}, mFirst{0}, mSecond{0} {};

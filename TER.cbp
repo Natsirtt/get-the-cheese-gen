@@ -41,6 +41,8 @@
 		<Unit filename="Gate.hpp" />
 		<Unit filename="Graph.cpp" />
 		<Unit filename="Graph.hpp" />
+		<Unit filename="GraphGenerator.cpp" />
+		<Unit filename="GraphGenerator.hpp" />
 		<Unit filename="Gui/Font.cpp" />
 		<Unit filename="Gui/Font.hpp" />
 		<Unit filename="Gui/GuiButton.cpp" />

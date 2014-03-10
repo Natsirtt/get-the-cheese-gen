@@ -58,6 +58,7 @@ enum class NodeType {
     Start,
     Finish,
     Room,
+    Activator,
     Empty
 };
 

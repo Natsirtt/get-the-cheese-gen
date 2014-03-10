@@ -43,6 +43,29 @@ public:
      * Renvoie la profondeur du noeud.
      */
     virtual int getDepth() = 0;
+    /**
+     * Marque le noeud comme étant sur le chamin pour aller à la fin.
+     */
+    virtual void setOnEndPath(bool endPath) = 0;
+    /**
+     * Test si le noeud est marqué comme étant sur le chemin de fin.
+     */
+    virtual bool isOnEndPath() = 0;
+    /**
+     * Remplace un obstacle par un nouvel obstacle.
+     * @param oldGate l'id de l'ancien obstacle.
+     * @param newGate l'id du nouvel obstacle.
+     */
+    virtual void changeGate(Id oldGate, Id newGate) = 0;
+    /**
+     * Lie ce noeud avec un obstacle.
+     */
+    virtual void linkGate(Id gid) = 0;
+    /**
+     * Renvoie l'obstacle lié.
+     * @return ID_ERROR si aucun obstacle n'est lié.
+     */
+    virtual Id getLinkedGate() = 0;
 };
 
 #endif // INODE_HPP

@@ -42,13 +42,38 @@ public:
      * Renvoie la profondeur du noeud.
      */
     virtual int getDepth();
+    /**
+     * Marque le noeud comme étant sur le chamin pour aller à la fin.
+     */
+    virtual void setOnEndPath(bool endPath);
+    /**
+     * Test si le noeud est marqué comme étant sur le chemin de fin.
+     */
+    virtual bool isOnEndPath();
+    /**
+     * Remplace un obstacle par un nouvel obstacle.
+     * @param oldGate l'id de l'ancien obstacle.
+     * @param newGate l'id du nouvel obstacle.
+     */
+    virtual void changeGate(Id oldGate, Id newGate);
+    /**
+     * Lie ce noeud avec un obstacle.
+     */
+    virtual void linkGate(Id gid);
+    /**
+     * Renvoie l'obstacle lié.
+     * @return ID_ERROR si aucun obstacle n'est lié.
+     */
+    virtual Id getLinkedGate();
 private:
     IGraph* mGraph;
     Id mId;
     std::vector<Id> mGates;
-    std::map<Perso, std::vector<Id>> mGatesMap;
     NodeType mType;
     int mDepth;
+    bool mIsOnEndPath;
+
+    Id mGate;
 };
 
 #endif // NODE_HPP

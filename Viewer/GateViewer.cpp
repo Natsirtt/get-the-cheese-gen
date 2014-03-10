@@ -46,13 +46,17 @@ void GateViewer::draw() {
     glVertex2d(vg.getX() + mNodeSize / 2, vg.getY() + mNodeSize / 2);
     glEnd();
 
-    std::stringstream ss;
-    ss << g->getName() << " " << mId;
-    std::string s = ss.str();
-    glRasterPos2f(vg.getX(), vg.getY() + 10);
-    for (unsigned j = 0; j < s.size(); ++j) {
-        glutBitmapCharacter(GLUT_BITMAP_8_BY_13, s[j]);
+    if (mGraphViewer->isNameVisible()) {
+        glColor3f(1.0, 0.0, 0.0);
+        std::stringstream ss;
+        ss << g->getName() << " " << mId;
+        std::string s = ss.str();
+        glRasterPos2f(vg.getX(), vg.getY() + 10);
+        for (unsigned j = 0; j < s.size(); ++j) {
+            glutBitmapCharacter(GLUT_BITMAP_8_BY_13, s[j]);
+        }
     }
+    glColor3f(1.0, 1.0, 1.0);
 }
 
 void GateViewer::setSize(int size) {

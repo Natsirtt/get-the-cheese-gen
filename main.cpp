@@ -10,8 +10,8 @@
 #include "Gate.hpp"
 #include "Node.hpp"
 #include "Graph.hpp"
+#include "GraphGenerator.hpp"
 #include "Viewer/GraphViewer.hpp"
-#include "ObstacleChooser.hpp"
 
 #include "Gui/GuiManager.hpp"
 #include "Gui/GuiFileWalker.hpp"
@@ -24,18 +24,18 @@ void initSDL();
 void reshape(int w, int h);
 void initGL();
 
-void genGraph(IGraph* graph);
-
 int main(int argc, char* argv[]) {
     glutInit(&argc, argv);
     initSDL();
     initGL();
 
     Graph g;
+    GraphGenerator generator{&g};
+
     if (argc > 1) {
         g.load(argv[1]);
     } else {
-        genGraph(&g);
+        generator();
     }
 
     GraphViewer gw{&g};
@@ -107,8 +107,11 @@ int main(int argc, char* argv[]) {
                 if (event.key.keysym.sym == SDLK_SPACE) {
                     gw.clear();
                     g.clear();
-                    genGraph(&g);
+                    generator();
                     gw.reset(&g);
+                } else {
+                    gui.postEvent(&event);
+                    gw.postEvent(event);
                 }
                 break;
             default:
@@ -163,79 +166,4 @@ void initGL() {
 	glLoadIdentity();
 	glOrtho(0.0, SCREEN_SIZE_X, 0, SCREEN_SIZE_Y, -1.0, 1.0);
 	glMatrixMode(GL_MODELVIEW);
-}
-
-bool genGraph_Handler(IGraph* graph, int p, Id lastId, Id lastBranch, bool* finished, Perso perso, ObstacleChooser& chooser) {
-    do {
-        int branch = 0;
-        { // Permet de se débarrasser des variables locales inutiles
-            double interval[] = {0, 1, 2, 3, 4};
-            double first = std::min(p * 0.05, 1.0);
-            if (*finished) {
-                first = 0.0;
-            }
-            double second = std::min((1.0 - first) * p * 0.1, 1.0);
-            double weights[] =  {first,
-                                second,
-                                (1.0 - second) * 0.7,
-                                (1.0 - second) * 0.3};
-            std::piecewise_constant_distribution<> dist(std::begin(interval),
-                                                        std::end(interval),
-                                                        std::begin(weights));
-            Rand_Int<std::piecewise_constant_distribution<>> rand(dist);
-            branch = rand();
-        }
-
-        if (branch == 0) {
-            // Fin du level
-            Node* node = new Node{graph, NodeType::Finish, p + 1};
-            Id nid = graph->addNode(node);
-            // On le relie au dernier noeud
-            IGate* gate = chooser.choose(graph, lastId, nid, perso);
-            graph->addGate(gate);
-            *finished = true;
-            return true;
-        } else if (branch == 1) {
-            // Repliage
-            Node* node = new Node{graph, NodeType::Room, p + 1};
-            Id nid = graph->addNode(node);
-            // On le relie au dernier noeud
-            IGate* gate = chooser.choose(graph, lastId, nid, perso);
-            graph->addGate(gate);
-            // On boucle
-            gate = chooser.choose(graph, nid, lastBranch, perso);
-            graph->addGate(gate);
-        } else {
-            Node* node = new Node{graph, NodeType::Room, p + 1};
-            Id nid = graph->addNode(node);
-            // On le relie au dernier noeud
-            IGate* gate = chooser.choose(graph, lastId, nid, perso);
-            graph->addGate(gate);
-            Id newOldBranch = lastBranch;
-            if (branch > 2) {
-                newOldBranch = nid;
-            }
-            bool f = false;
-            for (int i = 0; i < branch - 1; ++i) {
-                f = f || genGraph_Handler(graph, p + 1, nid, newOldBranch, finished, perso, chooser);
-            }
-            if ((newOldBranch == nid) && (!f)) {
-                // On boucle
-                IGate* gate = chooser.choose(graph, nid, lastBranch, perso);
-                graph->addGate(gate);
-            }
-            if (f) {
-                // ATTENTION pas de "return f;"
-                return true;
-            }
-        }
-    } while ((lastId == 1) && (!*finished)); // Si on est le noeud de départ et qu'aucun noeud de fin n'à été créé
-
-    return false;
-}
-
-void genGraph(IGraph* graph) {
-    bool finished = false;
-    ObstacleChooser chooser;
-    genGraph_Handler(graph, 0, 1, 1, &finished, Perso::All, chooser);
 }

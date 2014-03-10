@@ -50,3 +50,7 @@ Id Gate::getOtherNode(Id n) {
 std::string Gate::getName() {
     return "Gate";
 }
+
+void Gate::changeFirst(Id newFirst) {
+    mFirst = newFirst;
+}

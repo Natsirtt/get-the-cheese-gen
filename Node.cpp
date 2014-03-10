@@ -2,7 +2,8 @@
 #include "IGraph.hpp"
 #include "IGate.hpp"
 
-Node::Node(IGraph* graph, NodeType type, int depth) : mGraph{graph}, mId{0}, mType{type}, mDepth{depth} {
+Node::Node(IGraph* graph, NodeType type, int depth) : mGraph{graph}, mId{0}, mType{type}, mDepth{depth},
+                                                    mIsOnEndPath{false}, mGate{ID_ERROR} {
 }
 
 Node::~Node() {
@@ -18,7 +19,14 @@ Id Node::getID() {
 }
 
 std::vector<Id> Node::getTransitions(Perso p) {
-    return mGatesMap[p];
+    std::vector<Id> trans;
+    for (auto& gid : mGates) {
+        IGate* g = mGraph->getGate(gid);
+        if (g->canPass(p)) {
+            trans.push_back(gid);
+        }
+    }
+    return trans;
 }
 
 std::vector<Id> Node::getTransitions() {
@@ -30,15 +38,6 @@ void Node::addTransition(Id gid) {
         throw std::runtime_error("Transition invalide");
     }
     mGates.push_back(gid);
-
-    IGate* g = mGraph->getGate(gid);
-    Perso persos[] = {Perso::Acrobate, Perso::Gadget,
-                    Perso::Yamakasi, Perso::Costaud};
-    for (auto p : persos) {
-        if (g->canPass(p, 0)) { // TODO remplacer 0 par l'origine
-            mGatesMap[p].push_back(gid);
-        }
-    }
 }
 
 NodeType Node::getType() {
@@ -47,4 +46,28 @@ NodeType Node::getType() {
 
 int Node::getDepth() {
     return mDepth;
+}
+
+void Node::setOnEndPath(bool endPath) {
+    mIsOnEndPath = endPath;
+}
+
+bool Node::isOnEndPath() {
+    return mIsOnEndPath;
+}
+
+void Node::changeGate(Id oldGate, Id newGate) {
+    for (auto& id : mGates) {
+        if (id == oldGate) {
+            id = newGate;
+        }
+    }
+}
+
+void Node::linkGate(Id gid) {
+    mGate = gid;
+}
+
+Id Node::getLinkedGate() {
+    return mGate;
 }

@@ -8,6 +8,7 @@
 
 Graph::Graph() {
     Node* n = new Node{this, NodeType::Start, 0};
+    n->setOnEndPath(true);
     n->setId(mNodes.size() + 1);
     mNodes.push_back(n);
 }
@@ -37,6 +38,7 @@ void Graph::clear() {
 
     Node* n = new Node{this, NodeType::Start, 0};
     n->setId(mNodes.size() + 1);
+    n->setOnEndPath(true);
     mNodes.push_back(n);
 }
 
@@ -112,6 +114,8 @@ void Graph::load(std::string filename) {
         file >> nodeTypeName;
         int depth = 0;
         file >> depth;
+        int gate = 0;
+        file >> gate;
         INode* node = nullptr;
         if (nodeTypeName == "empty") {
             node = new Node(this, NodeType::Empty, depth);
@@ -121,7 +125,10 @@ void Graph::load(std::string filename) {
             node = new Node(this, NodeType::Start, depth);
         } else if (nodeTypeName == "finish") {
             node = new Node(this, NodeType::Finish, depth);
+        } else if (nodeTypeName == "activator") {
+            node = new Node(this, NodeType::Activator, depth);
         }
+        node->linkGate(gate);
         addNode(node);
     }
     int gateNb = 0;
@@ -151,11 +158,14 @@ void Graph::save(std::string filename) {
             file << "start";
         } else if (nt == NodeType::Finish) {
             file << "finish";
+        } else if (nt == NodeType::Activator) {
+            file << "activator";
         }
-        file << " " << n->getDepth() << "\n";
+        file << " " << n->getDepth() << " " << n->getLinkedGate() << "\n";
     }
     file << mGates.size() << "\n";
     for (auto& g : mGates) {
         file << g->getName() << " " << g->getFirstNode() << " " << g->getSecondNode() << "\n";
     }
 }
+
