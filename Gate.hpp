@@ -56,6 +56,11 @@ public:
      */
     virtual bool canPass(Perso p) = 0;
     /**
+     * Teste si le joueur peut passer la transition sans avoir à activer de levier.
+     * @param p Le joueur à tester.
+     */
+    virtual bool canPassWithoutTrigger(Perso p) = 0;
+    /**
      * Demande � la transition de changer d'�tat.
      */
     virtual void changeState() = 0;

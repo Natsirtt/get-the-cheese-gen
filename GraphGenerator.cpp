@@ -18,21 +18,6 @@ void GraphGenerator::operator()() {
     mActivatorsPath.clear();
     mEndPath.clear();
     genGraph_Handler(0, 1, 1, Perso::All);
-    for (auto& it : mActivatorsPath) {
-        std::cout << it.first << " : ";
-        for (auto& nid : it.second) {
-            std::cout << nid << ", ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "OnEndPath : ";
-    for (int i = 1; i <= mGraph->getNodeCount(); ++i) {
-        INode* n = mGraph->getNode(i);
-        if (n->isOnEndPath()) {
-            std::cout << n->getID() << ", ";
-        }
-    }
-    std::cout << std::endl;
     addObstacles();
 }
 
@@ -63,7 +48,7 @@ bool GraphGenerator::genGraph_Handler(int p, Id lastId, Id lastBranch, Perso per
             Id nid = mGraph->addNode(node);
             mCurrentPath.push_back(nid);
             // On le relie au dernier noeud
-            IGate* gate = mChooser.choose(mGraph, lastId, nid, perso);
+            IGate* gate = mChooser.chooseWithoutTrigger(mGraph, lastId, nid, perso);
             mGraph->addGate(gate);
             mFinished = true;
             mEndPath = mCurrentPath;
@@ -74,10 +59,10 @@ bool GraphGenerator::genGraph_Handler(int p, Id lastId, Id lastBranch, Perso per
             Id nid = mGraph->addNode(node);
             mCurrentPath.push_back(nid);
             // On le relie au dernier noeud
-            IGate* gate = mChooser.choose(mGraph, lastId, nid, perso);
+            IGate* gate = mChooser.chooseWithoutTrigger(mGraph, lastId, nid, perso);
             mGraph->addGate(gate);
             // On boucle
-            gate = mChooser.choose(mGraph, nid, lastBranch, perso);
+            gate = mChooser.chooseWithoutTrigger(mGraph, nid, lastBranch, perso);
             mGraph->addGate(gate);
             mActivatorsPath[nid] = mCurrentPath;
             mCurrentPath.pop_back();
@@ -86,7 +71,7 @@ bool GraphGenerator::genGraph_Handler(int p, Id lastId, Id lastBranch, Perso per
             Id nid = mGraph->addNode(node);
             mCurrentPath.push_back(nid);
             // On le relie au dernier noeud
-            IGate* gate = mChooser.choose(mGraph, lastId, nid, perso);
+            IGate* gate = mChooser.chooseWithoutTrigger(mGraph, lastId, nid, perso);
             mGraph->addGate(gate);
             Id newOldBranch = lastBranch;
             if (branch > 2) {
@@ -98,7 +83,7 @@ bool GraphGenerator::genGraph_Handler(int p, Id lastId, Id lastBranch, Perso per
             }
             if ((newOldBranch == nid) && (!f)) {
                 // On boucle
-                IGate* gate = mChooser.choose(mGraph, nid, lastBranch, perso);
+                IGate* gate = mChooser.chooseWithoutTrigger(mGraph, nid, lastBranch, perso);
                 mGraph->addGate(gate);
             }
             if (f) {
@@ -127,10 +112,10 @@ void GraphGenerator::addObstacles() {
         INode* trigger = mGraph->getNode(it.first);
         Id rid = furtherNid;
         if (furtherNid < (endNid - 1)) {
-            rid = getRandomNodeBetween(furtherNid, endNid - 1);
+            rid = getRandomNodeBetween(furtherNid, endNid);
         }
         // On récupére un noeud aléatoire
-        std::cout << it.first << " " << furtherNid << " " << endNid << " " << rid << std::endl;
+        //std::cout << it.first << " " << furtherNid << " " << endNid << " " << rid << std::endl;
         INode* rNode = mGraph->getNode(rid);
         // On récupére une transition aléatoire sortant du noeud
         Id gid = rNode->getTransitions()[0];
@@ -144,7 +129,7 @@ void GraphGenerator::addObstacles() {
         INode* newNode = new Node(mGraph, NodeType::Empty, n2->getDepth());
         Id newNid = mGraph->addNode(newNode);
         // On ajoute un nouvel obstacle
-        IGate* newGate = mChooser.choose(mGraph, first, newNid, Perso::All); // TODO
+        IGate* newGate = mChooser.chooseWithoutTrigger(mGraph, first, newNid, Perso::All); // TODO
         Id newGid = mGraph->addGate(newGate);
         // On lie le trigger et l'obstacle
         trigger->linkGate(newGid);
@@ -153,13 +138,18 @@ void GraphGenerator::addObstacles() {
     }
 }
 
-Id GraphGenerator::getRandomNodeBetween(Id first, Id second) {
+Id GraphGenerator::getRandomNodeBetween(Id first, Id end) {
     Id next = first;
-    for (unsigned int i = 0; i < mEndPath.size(); ++i) {
+    for (unsigned int i = 0; i < (mEndPath.size() - 1); ++i) {
         if (mEndPath[i] == first) {
-            next = mEndPath[i + 1];
+            if (mEndPath[i + 1] == end) {
+                return first;
+            } else {
+                next = mEndPath[i + 1];
+                break;
+            }
         }
     }
-    Rand_Int<> rand(next, second);
+    Rand_Int<> rand(next, end - 1);
     return rand();
 }

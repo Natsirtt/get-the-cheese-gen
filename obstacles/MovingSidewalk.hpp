@@ -30,9 +30,11 @@ public:
     }
 
     bool canPass(Perso p) {
-        return !mStateOn;
+        return true;
     }
-
+    bool canPassWithoutTrigger(Perso p) {
+        return true;
+    }
     void changeState() {
         mStateOn = !mStateOn;
     }

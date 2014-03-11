@@ -39,7 +39,21 @@ ObstacleChooser::ObstacleChooser() {
     mObstacles.push_back(std::unique_ptr<IGate>{new WidthHole{}});
 }
 
-IGate* ObstacleChooser::choose(IGraph* graph, Id first, Id second, Perso p) {
+IGate* ObstacleChooser::chooseWithoutTrigger(IGraph* graph, Id first, Id second, Perso p) {
+    int tryCount = 500; // Sécurité
+    Rand_Int<> rand(0, mObstacles.size() - 1);
+    while (tryCount-- > 0) {
+        unsigned int r = rand();
+        std::unique_ptr<IGate>& g = mObstacles.at(r);
+        if (g->canPassWithoutTrigger(p)) {
+            return g->allocate(graph, first, second);
+        }
+    }
+    throw std::runtime_error("ObstacleChooser::choose -> Impossible de choisir une transition");
+    return nullptr;
+}
+
+IGate* ObstacleChooser::chooseWithTrigger(IGraph* graph, Id first, Id second, Perso p) {
     int tryCount = 500; // Sécurité
     Rand_Int<> rand(0, mObstacles.size() - 1);
     while (tryCount-- > 0) {
