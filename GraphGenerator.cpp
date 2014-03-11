@@ -129,7 +129,7 @@ void GraphGenerator::addObstacles() {
         INode* newNode = new Node(mGraph, NodeType::Empty, n2->getDepth());
         Id newNid = mGraph->addNode(newNode);
         // On ajoute un nouvel obstacle
-        IGate* newGate = mChooser.chooseWithoutTrigger(mGraph, first, newNid, Perso::All); // TODO
+        IGate* newGate = mChooser.chooseWithTrigger(mGraph, first, newNid, Perso::All); // TODO
         Id newGid = mGraph->addGate(newGate);
         // On lie le trigger et l'obstacle
         trigger->linkGate(newGid);

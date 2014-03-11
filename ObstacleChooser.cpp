@@ -54,7 +54,7 @@ IGate* ObstacleChooser::chooseWithoutTrigger(IGraph* graph, Id first, Id second,
 }
 
 IGate* ObstacleChooser::chooseWithTrigger(IGraph* graph, Id first, Id second, Perso p) {
-    int tryCount = 500; // Sécurité
+    /*int tryCount = 500; // Sécurité
     Rand_Int<> rand(0, mObstacles.size() - 1);
     while (tryCount-- > 0) {
         unsigned int r = rand();
@@ -64,7 +64,8 @@ IGate* ObstacleChooser::chooseWithTrigger(IGraph* graph, Id first, Id second, Pe
         }
     }
     throw std::runtime_error("ObstacleChooser::choose -> Impossible de choisir une transition");
-    return nullptr;
+    return nullptr;*/
+    return mObstacles[3]->allocate(graph, first, second);
 }
 
 IGate* ObstacleChooser::getGateByName(IGraph* graph, Id first, Id second, std::string name) {
