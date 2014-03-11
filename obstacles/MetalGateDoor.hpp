@@ -5,6 +5,9 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
+/**
+ * Une porte en barres de métal ne laissant passer, si fermée, que le mec qui se faufile
+ */
 class MetalGateDoor : public Gate {
 private:
     bool mStateOn;

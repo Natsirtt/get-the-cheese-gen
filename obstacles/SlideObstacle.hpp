@@ -5,7 +5,9 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
-
+/**
+ * Un mur avec un petit trou ne laissant passer que quelqu'un pouvant se glisser
+ */
 class SlideObstacle : public Gate {
 public:
     /*SlideObstacle() : Gate() {

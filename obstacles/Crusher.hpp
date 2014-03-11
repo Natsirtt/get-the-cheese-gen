@@ -5,6 +5,9 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
+/**
+ * Une grosse masse, ou un cylindre hydraulique, qui écrase le joueur.
+ */
 class Crusher : public Gate {
 private:
     bool mStateOn;

@@ -5,6 +5,10 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
+/**
+ * Une zone couvete par le rayon d'action d'une tourelle de défense pouvant tuer
+ * Toute personne ne courant pas vite.
+ */
 class Turret : public Gate {
 private:
     bool mStateOn;

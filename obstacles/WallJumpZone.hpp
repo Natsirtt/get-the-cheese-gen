@@ -5,7 +5,9 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
-
+/**
+ * Une zone où le passage ne peut se faire qu'en faisant du walljump sous peine de mort.
+ */
 class WallJumpZone : public Gate {
 public:
     WallJumpZone(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {

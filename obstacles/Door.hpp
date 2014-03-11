@@ -5,6 +5,9 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
+/**
+ * Une porte. No comment.
+ */
 class Door : public Gate {
 private:
     bool mStateOn;

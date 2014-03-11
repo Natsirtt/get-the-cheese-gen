@@ -5,6 +5,9 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
+/**
+ * Un tapis roulant qui, si allumé, ne laisse passer personne dans le sens inverse de la marche (sauf le sprinter).
+ */
 class MovingSideWalk : public Gate {
 private:
     bool mStateOn;

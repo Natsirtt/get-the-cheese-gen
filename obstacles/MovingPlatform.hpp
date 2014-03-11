@@ -5,6 +5,9 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
+/**
+ * Des plateformes volantes, imposant un peu d'adresse de la part du joueur.
+ */
 class MovingPlatform : public Gate {
 public:
     MovingPlatform(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {

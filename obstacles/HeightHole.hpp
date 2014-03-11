@@ -5,6 +5,9 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
+/**
+ * Un "trou" en hauteur, ou une plateforme surélevée : accessible uniquement que par quelqu'un qui saute haut ou qu'on balance en l'air
+ */
 class HeightHole : public Gate {
 public:
     HeightHole(IGraph* graph, Id first, Id second) : Gate(graph, first, second){

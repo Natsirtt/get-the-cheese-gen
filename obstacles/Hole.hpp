@@ -5,6 +5,9 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
+/**
+ * Un trou (ou une zone avec des trous) pour que les joueurs inattentionnées tombent dedans
+ */
 class Hole : public Gate {
 public:
     Hole(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {

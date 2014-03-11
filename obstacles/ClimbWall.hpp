@@ -5,7 +5,9 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
-
+/**
+ * Un mur d'escalade à escalader avec ses compétences d'escaladeur.
+ */
 class ClimbWall : public Gate {
 public:
     ClimbWall(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {

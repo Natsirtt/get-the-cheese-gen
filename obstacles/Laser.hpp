@@ -5,7 +5,9 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
-
+/**
+ * Des lasers sont éparpiller pour rendre le passage plus difficile pour les personnages.
+ */
 class Laser : public Gate {
 public:
     Laser(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {

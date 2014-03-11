@@ -5,7 +5,9 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
-
+/**
+ * Une zone de pièges de pics ou pièges de trou.
+ */
 class Trap : public Gate {
 public:
     Trap(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {

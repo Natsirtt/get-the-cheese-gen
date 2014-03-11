@@ -5,6 +5,9 @@
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
 
+/**
+ * Un long trou qui n'est sautable qu'en faisant de longs sauts.
+ */
 class WidthHole : public Gate {
 public:
     WidthHole(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {

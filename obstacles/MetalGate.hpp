@@ -6,6 +6,9 @@
 
 class IGraph;
 
+/**
+ * Un mur de barres de métal ne laissant passer que le mec qui se faufile.
+ */
 class MetalGate : public Gate {
 public:
     MetalGate(IGraph* graph, Id first, Id second) : Gate(graph, first, second) {
