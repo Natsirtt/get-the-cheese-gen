@@ -49,7 +49,7 @@ void GateViewer::draw() {
     if (mGraphViewer->isNameVisible()) {
         glColor3f(1.0, 0.0, 0.0);
         std::stringstream ss;
-        ss << g->getName() << " " << mId;
+        ss << g->getName();
         std::string s = ss.str();
         glRasterPos2f(vg.getX(), vg.getY() + 10);
         for (unsigned j = 0; j < s.size(); ++j) {

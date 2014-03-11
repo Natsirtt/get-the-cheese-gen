@@ -21,6 +21,10 @@ public:
         return (mStateOn && ((p & Perso::Yamakasi) != Perso::None)) || !mStateOn;
     }
 
+    bool canPassWithoutTrigger(Perso p) {
+        return (p & Perso::Yamakasi) != Perso::None;
+    }
+
     void changeState() {
         mStateOn = !mStateOn;
     }

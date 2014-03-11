@@ -13,7 +13,8 @@ class ObstacleChooser {
 public:
     ObstacleChooser();
 
-    IGate* choose(IGraph* graph, Id first, Id second, Perso p);
+    IGate* chooseWithoutTrigger(IGraph* graph, Id first, Id second, Perso p);
+    IGate* chooseWithTrigger(IGraph* graph, Id first, Id second, Perso p);
 
     IGate* getGateByName(IGraph* graph, Id first, Id second, std::string name);
 

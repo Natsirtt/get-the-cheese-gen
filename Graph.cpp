@@ -3,6 +3,7 @@
 #include "IGate.hpp"
 #include "ObstacleChooser.hpp"
 
+#include <iostream>
 #include <stdexcept>
 #include <fstream>
 
@@ -49,6 +50,7 @@ bool Graph::isValid() {
 
 INode* Graph::getNode(Id nid) {
     if ((nid == ID_ERROR) || (nid > mNodes.size())) {
+        std::cout << "getNode : nid invalide " << nid << std::endl;
         throw std::runtime_error("getNode : nid invalide");
     }
     return mNodes.at(nid - 1);

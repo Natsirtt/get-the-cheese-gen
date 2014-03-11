@@ -54,6 +54,11 @@ public:
      */
     virtual bool canPass(Perso p) = 0;
     /**
+     * Teste si le joueur peut passer la transition sans avoir à activer de levier.
+     * @param p Le joueur à tester.
+     */
+    virtual bool canPassWithoutTrigger(Perso p) = 0;
+    /**
      * Demande à la transition de changer d'état.
      */
     virtual void changeState() = 0;
@@ -69,6 +74,8 @@ public:
      * Modifie le noeud d'origine de la transition.
      */
     virtual void changeFirst(Id newFirst) = 0;
+
+
 protected:
     friend ObstacleChooser;
     virtual IGate* allocate(IGraph* graph, Id first, Id second) = 0;

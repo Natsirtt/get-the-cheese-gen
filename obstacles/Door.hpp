@@ -18,7 +18,11 @@ public:
     }
 
     bool canPass(Perso p) {
-        return true;
+        return mStateOn;
+    }
+
+    bool canPassWithoutTrigger(Perso p) {
+        return false;
     }
 
     void changeState() {

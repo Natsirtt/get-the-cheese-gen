@@ -18,6 +18,10 @@ public:
         return (p & Perso::Acrobate) != Perso::None;
     }
 
+    bool canPassWithoutTrigger(Perso p) {
+        return (p & Perso::Acrobate) != Perso::None;
+    }
+
     void changeState() {
     }
 

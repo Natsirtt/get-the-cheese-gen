@@ -45,15 +45,15 @@ void NodeViewer::draw() {
     if (mGraphViewer->isNameVisible()) {
         std::stringstream ss;
         if (n->getType() == NodeType::Start) {
-            ss << "Node" << mId << " Start";
+            ss << mId << " Start";
         } else if (n->getType() == NodeType::Finish) {
-            ss << "Node" << mId << " Finish";
+            ss << mId << " Finish";
         } else if (n->getType() == NodeType::Room) {
-            ss << "Node" << mId << " Room";
+            ss << mId << " Room";
         } else if (n->getType() == NodeType::Activator) {
-            ss << "Node" << mId << " Activator";
+            ss << mId << " Activator";
         }else {
-            ss << "Node" << mId << " Null";
+            ss << mId << " Null";
         }
         std::string s = ss.str();
         glColor3f(1.0, 0.0, 0.0);

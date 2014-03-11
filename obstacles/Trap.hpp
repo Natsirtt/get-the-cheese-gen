@@ -19,12 +19,15 @@ public:
     bool canPass(Perso p) {
         return true;
     }
+    bool canPassWithoutTrigger(Perso p) {
+        return true;
+    }
 
     void changeState() {
     }
 
     bool canChangeState() {
-        return true;
+        return false;
     }
     std::string getName() {
         return "Trap";

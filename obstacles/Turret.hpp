@@ -10,9 +10,6 @@ private:
     bool mStateOn;
 
 public:
-    /*Turret() : Gate(), mStateOn{true} {
-    }*/
-
     Turret(IGraph* graph, Id first, Id second) : Gate(graph, first, second), mStateOn{true} {
     }
 
@@ -22,6 +19,10 @@ public:
 
     bool canPass(Perso p) {
         return (mStateOn && ((p & Perso::Yamakasi) != Perso::None)) || !mStateOn;
+    }
+
+    bool canPassWithoutTrigger(Perso p) {
+        return (p & Perso::Yamakasi) != Perso::None;
     }
 
     void changeState() {

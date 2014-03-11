@@ -17,7 +17,9 @@ public:
     bool canPass(Perso p) {
         return true;
     }
-
+    bool canPassWithoutTrigger(Perso p) {
+        return true;
+    }
     void changeState() {
     }
 
