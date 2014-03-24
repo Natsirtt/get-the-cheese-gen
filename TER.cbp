@@ -36,6 +36,12 @@
 		<Linker>
 			<Add option="-lfreeglut -lglu32 -lopengl32 -lglew32 -lmingw32 -lSDLmain -lSDL -lSDL_image" />
 		</Linker>
+		<Unit filename="3D/Area.cpp" />
+		<Unit filename="3D/Area.hpp" />
+		<Unit filename="3D/Grid.cpp" />
+		<Unit filename="3D/Grid.hpp" />
+		<Unit filename="3D/World.cpp" />
+		<Unit filename="3D/World.hpp" />
 		<Unit filename="Enum.hpp" />
 		<Unit filename="Gate.cpp" />
 		<Unit filename="Gate.hpp" />
