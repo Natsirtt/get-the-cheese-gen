@@ -28,6 +28,8 @@ private:
     std::map<Id, std::tuple<long, long, long>> mAreaPos;
     // Tableau contenant toutes les représentations.
     std::vector<Area> mAreas;
+    // tableau des chemins dans le monde
+    std::vector<std::vector<std::tuple<long, long, long>>> mPaths;
 };
 
 #endif // WORLD_HPP

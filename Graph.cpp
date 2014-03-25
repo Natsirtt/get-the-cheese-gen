@@ -58,6 +58,7 @@ INode* Graph::getNode(Id nid) {
 
 IGate* Graph::getGate(Id gid) {
     if ((gid == ID_ERROR) || (gid > mGates.size())) {
+        std::cout << mGates.size() << std::endl;
         throw std::runtime_error("getGate : gid invalide");
     }
     return mGates.at(gid - 1);

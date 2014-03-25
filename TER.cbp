@@ -40,6 +40,8 @@
 		<Unit filename="3D/Area.hpp" />
 		<Unit filename="3D/Grid.cpp" />
 		<Unit filename="3D/Grid.hpp" />
+		<Unit filename="3D/Pathfinding.cpp" />
+		<Unit filename="3D/Pathfinding.hpp" />
 		<Unit filename="3D/World.cpp" />
 		<Unit filename="3D/World.hpp" />
 		<Unit filename="Enum.hpp" />
@@ -68,6 +70,7 @@
 		<Unit filename="ObstacleChooser.hpp" />
 		<Unit filename="Utils/Random.cpp" />
 		<Unit filename="Utils/Random.hpp" />
+		<Unit filename="Utils/Tuple.hpp" />
 		<Unit filename="Utils/Vector.cpp" />
 		<Unit filename="Utils/Vector.hpp" />
 		<Unit filename="Viewer/GateViewer.cpp" />

@@ -17,6 +17,8 @@
 #include "Gui/GuiFileWalker.hpp"
 #include "Gui/GuiButton.hpp"
 
+#include "3D/World.hpp"
+
 #define SCREEN_SIZE_X 800
 #define SCREEN_SIZE_Y 800
 
@@ -109,6 +111,9 @@ int main(int argc, char* argv[]) {
                     g.clear();
                     generator();
                     gw.reset(&g);
+                } else if (event.key.keysym.sym == SDLK_g) {
+                    World w(&g);
+                    w.build();
                 } else {
                     gui.postEvent(&event);
                     gw.postEvent(event);

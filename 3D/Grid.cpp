@@ -16,6 +16,10 @@ void Grid::set(long type, long x, long y, long z) {
     mMaxZ = std::max(mMaxZ, z);
 }
 
+long Grid::set(long type, std::tuple<long, long, long> p) {
+    set(type, std::get<0>(p), std::get<1>(p), std::get<2>(p));
+}
+
 long Grid::get(long x, long y, long z) {
     try {
         return mGrid.at(x).at(y).at(z);
@@ -23,6 +27,10 @@ long Grid::get(long x, long y, long z) {
 
     }
     return EMPTY_CELL;
+}
+
+long Grid::get(std::tuple<long, long, long> p) {
+    return get(std::get<0>(p), std::get<1>(p), std::get<2>(p));
 }
 
 void Grid::add(Grid& g, long x, long y, long z) {

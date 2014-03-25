@@ -3,8 +3,7 @@
 
 #include "Grid.hpp"
 #include <vector>
-#include <tuple>
-
+#include "../Utils/Tuple.hpp"
 /**
  * Représentation 3D d'une zone.
  */

@@ -19,6 +19,7 @@ public:
      *   type La nouvelle valeur de la case
      */
     void set(long type, long x, long y, long z);
+    long set(long type, std::tuple<long, long, long> p);
     /**
      * Renvoie la valeur d'une case.
      * @param
@@ -28,6 +29,7 @@ public:
      *   type La nouvelle valeur de la case
      */
     long get(long x, long y, long z);
+    long get(std::tuple<long, long, long> p);
     /**
      * Fusionne une grille avec la grille courante.
      * @param
