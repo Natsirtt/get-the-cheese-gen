@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Enum.hpp"
+#include "3D/Area.hpp"
 
 class IGraph;
 class ObstacleChooser;
@@ -74,7 +75,10 @@ public:
      * Modifie le noeud d'origine de la transition.
      */
     virtual void changeFirst(Id newFirst) = 0;
-
+    /**
+     * Renvoie la représentation de l'obstacle.
+     */
+    virtual Area getArea() = 0;
 
 protected:
     friend ObstacleChooser;

@@ -6,7 +6,7 @@
 
 using Cell = Pathfinding::Cell;
 
-Pathfinding::Pathfinding(Grid* grid) : mGrid{grid}, mLastDir{0, 0, 0} {
+Pathfinding::Pathfinding(Grid* grid) : mGrid{grid} {
 
 }
 
@@ -98,29 +98,27 @@ void Pathfinding::addNeighbors(Cell cell) {
         std::make_tuple(0,  0,  1),
         std::make_tuple(0,  0, -1),
         std::make_tuple(0,  1,  0),
-        std::make_tuple(0, -1,  0),
+        std::make_tuple(0, -1,  1),
         std::make_tuple(1,  0,  0),
         std::make_tuple(-1, 0,  0)
     };
     for (auto& d : dir) {
         Cell pos = cell + d;
-        if (!isInside(mClosedNodes, pos)) {
-            if ((mGrid->get(pos) == Grid::EMPTY_CELL) || ((mGrid->get(pos) != Grid::EMPTY_CELL) && (pos == mEnd))) {
-                Node n;
-                n.cout_g = mClosedNodes[cell].cout_g + distance(cell, pos);
-                    /* calcul du cout H du noeud à la destination */
-                n.cout_h = distance(pos, mEnd);
-                n.cout_f = n.cout_g + n.cout_h;
-                n.parent = cell;
+        if (!isInside(mClosedNodes, pos) && (mGrid->get(pos) == Grid::EMPTY_CELL)) {
+            Node n;
+            n.cout_g = mClosedNodes[cell].cout_g + distance(cell, pos);
+                /* calcul du cout H du noeud à la destination */
+            n.cout_h = distance(pos, mEnd);
+            n.cout_f = n.cout_g + n.cout_h;
+            n.parent = cell;
 
-                if (isInside(mOpenedNodes, pos)) {
-                    if (n.cout_f < mOpenedNodes[pos].cout_f) {
-                        /* si le nouveau chemin est meilleur, on met à jour */
-                        mOpenedNodes[pos] = n;
-                    }
-                } else {
+            if (isInside(mOpenedNodes, pos)) {
+                if (n.cout_f < mOpenedNodes[pos].cout_f){
+                    /* si le nouveau chemin est meilleur, on met à jour */
                     mOpenedNodes[pos] = n;
                 }
+            } else {
+                mOpenedNodes[pos] = n;
             }
         }
     }

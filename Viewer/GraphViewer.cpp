@@ -51,7 +51,7 @@ void GraphViewer::reset(IGraph* graph) {
     for (auto& it : shapeMap) {
         int depth = it.first;
         std::vector<Shape*>& shapes = it.second;
-        for (int i = 0; i < shapes.size(); ++i) {
+        for (unsigned int i = 0; i < shapes.size(); ++i) {
             double halfSize = ((double)shapes.size() - 1.0) / 2.0;
             double x = screenX / 2.0 + (screenX) * ((double)i - halfSize) / (double)shapes.size();
             Vector v(x, depth * yPerDepth, 0.0);

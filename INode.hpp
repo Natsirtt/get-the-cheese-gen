@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "Enum.hpp"
+#include "3D/Area.hpp"
 
 /**
  * Représente un noeud dans le réseau de pétri.
@@ -66,6 +67,10 @@ public:
      * @return ID_ERROR si aucun obstacle n'est lié.
      */
     virtual Id getLinkedGate() = 0;
+    /**
+     * Renvoie la représentation de l'obstacle.
+     */
+    virtual Area getArea() = 0;
 };
 
 #endif // INODE_HPP

@@ -53,7 +53,7 @@ void FileWalker::draw() {
     }
 
     if (isVisible()) {
-        const SDL_VideoInfo* videoInfo = SDL_GetVideoInfo();
+        //const SDL_VideoInfo* videoInfo = SDL_GetVideoInfo();
 
         // int w = (getWidth() / 2.0) * (double) videoInfo->current_w;
         // int h = (getHeight() / 2.0) * (double) videoInfo->current_h;

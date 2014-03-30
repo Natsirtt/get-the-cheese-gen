@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="GraphViewer" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/GraphViewer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/GraphViewer" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-std=c++11" />
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Linker>
+			<Add option="-lfreeglut -lglu32 -lopengl32 -lglew32" />
+		</Linker>
+		<Unit filename="3D/Grid.hpp" />
+		<Unit filename="Box.cpp" />
+		<Unit filename="Box.hpp" />
+		<Unit filename="Camera.cpp" />
+		<Unit filename="Camera.hpp" />
+		<Unit filename="Drawable.hpp" />
+		<Unit filename="Point.cpp" />
+		<Unit filename="Point.hpp" />
+		<Unit filename="Random.cpp" />
+		<Unit filename="Random.hpp" />
+		<Unit filename="Scene.cpp" />
+		<Unit filename="Scene.hpp" />
+		<Unit filename="Vector.cpp" />
+		<Unit filename="Vector.hpp" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

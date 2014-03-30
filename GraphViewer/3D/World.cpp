@@ -1,7 +1,6 @@
 #include "World.hpp"
 
 #include "../IGraph.hpp"
-#include "../INode.hpp"
 #include "../IGate.hpp"
 #include "../Utils/Random.hpp"
 #include "Pathfinding.hpp"
@@ -33,18 +32,16 @@ void World::build() {
             long x = 0;
             long y = 0;
             long z = 0;
-            Rand_Int<> rand(-20, 20);
-            Rand_Int<> randY(-5, 5);
-            for (unsigned int i = 1; i <= mGraph->getNodeCount(); ++i) {
+            Rand_Int<> rand(1, 20);
+            for (unsigned int i = 0; i < mGraph->getNodeCount(); ++i) {
                 auto now = std::chrono::high_resolution_clock::now();
                 bool added = false;
                 int tryCount = 0;
-                INode* node = mGraph->getNode(i);
                 while ((!added) && (tryCount < 1000)) {
-                    added = addNode(node, x, y, z);
                     x += rand();
-                    y += randY();
+                    y += rand();
                     z += rand();
+                    added = addNode(i, x, y, z);
                     tryCount++;
                 }
                 if (!added) {
@@ -70,7 +67,7 @@ void World::build() {
                 z = (std::get<2>(pos1) + std::get<2>(pos2)) / 2;
 
                 while ((!added) && (tryCount < 1000)) {
-                    added = addGate(gate, x, y, z);
+                    added = addGate(i, x, y, z);
                     x += rand();
                     y += rand();
                     z += rand();
@@ -88,37 +85,30 @@ void World::build() {
             for (unsigned int gid = 1; gid <= mGraph->getGateCount(); ++gid) {
                 std::cout << "Chemin " << gid << "/" << mGraph->getGateCount() << std::endl;
                 IGate* gate = mGraph->getGate(gid);
-                Id agid = mGateArea.at(gid);
+                Id agid = mGateArea[gid];
+
                 Id nid1 = gate->getFirstNode();
-                Id anid1 = mNodeArea.at(nid1);
+                Id anid1 = mNodeArea[nid1];
                 Id nid2 = gate->getSecondNode();
-                Id anid2 = mNodeArea.at(nid2);
+                Id anid2 = mNodeArea[nid2];
 
-                std::tuple<long, long, long> pos1 = mAreaPos.at(anid1) + mAreas.at(anid1).getNextOutCell();
-                std::tuple<long, long, long> pos2 = mAreaPos.at(agid) + mAreas.at(agid).getNextInCell();
-                std::tuple<long, long, long> pos3 = mAreaPos.at(agid) + mAreas.at(agid).getNextOutCell();
-                std::tuple<long, long, long> pos4 = mAreaPos.at(anid2) + mAreas.at(anid2).getNextInCell();
+                std::tuple<long, long, long> pos1 = mAreaPos[anid1] + mAreas[anid1].getNextOutCell();
+                std::tuple<long, long, long> pos2 = mAreaPos[agid] + mAreas[agid].getNextInCell();
+                std::tuple<long, long, long> pos3 = mAreaPos[agid] + mAreas[agid].getNextOutCell();
+                std::tuple<long, long, long> pos4 = mAreaPos[anid2] + mAreas[anid2].getNextInCell();
 
-                try {
-                    std::vector<std::tuple<long, long, long>> p = pf.getPath(pos1, pos2);
-                    for (auto& c : p) {
-                        mGrid.set(gid + 1, c);
-                    }
-                    mPaths.push_back(p);
-                    p = pf.getPath(pos3, pos4);
-                    for (auto& c : p) {
-                        mGrid.set(gid + 1, c);
-                    }
-                    mPaths.push_back(p);
-                } catch (const std::exception& e) {
-                    std::cout << e.what() << std::endl;
-                    throw std::runtime_error("Erreur lors de la création d'un chemin");
+                std::vector<std::tuple<long, long, long>> p = pf.getPath(pos1, pos2);
+                for (auto& c : p) {
+                    mGrid.set(1, c);
                 }
+                mPaths.push_back(p);
+                p = pf.getPath(pos3, pos4);
+                mPaths.push_back(p);
             }
             std::cout << "Fin du pathfinding" << std::endl;
             success = true;
         } catch (const std::exception& e) {
-            std::cout << e.what() << std::endl;
+            std::cerr << e.what() << std::endl;
             throw std::runtime_error("Impossible de générer un niveau à partir du graphe.");
         }
         tryCount++;
@@ -131,26 +121,26 @@ void World::build() {
     }
 }
 
-bool World::addNode(INode* n, long x, long y, long z) {
-    Area a = n->getArea();
+bool World::addNode(Id nid, long x, long y, long z) {
+    Area a;
     if (mGrid.canAdd(a.getGrid(), x, y, z)) {
         mGrid.add(a.getGrid(), x, y, z);
         mAreas.push_back(a);
         Id aid = mAreas.size() - 1;
-        mNodeArea[n->getID()] = aid;
+        mNodeArea[nid] = aid;
         mAreaPos[aid] = std::make_tuple(x, y ,z);
         return true;
     }
     return false;
 }
 
-bool World::addGate(IGate* g, long x, long y, long z) {
-    Area a = g->getArea();
+bool World::addGate(Id gid, long x, long y, long z) {
+    Area a;
     if (mGrid.canAdd(a.getGrid(), x, y, z)) {
         mGrid.add(a.getGrid(), x, y, z);
         mAreas.push_back(a);
         Id aid = mAreas.size() - 1;
-        mGateArea[g->getID()] = aid;
+        mGateArea[gid] = aid;
         mAreaPos[aid] = std::make_tuple(x, y ,z);
         return true;
     }

@@ -54,3 +54,7 @@ std::string Gate::getName() {
 void Gate::changeFirst(Id newFirst) {
     mFirst = newFirst;
 }
+
+Area Gate::getArea() {
+    return Area();
+}

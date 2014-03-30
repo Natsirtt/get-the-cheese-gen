@@ -71,3 +71,29 @@ void Node::linkGate(Id gid) {
 Id Node::getLinkedGate() {
     return mGate;
 }
+
+Area Node::getArea() {
+    try {
+        switch(std::max((int)mGates.size() / 2, 1)) {
+        case 1:
+            return Area("Area/Room1.area");
+            break;
+        case 2:
+            return Area("Area/Room2.area");
+            break;
+        case 3:
+            return Area("Area/Room3.area");
+            break;
+        case 4:
+            return Area("Area/Room4.area");
+            break;
+        default:
+            return Area();
+        }
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        throw std::runtime_error("Erreur lors du chargement de la représentation d'un noeud");
+    }
+
+    return Area();
+}

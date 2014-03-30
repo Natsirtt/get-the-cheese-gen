@@ -6,8 +6,6 @@
 #include "Area.hpp"
 
 class IGraph;
-class INode;
-class IGate;
 
 class World {
 public:
@@ -16,8 +14,8 @@ public:
     void build();
 
 private:
-    bool addNode(INode* n, long x, long y, long z);
-    bool addGate(IGate* g, long x, long y, long z);
+    bool addNode(Id nid, long x, long y, long z);
+    bool addGate(Id nid, long x, long y, long z);
 
     IGraph* mGraph;
     Grid mGrid;

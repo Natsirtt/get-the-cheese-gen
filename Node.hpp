@@ -65,6 +65,11 @@ public:
      * @return ID_ERROR si aucun obstacle n'est lié.
      */
     virtual Id getLinkedGate();
+    /**
+     * Renvoie la représentation de l'obstacle.
+     */
+    virtual Area getArea();
+
 private:
     IGraph* mGraph;
     Id mId;

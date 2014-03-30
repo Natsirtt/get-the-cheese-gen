@@ -7,7 +7,7 @@ Grid::Grid() : mMinX{}, mMaxX{}, mMinY{}, mMaxY{}, mMinZ{}, mMaxZ{}, mCellsCount
 
 
 void Grid::set(long type, long x, long y, long z) {
-    if (mGrid[x][y][z] == EMPTY_CELL) {
+    if (mGrid[x][y][z] != EMPTY_CELL) {
         mCellsCount++;
     }
     mGrid[x][y][z] = type;

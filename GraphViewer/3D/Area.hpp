@@ -44,10 +44,6 @@ public:
 
     void save(std::string filename);
 
-    void addInCell(std::tuple<long, long, long> in);
-    void addOutCell(std::tuple<long, long, long> out);
-
-
 private:
     Grid mGrid;
     unsigned int mCurrentInCell;

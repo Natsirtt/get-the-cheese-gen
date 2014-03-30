@@ -76,6 +76,11 @@ public:
      * Modifie le noeud d'origine de la transition.
      */
     virtual void changeFirst(Id newFirst);
+    /**
+     * Renvoie la représentation de l'obstacle.
+     */
+    virtual Area getArea();
+
 protected:
     friend ObstacleChooser;
     Gate() : mGraph{nullptr}, mId{0}, mFirst{0}, mSecond{0} {};

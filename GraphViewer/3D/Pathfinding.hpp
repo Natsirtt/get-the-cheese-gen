@@ -58,8 +58,6 @@ private:
     std::map<Cell, Node> mClosedNodes;
     Cell mStart;
     Cell mEnd;
-
-    Cell mLastDir;
 };
 
 #endif // PATHFINDING_HPP
