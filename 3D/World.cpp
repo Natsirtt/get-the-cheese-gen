@@ -94,12 +94,9 @@ void World::build() {
                 Id nid2 = gate->getSecondNode();
                 Id anid2 = mNodeArea.at(nid2);
 
-                std::cout << nid1 << std::endl;
                 std::tuple<long, long, long> pos1 = mAreaPos.at(anid1) + mAreas.at(anid1).getNextOutCell();
-                std::cout << gid << std::endl;
                 std::tuple<long, long, long> pos2 = mAreaPos.at(agid) + mAreas.at(agid).getNextInCell();
                 std::tuple<long, long, long> pos3 = mAreaPos.at(agid) + mAreas.at(agid).getNextOutCell();
-                std::cout << nid2 << std::endl;
                 std::tuple<long, long, long> pos4 = mAreaPos.at(anid2) + mAreas.at(anid2).getNextInCell();
 
                 try {

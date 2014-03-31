@@ -35,7 +35,6 @@ Area::Area(const char* filename) : mCurrentInCell{}, mCurrentOutCell{} {
         file >> x >> y >> z >> t;
         mGrid.set(t, x, y, z);
     }
-    std::cout << "filename " << mInCells.size() << " " << mOutCells.size() << std::endl;
 }
 
 Area::Area(std::string filename) : mCurrentInCell{}, mCurrentOutCell{} {
@@ -62,7 +61,6 @@ Area::Area(std::string filename) : mCurrentInCell{}, mCurrentOutCell{} {
         file >> x >> y >> z >> t;
         mGrid.set(t, x, y, z);
     }
-    std::cout << "filename " << mInCells.size() << " " << mOutCells.size() << std::endl;
 }
 
 std::tuple<long, long, long> Area::getNextInCell() {
