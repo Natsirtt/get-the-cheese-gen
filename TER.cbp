@@ -29,6 +29,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-lfreeglut -lglu32 -lopengl32 -lglew32 -lmingw32 -lSDLmain -lSDL -lSDL_image" />
 				</Linker>
 			</Target>
 			<Target title="Linux">
