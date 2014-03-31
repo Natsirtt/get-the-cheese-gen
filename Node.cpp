@@ -74,17 +74,25 @@ Id Node::getLinkedGate() {
 
 Area Node::getArea() {
     try {
-        switch(std::max((int)mGates.size() / 2, 1)) {
+        int count = mGates.size() / 2;
+        if (mGates.size() % 2 != 0) {
+            count++;
+        }
+        switch(count) {
         case 1:
+            std::cout << "Area1" << std::endl;
             return Area("Area/Room1.area");
             break;
         case 2:
+            std::cout << "Area2" << std::endl;
             return Area("Area/Room2.area");
             break;
         case 3:
+            std::cout << "Area3" << std::endl;
             return Area("Area/Room3.area");
             break;
         case 4:
+            std::cout << "Area4" << std::endl;
             return Area("Area/Room4.area");
             break;
         default:

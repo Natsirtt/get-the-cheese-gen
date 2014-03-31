@@ -33,6 +33,9 @@ public:
     std::string getName() {
         return "Laser";
     }
+    Area getArea() {
+        return Area("Area/Laser.area");
+    }
 private:
     friend ObstacleChooser;
     Laser() : Gate() {

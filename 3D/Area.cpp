@@ -1,17 +1,41 @@
 #include "Area.hpp"
 
+#include <iostream>
 #include <fstream>
 
-Area::Area() : mCurrentInCell{}, mCurrentOutCell{} {
-    mGrid.set(1, 0, 0, 0);
-    mInCells.push_back(std::make_tuple(0, 0, -1));
-    mOutCells.push_back(std::make_tuple(0, 0, 1));
-    for (auto& t : mInCells) {
-        mGrid.set(1, t);
+Area::Area(bool defaut) : mCurrentInCell{}, mCurrentOutCell{} {
+    if (defaut) {
+        mGrid.set(1, 0, 0, 0);
+        addInCell(std::make_tuple(0, 0, -1));
+        addOutCell(std::make_tuple(0, 0, 1));
     }
-    for (auto& t : mOutCells) {
-        mGrid.set(1, t);
+}
+
+Area::Area(const char* filename) : mCurrentInCell{}, mCurrentOutCell{} {
+    std::fstream file(filename, std::fstream::in);
+
+    if (!file.is_open()) {
+        throw std::runtime_error("Impossible d'ouvrir le fichier de représentation");
     }
+
+    int nbIn = 0;
+    int nbOut = 0;
+    int nbCell = 0;
+    file >> nbIn >> nbOut >> nbCell;
+    long x, y, z, t;
+    for (int i = 0; i < nbIn; ++i) {
+        file >> x >> y >> z;
+        addInCell(std::make_tuple(x, y, z));
+    }
+    for (int i = 0; i < nbOut; ++i) {
+        file >> x >> y >> z;
+        addOutCell(std::make_tuple(x, y, z));
+    }
+    for (int i = 0; i < nbCell; ++i) {
+        file >> x >> y >> z >> t;
+        mGrid.set(t, x, y, z);
+    }
+    std::cout << "filename " << mInCells.size() << " " << mOutCells.size() << std::endl;
 }
 
 Area::Area(std::string filename) : mCurrentInCell{}, mCurrentOutCell{} {
@@ -28,27 +52,24 @@ Area::Area(std::string filename) : mCurrentInCell{}, mCurrentOutCell{} {
     long x, y, z, t;
     for (int i = 0; i < nbIn; ++i) {
         file >> x >> y >> z;
-        mInCells.push_back(std::make_tuple(x, y, z));
+        addInCell(std::make_tuple(x, y, z));
     }
     for (int i = 0; i < nbOut; ++i) {
         file >> x >> y >> z;
-        mOutCells.push_back(std::make_tuple(x, y, z));
+        addOutCell(std::make_tuple(x, y, z));
     }
     for (int i = 0; i < nbCell; ++i) {
         file >> x >> y >> z >> t;
         mGrid.set(t, x, y, z);
     }
-    for (auto& t : mInCells) {
-        mGrid.set(1, t);
-    }
-    for (auto& t : mOutCells) {
-        mGrid.set(1, t);
-    }
+    std::cout << "filename " << mInCells.size() << " " << mOutCells.size() << std::endl;
 }
 
 std::tuple<long, long, long> Area::getNextInCell() {
     if (hasInCellLeft()) {
-        return mInCells.at(mCurrentInCell++);
+        auto t = mInCells.at(mCurrentInCell);
+        mCurrentInCell++;
+        return t;
     }
     std::cout << "Entrée " << mCurrentInCell << "/" << mInCells.size() << std::endl;
     throw std::runtime_error("Impossible de trouver une nouvelle entrée");
@@ -60,7 +81,9 @@ bool Area::hasInCellLeft() {
 
 std::tuple<long, long, long> Area::getNextOutCell() {
     if (hasOutCellLeft()) {
-        return mOutCells.at(mCurrentOutCell++);
+        auto t = mOutCells.at(mCurrentOutCell);
+        mCurrentOutCell++;
+        return t;
     }
     std::cout << "Sortie " << mCurrentOutCell << "/" << mOutCells.size() << std::endl;
     throw std::runtime_error("Impossible de trouver une nouvelle sortie");

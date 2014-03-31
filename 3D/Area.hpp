@@ -12,7 +12,8 @@
  */
 class Area {
 public:
-    Area();
+    Area(bool defaut = true);
+    Area(const char* filename);
     Area(std::string filename);
     Area(const Area& a) = default;
     Area& operator=(const Area& a) = default;
