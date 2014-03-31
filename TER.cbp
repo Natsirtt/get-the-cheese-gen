@@ -12,8 +12,12 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add option="-lfreeglut -lglu32 -lopengl32 -lglew32 -lmingw32 -lSDLmain -lSDL -lSDL_image" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/TER" prefix_auto="1" extension_auto="1" />
@@ -27,15 +31,26 @@
 					<Add option="-s" />
 				</Linker>
 			</Target>
+			<Target title="Linux">
+				<Option output="bin/Linux/TER" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Linux/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-lglut -lGLU -lGL -lGLEW -lSDL -lSDL_image" />
+				</Linker>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Linker>
-			<Add option="-lfreeglut -lglu32 -lopengl32 -lglew32 -lmingw32 -lSDLmain -lSDL -lSDL_image" />
-		</Linker>
 		<Unit filename="3D/Area.cpp" />
 		<Unit filename="3D/Area.hpp" />
 		<Unit filename="3D/Grid.cpp" />
