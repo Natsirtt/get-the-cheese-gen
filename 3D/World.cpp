@@ -20,7 +20,7 @@ void World::build() {
     bool success = false;
 
     while (!success && (tryCount < 50)) {
-        std::cout << "essaie " << tryCount << std::endl;
+        std::cout << "essaie " << tryCount + 1 << std::endl;
         try {
             mGrid = Grid();
 
@@ -119,12 +119,14 @@ void World::build() {
             success = true;
         } catch (const std::exception& e) {
             std::cout << e.what() << std::endl;
-            throw std::runtime_error("Impossible de générer un niveau à partir du graphe.");
+            if (tryCount >= 50) {
+                throw std::runtime_error("Impossible de générer un niveau à partir du graphe."); // 1] on ne lance une exception ici que si le nombre d'essais est atteind
+            }
         }
         tryCount++;
     }
     if (!success) {
-        throw std::runtime_error("Impossible de générer un niveau à partir du graphe: nombre de tentatives atteind");
+        throw std::runtime_error("Impossible de générer un niveau à partir du graphe: nombre de tentatives atteind"); //Redondant avec 1] ?
     } else {
         std::fstream file("temp.g3d", std::fstream::out | std::fstream::trunc);
         file << mGrid;
