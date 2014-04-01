@@ -4,11 +4,12 @@
 #include <GL/glut.h>
 
 int stringSizeX(std::string text) {
-    int res = 0;
+    /*int res = 0;
     for (auto& c : text) {
         res += 8;
     }
-    return res;
+    return res;*/
+    return 8 * text.size();
 }
 
 int stringSizeY(std::string text) {

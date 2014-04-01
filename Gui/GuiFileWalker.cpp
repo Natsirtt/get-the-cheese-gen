@@ -138,7 +138,7 @@ void FileWalker::postEvent(SDL_Event* e) {
         if ((newX >= bXmin) && (newX <= bXmax) && (newY >= bYmin)
                 && (newY <= bYmax) && (isActive())) {
             double dy = newY - bYmin;
-            int index = dy / size;
+            unsigned int index = dy / size;
             if ((index < mFiles.size()) && (index >= 0)) {
                 mSelected = mFiles.size() - 1 - index;
                 action();
@@ -165,5 +165,5 @@ double FileWalker::getHeight() {
 }
 
 bool FileWalker::isValid() {
-    return (mSelected >= 0) && (mSelected < mFiles.size());
+    return (mSelected >= 0) && ((unsigned int) mSelected < mFiles.size());
 }
