@@ -21,3 +21,5 @@ obj
 *.depend
 *.gra
 
+*.g3d
+
