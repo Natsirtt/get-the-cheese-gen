@@ -1,7 +1,7 @@
 #ifndef WORLD_HPP
 #define WORLD_HPP
 
-#include "../Enum.hpp"
+#include "../../Enum.hpp"
 #include "Grid.hpp"
 #include "Area.hpp"
 

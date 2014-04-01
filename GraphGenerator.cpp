@@ -122,7 +122,7 @@ void GraphGenerator::addObstacles() {
         IGate* rGate = mGraph->getGate(gid);
         // On récupére les deux noeuds entre lesquelle on ajoute une porte
         Id first = rGate->getFirstNode();
-        INode* n1 = mGraph->getNode(first);
+        //INode* n1 = mGraph->getNode(first);
         Id second = rGate->getSecondNode();
         INode* n2 = mGraph->getNode(second);
         // On ajoute un nouveau noed vide

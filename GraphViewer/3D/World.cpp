@@ -1,8 +1,8 @@
 #include "World.hpp"
 
-#include "../IGraph.hpp"
-#include "../IGate.hpp"
-#include "../Utils/Random.hpp"
+#include "../../IGraph.hpp"
+#include "../../IGate.hpp"
+#include "../../Utils/Random.hpp"
 #include "Pathfinding.hpp"
 
 #include <iostream>

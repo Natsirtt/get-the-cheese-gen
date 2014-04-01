@@ -19,6 +19,8 @@
 
 #include "3D/World.hpp"
 
+#include "T3D/T3DExporter.hpp"
+
 #define SCREEN_SIZE_X 800
 #define SCREEN_SIZE_Y 800
 
@@ -93,10 +95,10 @@ int main(int argc, char* argv[]) {
     SDL_Event event;
     while (running) {
         SDL_WaitEvent(&event);
-        // On traite l'évènement
+        // On traite l'Ã©vÃ¨nement
         switch (event.type) {
             case SDL_QUIT:
-                // On a fermé la fenetre
+                // On a fermÃ© la fenetre
                 running = false;
                 break;
             case SDL_VIDEORESIZE:
@@ -114,6 +116,9 @@ int main(int argc, char* argv[]) {
                 } else if (event.key.keysym.sym == SDLK_g) {
                     World w(&g);
                     w.build();
+                    T3DExporter *exporter = new T3DExporter(&w);
+                    exporter->exportT3D("result.t3d");
+                    delete exporter;
                 } else {
                     gui.postEvent(&event);
                     gw.postEvent(event);
@@ -124,7 +129,7 @@ int main(int argc, char* argv[]) {
                 gw.postEvent(event);
                 break;
         }
-        // On met à jour
+        // On met Ã  jour
         gw.update(0);
         // On dessine
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

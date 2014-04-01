@@ -12,7 +12,7 @@ class IGate;
 class World {
 public:
     World(IGraph* graph);
-
+    Grid *getGrid();
     void build();
 
 private:

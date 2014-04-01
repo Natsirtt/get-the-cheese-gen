@@ -1,0 +1,380 @@
+Begin Map Name=Untitled_2
+   Begin MapPackage
+      Begin TopLevelPackage Class=Package Name=Untitled_2 Archetype=Package'Core.Default__Package'
+         Name="Untitled_2"
+         ObjectArchetype=Package'Core.Default__Package'
+      End TopLevelPackage
+      Begin PackageTexture ParentPackage=Untitled_2
+         Begin Texture Class=ShadowMapTexture2D Name=ShadowMapTexture2D_9 ObjName=ShadowMapTexture2D_9 Archetype=ShadowMapTexture2D'Engine.Default__ShadowMapTexture2D'
+            ShadowmapFlags=1
+            SizeX=256
+            SizeY=256
+            Format=PF_G8
+            MipTailBaseIdx=8
+            SRGB=False
+            Name="ShadowMapTexture2D_9"
+            ObjectArchetype=ShadowMapTexture2D'Engine.Default__ShadowMapTexture2D'
+            Begin TextureData
+               Version=0.0
+               SRGB=False
+               RGBE=False
+               UnpackMin=(0.000000,0.000000,0.000000,0.000000)
+               UnpackMax=(1.000000,1.000000,1.000000,1.000000)
+               CompressionNoAlpha=False
+               CompressionNone=False
+               CompressionFullDynamicRange=False
+               DeferCompression=False
+               NeverStream=False
+               bDitherMipMapAlpha=False
+               bPreserveBorderR=False
+               bPreserveBorderG=False
+               bPreserveBorderB=False
+               bPreserveBorderA=False
+               bNoTiling=False
+               CompressionSettings=TC_Default
+               Filter=TF_Linear
+               LODGroup=TEXTUREGROUP_Shadowmap
+               LODBias=0
+               SourceFilePath=
+               SourceFileTimestamp=
+               Begin SourceArt
+                  Begin UntypedBulkData
+                     ElementCount=0
+                     ElementSize=1
+                     Begin BinaryBlob
+                        Size=0
+                        Begin Binary
+                        End Binary
+                     End BinaryBlob
+                  End UntypedBulkData
+               End SourceArt
+               Begin Texture2DData
+                  SizeX=256
+                  SizeY=256
+                  Format=G8
+                  AddressX=TA_Wrap
+                  AddressY=TA_Wrap
+                  bGlobalForceMipLevelsToBeResident=False
+                  MipTailBaseIdx=8
+               End Texture2DData
+            End TextureData
+         End Texture
+      End PackageTexture
+      Begin PackageTexture ParentPackage=Untitled_2
+         Begin Texture Class=ShadowMapTexture2D Name=ShadowMapTexture2D_8 ObjName=ShadowMapTexture2D_8 Archetype=ShadowMapTexture2D'Engine.Default__ShadowMapTexture2D'
+            ShadowmapFlags=1
+            SizeX=1024
+            SizeY=1024
+            Format=PF_G8
+            MipTailBaseIdx=10
+            SRGB=False
+            Name="ShadowMapTexture2D_8"
+            ObjectArchetype=ShadowMapTexture2D'Engine.Default__ShadowMapTexture2D'
+            Begin TextureData
+               Version=0.0
+               SRGB=False
+               RGBE=False
+               UnpackMin=(0.000000,0.000000,0.000000,0.000000)
+               UnpackMax=(1.000000,1.000000,1.000000,1.000000)
+               CompressionNoAlpha=False
+               CompressionNone=False
+               CompressionFullDynamicRange=False
+               DeferCompression=False
+               NeverStream=False
+               bDitherMipMapAlpha=False
+               bPreserveBorderR=False
+               bPreserveBorderG=False
+               bPreserveBorderB=False
+               bPreserveBorderA=False
+               bNoTiling=False
+               CompressionSettings=TC_Default
+               Filter=TF_Linear
+               LODGroup=TEXTUREGROUP_Shadowmap
+               LODBias=0
+               SourceFilePath=
+               SourceFileTimestamp=
+               Begin SourceArt
+                  Begin UntypedBulkData
+                     ElementCount=0
+                     ElementSize=1
+                     Begin BinaryBlob
+                        Size=0
+                        Begin Binary
+                        End Binary
+                     End BinaryBlob
+                  End UntypedBulkData
+               End SourceArt
+               Begin Texture2DData
+                  SizeX=1024
+                  SizeY=1024
+                  Format=G8
+                  AddressX=TA_Wrap
+                  AddressY=TA_Wrap
+                  bGlobalForceMipLevelsToBeResident=False
+                  MipTailBaseIdx=10
+               End Texture2DData
+            End TextureData
+         End Texture
+      End PackageTexture
+   End MapPackage
+   Begin Level NAME=PersistentLevel
+      Begin Actor Class=WorldInfo Name=WorldInfo_0 Archetype=WorldInfo'Engine.Default__WorldInfo'
+         Begin Object Class=BookMark Name=BookMark_2
+            Location=(X=-554.017822,Y=-585.745422,Z=390.562225)
+            Rotation=(Pitch=-2410,Yaw=-56992,Roll=0)
+            Name="BookMark_2"
+            ObjectArchetype=BookMark'Engine.Default__BookMark'
+         End Object
+         DefaultPostProcessSettings=(bOverride_Scene_ImageGrainScale=True,bOverride_Scene_ColorGradingLUT=True,Bloom_Scale=0.500000,Bloom_ScreenBlendThreshold=50000.000000,DOF_BlurBloomKernelSize=200.000000,DOF_BlurKernelSize=8.000000,Scene_ImageGrainScale=0.010000,ColorGrading_LookupTable=Texture2D'MapTemplates.lut.LUT_Daytime')
+         bFogEnabled=True
+         bUseGammaCorrection=True
+         bMapNeedsLightingFullyRebuilt=True
+         bPathsRebuilt=True
+         FogStart=1024.000000
+         FogEnd=40000.000000
+         FogColor=(B=239,G=226,R=213,A=192)
+         BookMarks(1)=BookMark'BookMark_2'
+         LevelLightingQuality=Quality_Production
+         CharacterLitIndirectBrightness=1.700000
+         LightmassSettings=(EnvironmentColor=(B=255,G=218,R=176,A=0),DiffuseBoost=1.000000,bUseAmbientOcclusion=True,OcclusionExponent=1.500000,MaxOcclusionDistance=400.000000)
+         KillZ=0.000000
+         Tag="WorldInfo"
+         Name="WorldInfo_0"
+         ObjectArchetype=WorldInfo'Engine.Default__WorldInfo'
+      End Actor
+      Begin Actor Class=Brush Name=Brush_0 Archetype=Brush'Engine.Default__Brush'
+         Begin Object Class=BrushComponent Name=BrushComponent0 ObjName=BrushComponent_0 Archetype=BrushComponent'Engine.Default__Brush:BrushComponent0'
+            Brush=Model'Brush'
+            ReplacementPrimitive=None
+            LightingChannels=(bInitialized=True,Dynamic=True)
+            Name="BrushComponent_0"
+            ObjectArchetype=BrushComponent'Engine.Default__Brush:BrushComponent0'
+         End Object
+         Begin Brush Name=Brush
+            Begin PolyList
+               Begin Polygon Texture=EngineMaterials.DefaultMaterial Flags=3584
+                  Origin   -00128.000000,-00128.000000,-00128.000000
+                  Normal   -00001.000000,+00000.000000,+00000.000000
+                  TextureU +00000.000000,+00001.000000,+00000.000000
+                  TextureV +00000.000000,+00000.000000,-00001.000000
+                  Vertex   -00128.000000,-00128.000000,-00128.000000
+                  Vertex   -00128.000000,-00128.000000,+00128.000000
+                  Vertex   -00128.000000,+00128.000000,+00128.000000
+                  Vertex   -00128.000000,+00128.000000,-00128.000000
+               End Polygon
+               Begin Polygon Texture=EngineMaterials.DefaultMaterial Flags=3584
+                  Origin   -00128.000000,+00128.000000,-00128.000000
+                  Normal   +00000.000000,+00001.000000,+00000.000000
+                  TextureU +00001.000000,-00000.000000,+00000.000000
+                  TextureV +00000.000000,+00000.000000,-00001.000000
+                  Vertex   -00128.000000,+00128.000000,-00128.000000
+                  Vertex   -00128.000000,+00128.000000,+00128.000000
+                  Vertex   +00128.000000,+00128.000000,+00128.000000
+                  Vertex   +00128.000000,+00128.000000,-00128.000000
+               End Polygon
+               Begin Polygon Texture=EngineMaterials.DefaultMaterial Flags=3584
+                  Origin   +00128.000000,+00128.000000,-00128.000000
+                  Normal   +00001.000000,+00000.000000,+00000.000000
+                  TextureU +00000.000000,-00001.000000,+00000.000000
+                  TextureV +00000.000000,+00000.000000,-00001.000000
+                  Vertex   +00128.000000,+00128.000000,-00128.000000
+                  Vertex   +00128.000000,+00128.000000,+00128.000000
+                  Vertex   +00128.000000,-00128.000000,+00128.000000
+                  Vertex   +00128.000000,-00128.000000,-00128.000000
+               End Polygon
+               Begin Polygon Texture=EngineMaterials.DefaultMaterial Flags=3584
+                  Origin   +00128.000000,-00128.000000,-00128.000000
+                  Normal   +00000.000000,-00001.000000,+00000.000000
+                  TextureU -00001.000000,-00000.000000,-00000.000000
+                  TextureV +00000.000000,+00000.000000,-00001.000000
+                  Vertex   +00128.000000,-00128.000000,-00128.000000
+                  Vertex   +00128.000000,-00128.000000,+00128.000000
+                  Vertex   -00128.000000,-00128.000000,+00128.000000
+                  Vertex   -00128.000000,-00128.000000,-00128.000000
+               End Polygon
+               Begin Polygon Texture=EngineMaterials.DefaultMaterial Flags=3584
+                  Origin   -00128.000000,+00128.000000,+00128.000000
+                  Normal   +00000.000000,+00000.000000,+00001.000000
+                  TextureU +00001.000000,+00000.000000,+00000.000000
+                  TextureV +00000.000000,+00001.000000,+00000.000000
+                  Vertex   -00128.000000,+00128.000000,+00128.000000
+                  Vertex   -00128.000000,-00128.000000,+00128.000000
+                  Vertex   +00128.000000,-00128.000000,+00128.000000
+                  Vertex   +00128.000000,+00128.000000,+00128.000000
+               End Polygon
+               Begin Polygon Texture=EngineMaterials.DefaultMaterial Flags=3584
+                  Origin   -00128.000000,-00128.000000,-00128.000000
+                  Normal   +00000.000000,+00000.000000,-00001.000000
+                  TextureU +00001.000000,+00000.000000,+00000.000000
+                  TextureV +00000.000000,-00001.000000,+00000.000000
+                  Vertex   -00128.000000,-00128.000000,-00128.000000
+                  Vertex   -00128.000000,+00128.000000,-00128.000000
+                  Vertex   +00128.000000,+00128.000000,-00128.000000
+                  Vertex   +00128.000000,-00128.000000,-00128.000000
+               End Polygon
+            End PolyList
+         End Brush
+         Brush=Model'Brush'
+         BrushComponent=BrushComponent'BrushComponent_0'
+         Components(0)=BrushComponent'BrushComponent_0'
+         Location=(X=0.000000,Y=0.000000,Z=128.000000)
+         bHidden=False
+         Tag="Brush"
+         Layer="Cube"
+         CollisionComponent=BrushComponent'BrushComponent_0'
+         Name="Brush_0"
+         ObjectArchetype=Brush'Engine.Default__Brush'
+      End Actor
+      Begin Actor Class=PlayerStart Name=PlayerStart_0 Archetype=PlayerStart'Engine.Default__PlayerStart'
+         Begin Object Class=CylinderComponent Name=CollisionCylinder ObjName=CylinderComponent_6 Archetype=CylinderComponent'Engine.Default__PlayerStart:CollisionCylinder'
+            CollisionHeight=80.000000
+            CollisionRadius=40.000000
+            ReplacementPrimitive=None
+            LightingChannels=(bInitialized=True,Dynamic=True)
+            Name="CylinderComponent_6"
+            ObjectArchetype=CylinderComponent'Engine.Default__PlayerStart:CollisionCylinder'
+         End Object
+         Begin Object Class=SpriteComponent Name=Sprite ObjName=SpriteComponent_0 Archetype=SpriteComponent'Engine.Default__PlayerStart:Sprite'
+            Sprite=Texture2D'EditorResources.S_Player'
+            SpriteCategoryName="PlayerStart"
+            ReplacementPrimitive=None
+            HiddenGame=True
+            AlwaysLoadOnClient=False
+            AlwaysLoadOnServer=False
+            LightingChannels=(bInitialized=True,Dynamic=True)
+            Name="SpriteComponent_0"
+            ObjectArchetype=SpriteComponent'Engine.Default__PlayerStart:Sprite'
+         End Object
+         Begin Object Class=SpriteComponent Name=Sprite2 ObjName=SpriteComponent_1 Archetype=SpriteComponent'Engine.Default__PlayerStart:Sprite2'
+            Sprite=Texture2D'EditorResources.Bad'
+            SpriteCategoryName="Navigation"
+            ReplacementPrimitive=None
+            HiddenGame=True
+            HiddenEditor=True
+            AlwaysLoadOnClient=False
+            AlwaysLoadOnServer=False
+            LightingChannels=(bInitialized=True,Dynamic=True)
+            Scale=0.250000
+            Name="SpriteComponent_1"
+            ObjectArchetype=SpriteComponent'Engine.Default__PlayerStart:Sprite2'
+         End Object
+         Begin Object Class=ArrowComponent Name=Arrow ObjName=ArrowComponent_0 Archetype=ArrowComponent'Engine.Default__PlayerStart:Arrow'
+            ArrowColor=(B=255,G=200,R=150,A=255)
+            ArrowSize=0.500000
+            bTreatAsASprite=True
+            SpriteCategoryName="Navigation"
+            ReplacementPrimitive=None
+            LightingChannels=(bInitialized=True,Dynamic=True)
+            Name="ArrowComponent_0"
+            ObjectArchetype=ArrowComponent'Engine.Default__PlayerStart:Arrow'
+         End Object
+         Begin Object Class=PathRenderingComponent Name=PathRenderer ObjName=PathRenderingComponent_0 Archetype=PathRenderingComponent'Engine.Default__PlayerStart:PathRenderer'
+            ReplacementPrimitive=None
+            LightingChannels=(bInitialized=True,Dynamic=True)
+            Name="PathRenderingComponent_0"
+            ObjectArchetype=PathRenderingComponent'Engine.Default__PlayerStart:PathRenderer'
+         End Object
+         CylinderComponent=CylinderComponent'CylinderComponent_6'
+         NavGuid=(A=427422145,B=1298469891,C=2083868597,D=-1966284205)
+         NetworkID=0
+         Components(0)=SpriteComponent'SpriteComponent_0'
+         Components(1)=SpriteComponent'SpriteComponent_1'
+         Components(2)=ArrowComponent'ArrowComponent_0'
+         Components(3)=CylinderComponent'CylinderComponent_6'
+         Components(4)=PathRenderingComponent'PathRenderingComponent_0'
+         Location=(X=-96.000000,Y=-1152.000000,Z=80.000000)
+         Rotation=(Pitch=0,Yaw=20480,Roll=0)
+         Base=StaticMeshActor'StaticMeshActor_3'
+         Tag="PlayerStart"
+         CollisionComponent=CylinderComponent'CylinderComponent_6'
+         Name="PlayerStart_0"
+         ObjectArchetype=PlayerStart'Engine.Default__PlayerStart'
+      End Actor
+      Begin Actor Class=LightmassImportanceVolume Name=LightmassImportanceVolume_0 Archetype=LightmassImportanceVolume'Engine.Default__LightmassImportanceVolume'
+         Begin Object Class=BrushComponent Name=BrushComponent0 ObjName=BrushComponent_15 Archetype=BrushComponent'Engine.Default__LightmassImportanceVolume:BrushComponent0'
+            Brush=Model'Model_7'
+            BrushAggGeom=(ConvexElems=((VertexData=((X=2048.000000,Y=2048.000000,Z=-2048.000000),(X=2048.000000,Y=-2048.000000,Z=-2048.000000),(X=-2048.000000,Y=-2048.000000,Z=-2048.000000),(X=2048.000000,Y=2048.000000,Z=2048.000000),(X=-2048.000000,Y=-2048.000000,Z=2048.000000),(X=-2048.000000,Y=2048.000000,Z=-2048.000000),(X=2048.000000,Y=-2048.000000,Z=2048.000000),(X=-2048.000000,Y=2048.000000,Z=2048.000000)),PermutedVertexData=((W=2048.000000,X=2048.000000,Y=2048.000000,Z=-2048.000000),(W=2048.000000,X=2048.000000,Y=-2048.000000,Z=-2048.000000),(W=2048.000000,X=-2048.000000,Y=-2048.000000,Z=-2048.000000),(W=-2048.000000,X=-2048.000000,Y=-2048.000000,Z=2048.000000),(W=2048.000000,X=-2048.000000,Y=2048.000000,Z=-2048.000000),(W=2048.000000,X=2048.000000,Y=-2048.000000,Z=2048.000000)),FaceTriData=(0,2,1,0,5,2,1,3,0,1,6,3,4,1,2,4,6,1,5,4,2,5,7,4,7,0,3,7,5,0,6,7,3,6,4,7),EdgeDirections=((X=-1.000000,Y=0.000000,Z=0.000000),(X=0.000000,Y=-1.000000,Z=0.000000),(X=0.000000,Y=0.000000,Z=1.000000)),FaceNormalDirections=((X=0.000000,Y=-0.000000,Z=-1.000000),(X=1.000000,Y=0.000000,Z=0.000000),(X=0.000000,Y=-1.000000,Z=0.000000)),FacePlaneData=((W=2047.999878,X=0.000000,Y=-0.000000,Z=-1.000000),(W=2047.999878,X=1.000000,Y=0.000000,Z=0.000000),(W=2047.999878,X=0.000000,Y=-1.000000,Z=0.000000),(W=2047.999878,X=-1.000000,Y=0.000000,Z=0.000000),(W=2047.999878,X=-0.000000,Y=1.000000,Z=0.000000),(W=2047.999878,X=0.000000,Y=-0.000000,Z=1.000000)),ElemBox=(Min=(X=-2048.000000,Y=-2048.000000,Z=-2048.000000),Max=(X=2048.000000,Y=2048.000000,Z=2048.000000),IsValid=1))))
+            ReplacementPrimitive=None
+            RBChannel=RBCC_Nothing
+            bAcceptsLights=True
+            bDisableAllRigidBody=True
+            AlwaysLoadOnClient=True
+            AlwaysLoadOnServer=True
+            LightingChannels=(bInitialized=True,Dynamic=True)
+            Name="BrushComponent_15"
+            ObjectArchetype=BrushComponent'Engine.Default__LightmassImportanceVolume:BrushComponent0'
+         End Object
+         Begin Brush Name=Model_7
+            Begin PolyList
+               Begin Polygon Flags=3584 Link=0
+                  Origin   -02048.000000,-02048.000000,-02048.000000
+                  Normal   -00001.000000,+00000.000000,+00000.000000
+                  TextureU +00000.000000,+00001.000000,+00000.000000
+                  TextureV +00000.000000,+00000.000000,-00001.000000
+                  Vertex   -02048.000000,-02048.000000,-02048.000000
+                  Vertex   -02048.000000,-02048.000000,+02048.000000
+                  Vertex   -02048.000000,+02048.000000,+02048.000000
+                  Vertex   -02048.000000,+02048.000000,-02048.000000
+               End Polygon
+               Begin Polygon Flags=3584 Link=1
+                  Origin   -02048.000000,+02048.000000,-02048.000000
+                  Normal   +00000.000000,+00001.000000,+00000.000000
+                  TextureU +00001.000000,-00000.000000,+00000.000000
+                  TextureV +00000.000000,+00000.000000,-00001.000000
+                  Vertex   -02048.000000,+02048.000000,-02048.000000
+                  Vertex   -02048.000000,+02048.000000,+02048.000000
+                  Vertex   +02048.000000,+02048.000000,+02048.000000
+                  Vertex   +02048.000000,+02048.000000,-02048.000000
+               End Polygon
+               Begin Polygon Flags=3584 Link=2
+                  Origin   +02048.000000,+02048.000000,-02048.000000
+                  Normal   +00001.000000,+00000.000000,+00000.000000
+                  TextureU +00000.000000,-00001.000000,+00000.000000
+                  TextureV +00000.000000,+00000.000000,-00001.000000
+                  Vertex   +02048.000000,+02048.000000,-02048.000000
+                  Vertex   +02048.000000,+02048.000000,+02048.000000
+                  Vertex   +02048.000000,-02048.000000,+02048.000000
+                  Vertex   +02048.000000,-02048.000000,-02048.000000
+               End Polygon
+               Begin Polygon Flags=3584 Link=3
+                  Origin   +02048.000000,-02048.000000,-02048.000000
+                  Normal   +00000.000000,-00001.000000,+00000.000000
+                  TextureU -00001.000000,-00000.000000,-00000.000000
+                  TextureV +00000.000000,+00000.000000,-00001.000000
+                  Vertex   +02048.000000,-02048.000000,-02048.000000
+                  Vertex   +02048.000000,-02048.000000,+02048.000000
+                  Vertex   -02048.000000,-02048.000000,+02048.000000
+                  Vertex   -02048.000000,-02048.000000,-02048.000000
+               End Polygon
+               Begin Polygon Flags=3584 Link=4
+                  Origin   -02048.000000,+02048.000000,+02048.000000
+                  Normal   +00000.000000,+00000.000000,+00001.000000
+                  TextureU +00001.000000,+00000.000000,+00000.000000
+                  TextureV +00000.000000,+00001.000000,+00000.000000
+                  Vertex   -02048.000000,+02048.000000,+02048.000000
+                  Vertex   -02048.000000,-02048.000000,+02048.000000
+                  Vertex   +02048.000000,-02048.000000,+02048.000000
+                  Vertex   +02048.000000,+02048.000000,+02048.000000
+               End Polygon
+               Begin Polygon Flags=3584 Link=5
+                  Origin   -02048.000000,-02048.000000,-02048.000000
+                  Normal   +00000.000000,+00000.000000,-00001.000000
+                  TextureU +00001.000000,+00000.000000,+00000.000000
+                  TextureV +00000.000000,-00001.000000,+00000.000000
+                  Vertex   -02048.000000,-02048.000000,-02048.000000
+                  Vertex   -02048.000000,+02048.000000,-02048.000000
+                  Vertex   +02048.000000,+02048.000000,-02048.000000
+                  Vertex   +02048.000000,-02048.000000,-02048.000000
+               End Polygon
+            End PolyList
+         End Brush
+         Brush=Model'Model_7'
+         BrushComponent=BrushComponent'BrushComponent_15'
+         Components(0)=BrushComponent'BrushComponent_15'
+         Location=(X=0.000000,Y=0.000000,Z=2048.000000)
+         Tag="LightmassImportanceVolume"
+         CollisionComponent=BrushComponent'BrushComponent_15'
+         Name="LightmassImportanceVolume_0"
+         ObjectArchetype=LightmassImportanceVolume'Engine.Default__LightmassImportanceVolume'
+      End Actor
+

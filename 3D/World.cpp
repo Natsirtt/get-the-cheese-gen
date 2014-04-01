@@ -112,7 +112,7 @@ void World::build() {
                     mPaths.push_back(p);
                 } catch (const std::exception& e) {
                     std::cout << e.what() << std::endl;
-                    throw std::runtime_error("Erreur lors de la création d'un chemin");
+                    throw std::runtime_error("Erreur lors de la crÃ©ation d'un chemin");
                 }
             }
             std::cout << "Fin du pathfinding" << std::endl;
@@ -120,13 +120,13 @@ void World::build() {
         } catch (const std::exception& e) {
             std::cout << e.what() << std::endl;
             if (tryCount >= 50) {
-                throw std::runtime_error("Impossible de générer un niveau à partir du graphe."); // 1] on ne lance une exception ici que si le nombre d'essais est atteind
+                throw std::runtime_error("Impossible de gÃ©nÃ©rer un niveau Ã  partir du graphe."); // 1] on ne lance une exception ici que si le nombre d'essais est atteind
             }
         }
         tryCount++;
     }
     if (!success) {
-        throw std::runtime_error("Impossible de générer un niveau à partir du graphe: nombre de tentatives atteind"); //Redondant avec 1] ?
+        throw std::runtime_error("Impossible de gÃ©nÃ©rer un niveau Ã  partir du graphe: nombre de tentatives atteind"); //Redondant avec 1] ?
     } else {
         std::fstream file("temp.g3d", std::fstream::out | std::fstream::trunc);
         file << mGrid;
@@ -157,4 +157,8 @@ bool World::addGate(IGate* g, long x, long y, long z) {
         return true;
     }
     return false;
+}
+
+Grid *World::getGrid() {
+    return &mGrid;
 }

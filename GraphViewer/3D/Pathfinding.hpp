@@ -1,7 +1,7 @@
 #ifndef PATHFINDING_HPP
 #define PATHFINDING_HPP
 
-#include "../Utils/Tuple.hpp"
+#include "../../Utils/Tuple.hpp"
 #include <vector>
 #include <map>
 
