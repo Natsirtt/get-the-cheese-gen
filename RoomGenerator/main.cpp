@@ -3,22 +3,24 @@
 #include <sstream>
 #include <cstdio>
 
-#include "3D/Area.hpp"
+#include "../3D/Area.hpp"
 
 
 void genRoom2();
 void genRoom3();
 void genRoom4();
+void genLaser();
 
 int main(int argc, char* argv[]) {
     genRoom2();
     genRoom3();
     genRoom4();
+    genLaser();
     return 0;
 }
 
 void genRoom2() {
-    Area a;
+    Area a(false);
     int xSize = 3;
     int ySize = 4;
     int zSize = 3;
@@ -31,16 +33,16 @@ void genRoom2() {
             }
         }
     }
-    a.addInCell(std::make_tuple(-1, 0, -2));
-    a.addInCell(std::make_tuple(-1, 0, -2));
+    a.addInCell(std::make_tuple(-2, 0, -1));
+    a.addInCell(std::make_tuple(-2, 0, -1));
 
-    a.addOutCell(std::make_tuple(-1, 0, 2));
-    a.addOutCell(std::make_tuple(-1, 0, 2));
+    a.addOutCell(std::make_tuple(-2, 0, 1));
+    a.addOutCell(std::make_tuple(-2, 0, 1));
     a.save(std::string("Room2.area"));
 }
 
 void genRoom3() {
-    Area a;
+    Area a(false);
     int xSize = 3;
     int ySize = 4;
     int zSize = 3;
@@ -65,7 +67,7 @@ void genRoom3() {
 }
 
 void genRoom4() {
-    Area a;
+    Area a(false);
     int xSize = 3;
     int ySize = 4;
     int zSize = 3;
@@ -92,7 +94,7 @@ void genRoom4() {
 }
 
 void genLaser() {
-    Area a;
+    Area a(false);
     int xSize = 4;
     int ySize = 4;
     int zSize = 4;

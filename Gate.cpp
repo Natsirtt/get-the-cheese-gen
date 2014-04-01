@@ -56,5 +56,5 @@ void Gate::changeFirst(Id newFirst) {
 }
 
 Area Gate::getArea() {
-    return Area();
+    return Area(true);
 }
