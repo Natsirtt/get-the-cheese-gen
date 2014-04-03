@@ -116,9 +116,8 @@ int main(int argc, char* argv[]) {
                 } else if (event.key.keysym.sym == SDLK_g) {
                     World w(&g);
                     w.build();
-                    T3DExporter *exporter = new T3DExporter(&w);
-                    exporter->exportT3D("result.t3d");
-                    delete exporter;
+                    T3DExporter exporter(&w);
+                    exporter.exportT3D("result.t3d");
                 } else {
                     gui.postEvent(&event);
                     gw.postEvent(event);

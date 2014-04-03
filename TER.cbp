@@ -84,6 +84,13 @@
 		<Unit filename="Node.hpp" />
 		<Unit filename="ObstacleChooser.cpp" />
 		<Unit filename="ObstacleChooser.hpp" />
+		<Unit filename="T3D/IActor.hpp" />
+		<Unit filename="T3D/NameFactory.cpp" />
+		<Unit filename="T3D/NameFactory.hpp" />
+		<Unit filename="T3D/StaticMeshActor.cpp" />
+		<Unit filename="T3D/StaticMeshActor.hpp" />
+		<Unit filename="T3D/T3DExporter.cpp" />
+		<Unit filename="T3D/T3DExporter.hpp" />
 		<Unit filename="Utils/Random.cpp" />
 		<Unit filename="Utils/Random.hpp" />
 		<Unit filename="Utils/Tuple.hpp" />

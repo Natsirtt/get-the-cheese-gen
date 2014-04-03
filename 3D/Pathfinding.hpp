@@ -51,6 +51,8 @@ private:
 
     std::vector<Cell> getPathFromClosedMap();
 
+    std::vector<Cell> getLastNodes(Cell cell, int n);
+
     // ATTRIBUTS
 
     Grid* mGrid;
