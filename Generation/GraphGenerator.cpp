@@ -17,7 +17,7 @@ void GraphGenerator::operator()() {
     mCurrentPath.push_back(1);
     mActivatorsPath.clear();
     mEndPath.clear();
-    genGraph_Handler(0, 1, 1, Perso::All);
+    genGraph_Handler(0, 1, 2, Perso::All);
     addObstacles();
 }
 
@@ -93,7 +93,7 @@ bool GraphGenerator::genGraph_Handler(int p, Id lastId, Id lastBranch, Perso per
             }
             mCurrentPath.pop_back();
         }
-    } while ((lastId == 1) && (!mFinished)); // Si on est le noeud de départ et qu'aucun noeud de fin n'à été créé
+    } while ((lastId == 2) && (!mFinished)); // Si on est le noeud de départ et qu'aucun noeud de fin n'à été créé
 
     return false;
 }
@@ -122,7 +122,7 @@ void GraphGenerator::addObstacles() {
         IGate* rGate = mGraph->getGate(gid);
         // On récupére les deux noeuds entre lesquelle on ajoute une porte
         Id first = rGate->getFirstNode();
-        //INode* n1 = mGraph->getNode(first);
+        INode* n1 = mGraph->getNode(first);
         Id second = rGate->getSecondNode();
         INode* n2 = mGraph->getNode(second);
         // On ajoute un nouveau noed vide
@@ -135,6 +135,7 @@ void GraphGenerator::addObstacles() {
         trigger->linkGate(newGid);
         // On modifie l'ancien obstacle
         rGate->changeFirst(newNid);
+        n1->changeGate(gid, newGid);
     }
 }
 

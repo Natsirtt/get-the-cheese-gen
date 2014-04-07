@@ -56,7 +56,19 @@ public:
 
     std::ostream& write(std::ostream& stream);
 
-    static const long EMPTY_CELL = {};
+    static const long EMPTY_CELL = 0;
+    static const long BLOCK_CELL = 1;
+    static const long DEATH_CELL = 2;
+    static const long TURRET_CELL = 3;
+    static const long PLATFORM_CELL = 4;
+    static const long IN_CELL = 5; // cellule d'entrée dans une zone (invisible)
+    static const long OUT_CELL = 6; // cellule de sortie d'une zone (invisible)
+    static const long START_CELL = 7;
+    static const long FINISH_CELL = 8;
+    static const long TRIGGER_CELL = 9;
+    static const long DOOR_CELL = 10;
+    static const long ESCALADE_CELL = 11;
+    static const long GRIDDOOR_CELL = 12;
 
 private:
     //  x -> y -> z -> type

@@ -110,9 +110,9 @@ void Area::save(std::string filename) {
 
 void Area::addInCell(std::tuple<long, long, long> in) {
     mInCells.push_back(in);
-    mGrid.set(1, in);
+    mGrid.set(Grid::IN_CELL, in);
 }
 void Area::addOutCell(std::tuple<long, long, long> out) {
     mOutCells.push_back(out);
-    mGrid.set(1, out);
+    mGrid.set(Grid::OUT_CELL, out);
 }

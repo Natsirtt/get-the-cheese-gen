@@ -102,12 +102,12 @@ void World::build() {
                 try {
                     std::vector<std::tuple<long, long, long>> p = pf.getPath(pos1, pos2);
                     for (auto& c : p) {
-                        mGrid.set(gid + 1, c);
+                        mGrid.set(Grid::BLOCK_CELL, c);
                     }
                     mPaths.push_back(p);
                     p = pf.getPath(pos3, pos4);
                     for (auto& c : p) {
-                        mGrid.set(gid + 1, c);
+                        mGrid.set(Grid::BLOCK_CELL, c);
                     }
                     mPaths.push_back(p);
                 } catch (const std::exception& e) {

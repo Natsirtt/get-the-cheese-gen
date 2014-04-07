@@ -38,6 +38,9 @@ public:
     std::string getName() {
         return "Door";
     }
+    Area getArea() {
+        return Area("Area/Door.area");
+    }
 private:
     friend ObstacleChooser;
     Door() : Gate(), mStateOn{true} {

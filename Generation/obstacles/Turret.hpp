@@ -39,6 +39,9 @@ public:
     std::string getName() {
         return "Turret";
     }
+    Area getArea() {
+        return Area("Area/Turret.area");
+    }
 private:
     friend ObstacleChooser;
     Turret() : Gate(), mStateOn{true} {

@@ -78,21 +78,33 @@ Area Node::getArea() {
         if (mGates.size() % 2 != 0) {
             count++;
         }
-        switch(count) {
-        case 1:
-            return Area("Area/Room1.area");
+        switch (mType) {
+        case NodeType::Activator:
+            return Area("Area/TriggerRoom.area");
+        case NodeType::Start:
+            return Area("Area/StartRoom.area");
+        case NodeType::Finish:
+            return Area("Area/FinishRoom.area");
+        case NodeType::Room:
+            switch(count) {
+            case 1:
+                return Area("Area/Room1.area");
+                break;
+            case 2:
+                return Area("Area/Room2.area");
+                break;
+            case 3:
+                return Area("Area/Room3.area");
+                break;
+            case 4:
+                return Area("Area/Room4.area");
+                break;
+            default:
+                return Area();
+            }
             break;
-        case 2:
-            return Area("Area/Room2.area");
-            break;
-        case 3:
-            return Area("Area/Room3.area");
-            break;
-        case 4:
-            return Area("Area/Room4.area");
-            break;
-        default:
-            return Area();
+            default:
+                return Area();
         }
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;

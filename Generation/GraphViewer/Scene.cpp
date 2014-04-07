@@ -16,7 +16,7 @@ Scene::Scene(std::string filename) {
         file >> x >> y >> z >> t;
         mColors[t] = std::make_tuple(random(), random(), random());
         auto& tup = mColors[t];
-        std::cout << std::get<0>(tup) << " " << std::get<1>(tup) << " " << std::get<2>(tup) << std::endl;
+        //std::cout << std::get<0>(tup) << " " << std::get<1>(tup) << " " << std::get<2>(tup) << std::endl;
         mBoxes.push_back(std::make_pair(
                         t,
                         Box(x * CUBE_SIZE - CUBE_SIZE / 2, x * CUBE_SIZE + CUBE_SIZE / 2,
