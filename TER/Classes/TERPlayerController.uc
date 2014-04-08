@@ -130,6 +130,35 @@ function SetPreviousSpeed()
     }
 }
 
+function GetTriggerUseList(float interactDistanceToCheck, float crosshairDist, float minDot, bool bUsuableOnly, out array<Trigger> out_useList)
+{
+    //local int Idx;
+    local vector cameraLoc;
+    local rotator cameraRot;
+    local Trigger checkTrigger;
+    //local SeqEvent_Used UseSeq;
+ 
+    if (Pawn != None)
+    {
+        // grab camera location/rotation for checking crosshairDist
+        GetPlayerViewPoint(cameraLoc, cameraRot);
+        // search of nearby actors that have use events
+        foreach Pawn.CollidingActors(class'Trigger',checkTrigger,interactDistanceToCheck)
+        {
+            //8<------
+            //Code from the parent function. I've snipped it, but you have to put it in
+            //or you'll basically break Use events in Kismet.
+            //8<------
+ 
+            //If it's a usable actor and it hasn't already been added to the list, let's add it.
+            //if ((Trigger(checkTrigger) != None) && ((out_useList.Length == 0) || (out_useList[out_useList.Length-1] != checkTrigger)))
+            //{
+            //    out_useList[out_useList.Length] = checkTrigger;
+            //}
+        }
+    }
+}
+
 defaultproperties
 {
 	DesiredFOV=90.000000
