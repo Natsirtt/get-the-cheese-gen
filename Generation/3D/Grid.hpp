@@ -67,8 +67,10 @@ public:
     static const long FINISH_CELL = 8;
     static const long TRIGGER_CELL = 9;
     static const long DOOR_CELL = 10;
-    static const long ESCALADE_CELL = 11;
+    static const long CLIMB_CELL = 11;
     static const long GRIDDOOR_CELL = 12;
+    static const long CRUSHER_CELL = 13;
+    static const long GRIDWALL_CELL = 14;
 
 private:
     //  x -> y -> z -> type
