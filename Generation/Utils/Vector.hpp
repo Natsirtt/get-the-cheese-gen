@@ -25,6 +25,12 @@ class Vector {
         Vector operator+(const Vector v);
         Vector mul(double m);
         Vector operator*(double m);
+        bool operator==(const Vector v);
+        bool operator!=(const Vector v);
+        bool operator<(const Vector v);
+        bool operator>(const Vector v);
+        bool operator<=(const Vector v);
+        bool operator>=(const Vector v);
 
         std::string toString();
 
