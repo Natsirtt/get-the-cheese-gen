@@ -1,5 +1,7 @@
 class Grid extends Actor
 	placeable;
+
+var(CUSTOM) StaticMeshComponent CustomMesh;
 	
 event Bump(Actor Other, PrimitiveComponent OtherComp, Vector HitNormal)
 {
@@ -23,10 +25,12 @@ event Bump(Actor Other, PrimitiveComponent OtherComp, Vector HitNormal)
 defaultproperties
 {
 	Begin Object class=StaticMeshComponent Name=MyStaticMeshComponent
-		StaticMesh=StaticMesh'cube'
+		StaticMesh=StaticMesh'NEC_WALLS.SM.Mesh.S_NEC_Walls_SM_CAWall_STRc'
 	End Object
+	bBlockActors=true
+	bCollideActors=true	
+	CustomMesh=MyStaticMeshComponent
 	CollisionComponent=MyStaticMeshComponent
  	Components.Add(MyStaticMeshComponent)
-    bBlockActors=true
-	bCollideActors=true
+
 }
