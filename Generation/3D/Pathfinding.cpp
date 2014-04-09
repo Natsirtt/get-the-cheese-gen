@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <stdexcept>
 
 using Cell = Pathfinding::Cell;
 

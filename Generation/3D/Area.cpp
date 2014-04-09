@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <stdexcept>
 
 Area::Area(bool defaut) : mCurrentInCell{}, mCurrentOutCell{} {
     if (defaut) {
