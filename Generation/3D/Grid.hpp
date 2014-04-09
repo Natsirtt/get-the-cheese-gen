@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <unordered_map>
+#include <tuple>
 
 /**
  * Représente une grille 3D.
