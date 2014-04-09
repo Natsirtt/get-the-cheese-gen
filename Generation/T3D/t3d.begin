@@ -282,7 +282,7 @@ Begin Map Name=Untitled_2
          Components(2)=ArrowComponent'ArrowComponent_0'
          Components(3)=CylinderComponent'CylinderComponent_6'
          Components(4)=PathRenderingComponent'PathRenderingComponent_0'
-         Location=(X=-96.000000,Y=-1152.000000,Z=80.000000)
+         Location=(X=0.000000,Y=-0.000000,Z=0.000000)
          Rotation=(Pitch=0,Yaw=20480,Roll=0)
          Base=StaticMeshActor'StaticMeshActor_3'
          Tag="PlayerStart"

@@ -53,8 +53,16 @@ Vector Vector::add(const Vector v) {
     return Vector(v.mX + mX, v.mY + mY, v.mZ + mZ);
 }
 
+Vector Vector::sub(const Vector v) {
+    return Vector(mX - v.mX, mY - v.mY, mZ - v.mZ);
+}
+
 Vector Vector::operator+(const Vector v) {
     return add(v);
+}
+
+Vector Vector::operator-(const Vector v) {
+    return sub(v);
 }
 
 Vector Vector::mul(double m) {

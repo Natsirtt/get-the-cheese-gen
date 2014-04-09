@@ -22,7 +22,9 @@ class Vector {
         Vector neg();
 
         Vector add(const Vector v);
+        Vector sub(const Vector v);
         Vector operator+(const Vector v);
+        Vector operator-(const Vector v);
         Vector mul(double m);
         Vector operator*(double m);
         bool operator==(const Vector v);

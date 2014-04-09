@@ -92,6 +92,10 @@
 		<Unit filename="T3D/IActor.hpp" />
 		<Unit filename="T3D/NameFactory.cpp" />
 		<Unit filename="T3D/NameFactory.hpp" />
+		<Unit filename="T3D/PlayerStartActor.cpp">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="T3D/PlayerStartActor.hpp" />
 		<Unit filename="T3D/StaticMeshActor.cpp" />
 		<Unit filename="T3D/StaticMeshActor.hpp" />
 		<Unit filename="T3D/T3DExporter.cpp" />
