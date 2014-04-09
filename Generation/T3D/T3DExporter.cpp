@@ -190,6 +190,7 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
 void T3DExporter::exportRoomsBrushes(std::ofstream& output, NameFactory *nameFactory) {
     for (unsigned int i = 0; i < mWorld->getAreas().size(); ++i) {
         Grid g = mWorld->getAreas().at(i).getGrid();
+        std::cout << "Exporting room n°" << i << std::endl;
         std::tuple<long, long, long> posTuple = mWorld->getAreaPosition(i);
         Vector areaPositon(std::get<0>(posTuple), std::get<2>(posTuple), std::get<1>(posTuple));
 //        std::cout << "Grid occupied cells nb = " << g.getOccupiedCellsCount() << std::endl;
@@ -200,8 +201,8 @@ void T3DExporter::exportRoomsBrushes(std::ofstream& output, NameFactory *nameFac
                 for (auto& itZ : itY.second) {
 //                    std::cout << "\t\titZ" << std::endl;
                     if (itZ.second != Grid::EMPTY_CELL) {
-                        Vector origin = (areaPositon + Vector(itX.first, itZ.first, itY.first)) * (CUBE_SIZE + 10) * 2;
-                        std::cout << "Detected room cell at " << origin.getX() << " " << origin.getY() << " " << origin.getZ() << std::endl;
+//                        Vector origin = (areaPositon + Vector(itX.first, itZ.first, itY.first)) * (CUBE_SIZE + 10) * 2;
+//                        std::cout << "Detected room cell at " << origin.getX() << " " << origin.getY() << " " << origin.getZ() << std::endl;
                         long predX = g.get(itX.first - 1, itZ.first, itY.first);
                         long nextX = g.get(itX.first + 1, itZ.first, itY.first);
                         long predY = g.get(itX.first, itZ.first - 1, itY.first);

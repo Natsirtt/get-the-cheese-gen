@@ -143,6 +143,7 @@ bool World::addNode(INode* n, long x, long y, long z) {
         mAreaPos[aid] = std::make_tuple(x, y ,z);
         return true;
     }
+
     return false;
 }
 
@@ -165,4 +166,12 @@ Grid *World::getGrid() {
 
 std::vector<std::vector<std::tuple<long, long, long>>> World::getPaths() {
     return mPaths;
+}
+
+std::vector<Area> World::getAreas() {
+    return mAreas;
+}
+
+std::tuple<long, long, long> World::getAreaPosition(int areaNb) {
+    return mAreaPos.at(areaNb);
 }

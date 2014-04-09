@@ -16,7 +16,8 @@ public:
 
     Grid *getGrid();
     std::vector<std::vector<std::tuple<long, long, long>>> getPaths();
-
+    std::vector<Area> getAreas();
+    std::tuple<long, long, long> getAreaPosition(int areaNb);
 private:
     bool addNode(INode* n, long x, long y, long z);
     bool addGate(IGate* g, long x, long y, long z);
