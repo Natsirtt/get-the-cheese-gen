@@ -6,7 +6,21 @@ var() bool gameFinished;
 
 function bool CheckModifiedEndGame(PlayerReplicationInfo Winner, string Reason)
 {
-        return false;
+	return gameFinished;
+}
+
+function EndGame(PlayerReplicationInfo Winner, string Reason )
+{
+	super.EndGame(Winner, Reason);
+	bGameEnded = true;
+	if ((Reason == "Game Finished"))
+	{
+		if ( bGameEnded )
+		{
+
+			GotoState('MatchOver');
+		}
+	}
 }
 
 defaultproperties

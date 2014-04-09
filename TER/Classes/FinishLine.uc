@@ -7,15 +7,16 @@ simulated singular event Touch( Actor Other, PrimitiveComponent OtherComp, vecto
 
     if (TERPawn(Other) != None && TERPawn(Other).Controller.bIsPlayer) //We wouldn't want potential NPCs to get coins.
     {
+		`log("Finish line touched2");
         if (TERGame(WorldInfo.Game) != None)
         {
+			`log("Finish line touched3");
             TERGame(WorldInfo.Game).EndGame(None,"Game Finished"); //Do the actual collecting in the game class.
         }
     }
 }
 defaultproperties
 {
-
 	Begin Object class=DynamicLightEnvironmentComponent Name=MyLightEnvironment
 		bEnabled=true
 		bDynamic=true
@@ -28,5 +29,6 @@ defaultproperties
 	End Object
 	CollisionComponent=MyStaticMeshComponent
  	Components.Add(MyStaticMeshComponent)
-
+	bBlockActors=false
+	bCollideActors=true	
 }
