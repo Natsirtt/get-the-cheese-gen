@@ -69,6 +69,30 @@ Vector Vector::neg() {
     return {-mX, -mY, -mZ};
 }
 
+bool Vector::operator==(const Vector v) {
+    return (mX == v.mX) && (mY == v.mY) && (mZ == v.mZ);
+}
+
+bool Vector::operator!=(const Vector v) {
+    return !(this->operator==(v));
+}
+
+bool Vector::operator<(const Vector v) {
+    return (mX < v.mX) || ((mX == v.mX) && (mY < v.mY)) || (((mX == v.mX) && (mY == v.mY) && (mZ < v.mZ)));
+}
+
+bool Vector::operator>(const Vector v) {
+    return (mX > v.mX) || ((mX == v.mX) && (mY > v.mY)) || (((mX == v.mX) && (mY == v.mY) && (mZ > v.mZ)));
+}
+
+bool Vector::operator<=(const Vector v) {
+    return !(this->operator>(v));
+}
+
+bool Vector::operator>=(const Vector v) {
+    return !(this->operator<(v));
+}
+
 double Vector::distance(Vector v) {
     double dx = (mX - v.mX);
     double dy = (mY - v.mY);

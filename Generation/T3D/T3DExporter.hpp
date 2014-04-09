@@ -2,9 +2,11 @@
 #define T3DEXPORTER_H
 
 #include <string>
+#include <fstream>
 
 #include "../3D/World.hpp"
 #include "../Graph.hpp"
+#include "NameFactory.hpp"
 
 class T3DExporter {
     public:
@@ -14,6 +16,9 @@ class T3DExporter {
 
         void exportT3D(std::string filepath);
     protected:
+    private:
+        void exportPathsBrushes(std::ofstream& output, NameFactory *nameFactory);
+        void exportRoomsBrushes(std::ofstream& output, NameFactory *nameFactory);
     private:
         World *mWorld;
 };

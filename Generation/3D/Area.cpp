@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <stdexcept>
 
 Area::Area(bool defaut) : mCurrentInCell{}, mCurrentOutCell{} {
     if (defaut) {
@@ -9,6 +10,18 @@ Area::Area(bool defaut) : mCurrentInCell{}, mCurrentOutCell{} {
         addInCell(std::make_tuple(0, 0, -1));
         addOutCell(std::make_tuple(0, 0, 1));
     }
+}
+
+Area::Area(const Area& a) : mGrid{a.mGrid}, mCurrentInCell{a.mCurrentInCell}, mInCells{a.mInCells}, mCurrentOutCell{a.mCurrentOutCell}, mOutCells{a.mOutCells} {
+}
+
+Area& Area::operator=(const Area& a) {
+    mGrid = a.mGrid;
+    mCurrentInCell = a.mCurrentInCell;
+    mInCells = a.mInCells;
+    mCurrentOutCell = a.mCurrentOutCell;
+    mOutCells = a.mOutCells;
+    return *this;
 }
 
 Area::Area(const char* filename) : mCurrentInCell{}, mCurrentOutCell{} {

@@ -15,10 +15,10 @@ public:
     Area(bool defaut = true);
     Area(const char* filename);
     Area(std::string filename);
-    Area(const Area& a) = default;
-    Area& operator=(const Area& a) = default;
-    Area(Area&& a) = default;
-    Area& operator=(Area&& a) = default;
+    Area(const Area& a);// = default;
+    Area& operator=(const Area& a);// = default;
+//    Area(Area&& a) = default;
+//    Area& operator=(Area&& a) = default;
 
     /**
      * Renvoie une cellule d'entrée libre.

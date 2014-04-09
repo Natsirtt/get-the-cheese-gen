@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <unordered_map>
+#include <tuple>
 
 /**
  * Représente une grille 3D.
@@ -52,7 +53,7 @@ public:
     bool canAdd(Grid& g, long x, long y, long z);
 
     long getOccupiedCellsCount();
-    std::unordered_map<long, std::unordered_map<long, std::unordered_map<long, long>>> getMap();
+    std::unordered_map<long, std::unordered_map<long, std::unordered_map<long, long>>>& getMap();
 
     std::ostream& write(std::ostream& stream);
 

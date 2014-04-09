@@ -162,3 +162,7 @@ bool World::addGate(IGate* g, long x, long y, long z) {
 Grid *World::getGrid() {
     return &mGrid;
 }
+
+std::vector<std::vector<std::tuple<long, long, long>>> World::getPaths() {
+    return mPaths;
+}
