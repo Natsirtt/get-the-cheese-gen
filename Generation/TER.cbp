@@ -14,6 +14,7 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
+					<Add directory="T3D" />
 				</Compiler>
 				<Linker>
 					<Add option="-lfreeglut -lglu32 -lopengl32 -lglew32 -lmingw32 -lSDLmain -lSDL -lSDL_image" />
@@ -26,6 +27,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="T3D" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -41,6 +43,7 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
+					<Add directory="T3D" />
 				</Compiler>
 				<Linker>
 					<Add option="-lglut -lGLU -lGL -lGLEW -lSDL -lSDL_image" />
@@ -84,6 +87,8 @@
 		<Unit filename="Node.hpp" />
 		<Unit filename="ObstacleChooser.cpp" />
 		<Unit filename="ObstacleChooser.hpp" />
+		<Unit filename="T3D/BrushActor.cpp" />
+		<Unit filename="T3D/BrushActor.hpp" />
 		<Unit filename="T3D/IActor.hpp" />
 		<Unit filename="T3D/NameFactory.cpp" />
 		<Unit filename="T3D/NameFactory.hpp" />
