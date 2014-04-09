@@ -199,7 +199,7 @@ void T3DExporter::exportRoomsBrushes(std::ofstream& output, NameFactory *nameFac
 //                std::cout << "\titY" << std::endl;
                 for (auto& itZ : itY.second) {
 //                    std::cout << "\t\titZ" << std::endl;
-                    if (itZ.second == Grid::EMPTY_CELL) {
+                    if (itZ.second != Grid::EMPTY_CELL) {
                         Vector origin = (areaPositon + Vector(itX.first, itZ.first, itY.first)) * (CUBE_SIZE + 10) * 2;
                         std::cout << "Detected room cell at " << origin.getX() << " " << origin.getY() << " " << origin.getZ() << std::endl;
                         long predX = g.get(itX.first - 1, itZ.first, itY.first);
