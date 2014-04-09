@@ -12,8 +12,10 @@ class IGate;
 class World {
 public:
     World(IGraph* graph);
-    Grid *getGrid();
     void build();
+
+    Grid *getGrid();
+    std::vector<std::vector<std::tuple<long, long, long>>> getPaths();
 
 private:
     bool addNode(INode* n, long x, long y, long z);
