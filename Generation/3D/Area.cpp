@@ -11,6 +11,18 @@ Area::Area(bool defaut) : mCurrentInCell{}, mCurrentOutCell{} {
     }
 }
 
+Area::Area(const Area& a) : mGrid{a.mGrid}, mCurrentInCell{a.mCurrentInCell}, mInCells{a.mInCells}, mCurrentOutCell{a.mCurrentOutCell}, mOutCells{a.mOutCells} {
+}
+
+Area& Area::operator=(const Area& a) {
+    mGrid = a.mGrid;
+    mCurrentInCell = a.mCurrentInCell;
+    mInCells = a.mInCells;
+    mCurrentOutCell = a.mCurrentOutCell;
+    mOutCells = a.mOutCells;
+    return *this;
+}
+
 Area::Area(const char* filename) : mCurrentInCell{}, mCurrentOutCell{} {
     std::fstream file(filename, std::fstream::in);
 

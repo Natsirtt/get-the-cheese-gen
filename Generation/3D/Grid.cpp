@@ -80,6 +80,6 @@ long Grid::getOccupiedCellsCount() {
     return mCellsCount;
 }
 
-std::unordered_map<long, std::unordered_map<long, std::unordered_map<long, long>>> Grid::getMap() {
+std::unordered_map<long, std::unordered_map<long, std::unordered_map<long, long>>>& Grid::getMap() {
     return mGrid;
 }

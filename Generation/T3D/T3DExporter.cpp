@@ -60,6 +60,7 @@ void T3DExporter::exportT3D(std::string filepath) {
 
     //staticCubesRepresentation(output, mWorld->getGrid(), nameFactory); //Legacy
     exportPathsBrushes(output, nameFactory);
+    exportRoomsBrushes(output, nameFactory);
 
     std::getline(input2, buffer);
     while (!buffer.empty()) {
@@ -181,6 +182,67 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
                 IActor *brush = new BrushActor(nextZ * (CUBE_SIZE + 10) * 2, getWall(CUBE_SIZE, false, false, true));
                 output << brush->getT3D(2, nameFactory) << std::endl;
                 delete brush;
+            }
+        }
+    }
+}
+
+void T3DExporter::exportRoomsBrushes(std::ofstream& output, NameFactory *nameFactory) {
+    for (unsigned int i = 0; i < mWorld->getAreas().size(); ++i) {
+        Grid g = mWorld->getAreas().at(i).getGrid();
+        std::tuple<long, long, long> posTuple = mWorld->getAreaPosition(i);
+        Vector areaPositon(std::get<0>(posTuple), std::get<2>(posTuple), std::get<1>(posTuple));
+//        std::cout << "Grid occupied cells nb = " << g.getOccupiedCellsCount() << std::endl;
+        for (auto& itX : g.getMap()) {
+//            std::cout << "itX" << std::endl;
+            for (auto& itY : itX.second) {
+//                std::cout << "\titY" << std::endl;
+                for (auto& itZ : itY.second) {
+//                    std::cout << "\t\titZ" << std::endl;
+                    if (itZ.second == Grid::EMPTY_CELL) {
+                        Vector origin = (areaPositon + Vector(itX.first, itZ.first, itY.first)) * (CUBE_SIZE + 10) * 2;
+                        std::cout << "Detected room cell at " << origin.getX() << " " << origin.getY() << " " << origin.getZ() << std::endl;
+                        long predX = g.get(itX.first - 1, itZ.first, itY.first);
+                        long nextX = g.get(itX.first + 1, itZ.first, itY.first);
+                        long predY = g.get(itX.first, itZ.first - 1, itY.first);
+                        long nextY = g.get(itX.first, itZ.first + 1, itY.first);
+                        long predZ = g.get(itX.first, itZ.first, itY.first - 1);
+                        long nextZ = g.get(itX.first, itZ.first, itY.first + 1);
+
+                        if (predX == Grid::EMPTY_CELL) {
+                            IActor *brush = new BrushActor((areaPositon + Vector(itX.first - 1, itZ.first, itY.first) * (CUBE_SIZE + 10) * 2), getWall(CUBE_SIZE, true, false, false));
+                            output << brush->getT3D(2, nameFactory) << std::endl;
+                            delete brush;
+                        }
+                        if (nextX == Grid::EMPTY_CELL) {
+                            IActor *brush = new BrushActor((areaPositon + Vector(itX.first + 1, itZ.first, itY.first) * (CUBE_SIZE + 10) * 2), getWall(CUBE_SIZE, true, false, false));
+                            output << brush->getT3D(2, nameFactory) << std::endl;
+                            delete brush;
+                        }
+
+                        if (predY == Grid::EMPTY_CELL) {
+                            IActor *brush = new BrushActor((areaPositon + Vector(itX.first, itZ.first - 1, itY.first) * (CUBE_SIZE + 10) * 2), getWall(CUBE_SIZE, false, true, false));
+                            output << brush->getT3D(2, nameFactory) << std::endl;
+                            delete brush;
+                        }
+                        if (nextY == Grid::EMPTY_CELL) {
+                            IActor *brush = new BrushActor((areaPositon + Vector(itX.first, itZ.first + 1, itY.first) * (CUBE_SIZE + 10) * 2), getWall(CUBE_SIZE, false, true, false));
+                            output << brush->getT3D(2, nameFactory) << std::endl;
+                            delete brush;
+                        }
+
+                        if (predZ == Grid::EMPTY_CELL) {
+                            IActor *brush = new BrushActor((areaPositon + Vector(itX.first, itZ.first, itY.first - 1) * (CUBE_SIZE + 10) * 2), getWall(CUBE_SIZE, false, false, true));
+                            output << brush->getT3D(2, nameFactory) << std::endl;
+                            delete brush;
+                        }
+                        if (nextZ == Grid::EMPTY_CELL) {
+                            IActor *brush = new BrushActor((areaPositon + Vector(itX.first, itZ.first, itY.first + 1) * (CUBE_SIZE + 10) * 2), getWall(CUBE_SIZE, false, false, true));
+                            output << brush->getT3D(2, nameFactory) << std::endl;
+                            delete brush;
+                        }
+                    }
+                }
             }
         }
     }

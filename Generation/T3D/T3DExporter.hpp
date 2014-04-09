@@ -18,6 +18,7 @@ class T3DExporter {
     protected:
     private:
         void exportPathsBrushes(std::ofstream& output, NameFactory *nameFactory);
+        void exportRoomsBrushes(std::ofstream& output, NameFactory *nameFactory);
     private:
         World *mWorld;
 };
