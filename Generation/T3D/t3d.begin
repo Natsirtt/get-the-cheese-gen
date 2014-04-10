@@ -225,71 +225,7 @@ Begin Map Name=Untitled_2
          Name="Brush_0"
          ObjectArchetype=Brush'Engine.Default__Brush'
       End Actor
-      Begin Actor Class=PlayerStart Name=PlayerStart_0 Archetype=PlayerStart'Engine.Default__PlayerStart'
-         Begin Object Class=CylinderComponent Name=CollisionCylinder ObjName=CylinderComponent_6 Archetype=CylinderComponent'Engine.Default__PlayerStart:CollisionCylinder'
-            CollisionHeight=80.000000
-            CollisionRadius=40.000000
-            ReplacementPrimitive=None
-            LightingChannels=(bInitialized=True,Dynamic=True)
-            Name="CylinderComponent_6"
-            ObjectArchetype=CylinderComponent'Engine.Default__PlayerStart:CollisionCylinder'
-         End Object
-         Begin Object Class=SpriteComponent Name=Sprite ObjName=SpriteComponent_0 Archetype=SpriteComponent'Engine.Default__PlayerStart:Sprite'
-            Sprite=Texture2D'EditorResources.S_Player'
-            SpriteCategoryName="PlayerStart"
-            ReplacementPrimitive=None
-            HiddenGame=True
-            AlwaysLoadOnClient=False
-            AlwaysLoadOnServer=False
-            LightingChannels=(bInitialized=True,Dynamic=True)
-            Name="SpriteComponent_0"
-            ObjectArchetype=SpriteComponent'Engine.Default__PlayerStart:Sprite'
-         End Object
-         Begin Object Class=SpriteComponent Name=Sprite2 ObjName=SpriteComponent_1 Archetype=SpriteComponent'Engine.Default__PlayerStart:Sprite2'
-            Sprite=Texture2D'EditorResources.Bad'
-            SpriteCategoryName="Navigation"
-            ReplacementPrimitive=None
-            HiddenGame=True
-            HiddenEditor=True
-            AlwaysLoadOnClient=False
-            AlwaysLoadOnServer=False
-            LightingChannels=(bInitialized=True,Dynamic=True)
-            Scale=0.250000
-            Name="SpriteComponent_1"
-            ObjectArchetype=SpriteComponent'Engine.Default__PlayerStart:Sprite2'
-         End Object
-         Begin Object Class=ArrowComponent Name=Arrow ObjName=ArrowComponent_0 Archetype=ArrowComponent'Engine.Default__PlayerStart:Arrow'
-            ArrowColor=(B=255,G=200,R=150,A=255)
-            ArrowSize=0.500000
-            bTreatAsASprite=True
-            SpriteCategoryName="Navigation"
-            ReplacementPrimitive=None
-            LightingChannels=(bInitialized=True,Dynamic=True)
-            Name="ArrowComponent_0"
-            ObjectArchetype=ArrowComponent'Engine.Default__PlayerStart:Arrow'
-         End Object
-         Begin Object Class=PathRenderingComponent Name=PathRenderer ObjName=PathRenderingComponent_0 Archetype=PathRenderingComponent'Engine.Default__PlayerStart:PathRenderer'
-            ReplacementPrimitive=None
-            LightingChannels=(bInitialized=True,Dynamic=True)
-            Name="PathRenderingComponent_0"
-            ObjectArchetype=PathRenderingComponent'Engine.Default__PlayerStart:PathRenderer'
-         End Object
-         CylinderComponent=CylinderComponent'CylinderComponent_6'
-         NavGuid=(A=427422145,B=1298469891,C=2083868597,D=-1966284205)
-         NetworkID=0
-         Components(0)=SpriteComponent'SpriteComponent_0'
-         Components(1)=SpriteComponent'SpriteComponent_1'
-         Components(2)=ArrowComponent'ArrowComponent_0'
-         Components(3)=CylinderComponent'CylinderComponent_6'
-         Components(4)=PathRenderingComponent'PathRenderingComponent_0'
-         Location=(X=0.000000,Y=-0.000000,Z=0.000000)
-         Rotation=(Pitch=0,Yaw=20480,Roll=0)
-         Base=StaticMeshActor'StaticMeshActor_3'
-         Tag="PlayerStart"
-         CollisionComponent=CylinderComponent'CylinderComponent_6'
-         Name="PlayerStart_0"
-         ObjectArchetype=PlayerStart'Engine.Default__PlayerStart'
-      End Actor
+
       Begin Actor Class=LightmassImportanceVolume Name=LightmassImportanceVolume_0 Archetype=LightmassImportanceVolume'Engine.Default__LightmassImportanceVolume'
          Begin Object Class=BrushComponent Name=BrushComponent0 ObjName=BrushComponent_15 Archetype=BrushComponent'Engine.Default__LightmassImportanceVolume:BrushComponent0'
             Brush=Model'Model_7'

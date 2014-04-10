@@ -63,8 +63,8 @@ void T3DExporter::exportT3D(std::string filepath) {
     exportPathsBrushes(output, &nameFactory);
     exportRoomsBrushes(output, &nameFactory);
 
-    //PlayerStartActor psa(Vector(0, 0, 0));
-    //output << psa.getT3D(2, &nameFactory);
+    PlayerStartActor psa(Vector(0, -50, 0));
+    output << psa.getT3D(2, &nameFactory) << std::endl;
 
     std::getline(input2, buffer);
     while (!buffer.empty()) {

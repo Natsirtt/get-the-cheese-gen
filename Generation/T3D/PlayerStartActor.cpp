@@ -30,8 +30,8 @@ std::string PlayerStartActor::getT3D(int indentLevel, NameFactory *nameFactory) 
     stream << indentation << "Begin Actor Class=PlayerStart Name=" << actorName << " Archetype=PlayerStart'Engine.Default__PlayerStart'" << std::endl;
 
     stream << indentation << "   Begin Object Class=CylinderComponent Name=CollisionCylinder ObjName=" << componentName << " Archetype=CylinderComponent'Engine.Default__PlayerStart:CollisionCylinder'" << std::endl;
-    stream << indentation << "      CollisionHeight=80.000000" << std::endl;
-    stream << indentation << "      CollisionRadius=40.000000" << std::endl;
+    stream << indentation << "      CollisionHeight=20.000000" << std::endl;
+    stream << indentation << "      CollisionRadius=20.000000" << std::endl;
     stream << indentation << "      ReplacementPrimitive=None" << std::endl;
     stream << indentation << "      LightingChannels=(bInitialized=True,Dynamic=True)" << std::endl;
     stream << indentation << "      Name=\"" << componentName << "\"" << std::endl;
@@ -82,7 +82,7 @@ std::string PlayerStartActor::getT3D(int indentLevel, NameFactory *nameFactory) 
     stream << indentation << "      ObjectArchetype=PathRenderingComponent'Engine.Default__PlayerStart:PathRenderer'" << std::endl;
     stream << indentation << "   End Object" << std::endl;
 
-    stream << "NavGuid=(A=1934644062,B=1091775275,C=417243325,D=-889815397)" << std::endl;
+    stream << indentation << "   NavGuid=(A=1934644062,B=1091775275,C=417243325,D=-889815397)" << std::endl;
     stream << indentation << "   NetworkID=0" << std::endl;
     stream << indentation << "   CylinderComponent=CylinderComponent'" << componentName << "'" << std::endl;
     stream << indentation << "   Components(0)=SpriteComponent'" << scn2 << "'" << std::endl;
