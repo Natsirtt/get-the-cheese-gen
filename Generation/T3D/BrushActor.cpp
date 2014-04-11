@@ -47,7 +47,7 @@ std::string BrushActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     for (std::vector<Vector> poly : mPolyList) {
         stream << indentation << "         Begin Polygon Flags=3584" << std::endl;
         for (Vector v : poly) {
-            stream << indentation << "            Vertex   " << v.getX() << "," << v.getY() << "," << v.getZ() << std::endl;
+            stream << indentation << "            Vertex   " << v.getX() << "," << v.getZ() << "," << v.getY() << std::endl;
         }
         stream << indentation << "         End Polygon" << std::endl;
     }
@@ -72,7 +72,7 @@ std::string BrushActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     stream << indentation << "   Brush=Model'" << modelName << "'" << std::endl;
     stream << indentation << "   BrushComponent=BrushComponent'" << componentName << "'" << std::endl;
     stream << indentation << "   Components(0)=BrushComponent'" << componentName << "'" << std::endl;
-    stream << indentation << "   Location=(X=" << mLocation.getX() << ",Y=" << mLocation.getY() << ",Z=" << mLocation.getZ() << ")" << std::endl;
+    stream << indentation << "   Location=(X=" << mLocation.getX() << ",Y=" << mLocation.getZ() << ",Z=" << mLocation.getY() << ")" << std::endl;
     stream << indentation << "   CollisionType=COLLIDE_BlockAll" << std::endl;
     stream << indentation << "   BlockRigidBody=True" << std::endl;
     stream << indentation << "   bCollideActors=True" << std::endl;

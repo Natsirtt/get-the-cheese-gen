@@ -10,6 +10,7 @@
 #include "StaticMeshActor.hpp"
 #include "BrushActor.hpp"
 #include "PlayerStartActor.hpp"
+#include "PointLightActor.hpp"
 #include "../Utils/Vector.hpp"
 
 #define CUBE_SIZE 100.0
@@ -189,6 +190,8 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
                 output << brush->getT3D(2, nameFactory) << std::endl;
                 delete brush;
             }
+            PointLightActor pla(pos, CUBE_SIZE);
+            output << pla.getT3D(2, nameFactory) << std::endl;
         }
     }
 }
@@ -250,6 +253,8 @@ void T3DExporter::exportRoomsBrushes(std::ofstream& output, NameFactory *nameFac
                             output << brush->getT3D(2, nameFactory) << std::endl;
                             delete brush;
                         }
+                        PointLightActor pla(pos, CUBE_SIZE);
+                        output << pla.getT3D(2, nameFactory) << std::endl;
                     }
                 }
             }

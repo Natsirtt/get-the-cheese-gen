@@ -1,10 +1,10 @@
-Begin Map Name=Untitled_2
+Begin Map Name=GenereratedLevel
    Begin MapPackage
-      Begin TopLevelPackage Class=Package Name=Untitled_2 Archetype=Package'Core.Default__Package'
-         Name="Untitled_2"
+      Begin TopLevelPackage Class=Package Name=GenereratedLevel Archetype=Package'Core.Default__Package'
+         Name="GenereratedLevel"
          ObjectArchetype=Package'Core.Default__Package'
       End TopLevelPackage
-      Begin PackageTexture ParentPackage=Untitled_2
+      Begin PackageTexture ParentPackage=GenereratedLevel
          Begin Texture Class=ShadowMapTexture2D Name=ShadowMapTexture2D_9 ObjName=ShadowMapTexture2D_9 Archetype=ShadowMapTexture2D'Engine.Default__ShadowMapTexture2D'
             ShadowmapFlags=1
             SizeX=256
@@ -60,7 +60,7 @@ Begin Map Name=Untitled_2
             End TextureData
          End Texture
       End PackageTexture
-      Begin PackageTexture ParentPackage=Untitled_2
+      Begin PackageTexture ParentPackage=GenereratedLevel
          Begin Texture Class=ShadowMapTexture2D Name=ShadowMapTexture2D_8 ObjName=ShadowMapTexture2D_8 Archetype=ShadowMapTexture2D'Engine.Default__ShadowMapTexture2D'
             ShadowmapFlags=1
             SizeX=1024

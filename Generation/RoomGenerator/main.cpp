@@ -186,8 +186,8 @@ void genLaser() {
             }
         }
     }
-    a.addInCell(std::make_tuple(0, 0, 5));
-    a.addOutCell(std::make_tuple(0, 0, -5));
+    a.addInCell(std::make_tuple(0, 0, 3));
+    a.addOutCell(std::make_tuple(0, 0, -3));
 
     a.save(std::string("Laser.area"));
 }
@@ -208,8 +208,8 @@ void genTurret() {
     }
     g.set(Grid::TURRET_CELL, 0, 0, 0);
 
-    a.addInCell(std::make_tuple(0, 0, 5));
-    a.addOutCell(std::make_tuple(0, 0, -5));
+    a.addInCell(std::make_tuple(0, 0, 3));
+    a.addOutCell(std::make_tuple(0, 0, -3));
 
     a.save(std::string("Turret.area"));
 }
