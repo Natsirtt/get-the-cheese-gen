@@ -116,7 +116,7 @@ void Pathfinding::addNeighbors(Cell cell) {
         std::make_tuple(1,  0,  0),
         std::make_tuple(-1, 0,  0)
     };
-    int maxUpCell = 3;
+    int maxUpCell = 2;
     std::vector<Cell> cells = getLastNodes(cell, maxUpCell);
     int n = 0;
     for (int i = 0; i < cells.size() - 1; ++i) {

@@ -92,6 +92,8 @@
 		<Unit filename="T3D/IActor.hpp" />
 		<Unit filename="T3D/NameFactory.cpp" />
 		<Unit filename="T3D/NameFactory.hpp" />
+		<Unit filename="T3D/PlayerFinishActor.cpp" />
+		<Unit filename="T3D/PlayerFinishActor.hpp" />
 		<Unit filename="T3D/PlayerStartActor.cpp">
 			<Option compilerVar="CC" />
 		</Unit>
