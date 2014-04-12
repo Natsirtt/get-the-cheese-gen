@@ -16,6 +16,7 @@
 
 #define CUBE_SIZE 100.0
 #define REDUCED_SIZE 1.0
+#define LIGHTS_MODULO 6
 
 T3DExporter::T3DExporter(World *world) : mWorld{world} {
 }
@@ -133,6 +134,7 @@ std::vector<std::vector<Vector>> getWall(float sizeLen, bool reducedX, bool redu
 
 void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFactory) {
     for (auto& path : mWorld->getPaths()) {
+        int lightCpt = 0;
         for (unsigned int i = 0; i < path.size(); ++i) {
             auto& v = path.at(i);
 
@@ -183,8 +185,12 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
                 BrushActor brush(pos + Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
-            PointLightActor pla(pos, CUBE_SIZE);
-            output << pla.getT3D(2, nameFactory) << std::endl;
+
+            if (lightCpt == 0) {
+                PointLightActor pla(pos, CUBE_SIZE);
+                output << pla.getT3D(2, nameFactory) << std::endl;
+            }
+            lightCpt = (lightCpt + 1) % LIGHTS_MODULO;
         }
     }
 }
@@ -213,41 +219,44 @@ void T3DExporter::exportRoomsBrushes(std::ofstream& output, NameFactory *nameFac
                         long nextZ = g.get(itX.first, itY.first, itZ.first + 1);
 
                         Vector pos = (areaPositon + Vector(itX.first, itY.first, itZ.first)) * CUBE_SIZE * 2.0;
-
+                        bool addLight = false;
                         if (predX == Grid::EMPTY_CELL) {
-                            IActor *brush = new BrushActor(pos - Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
-                            output << brush->getT3D(2, nameFactory) << std::endl;
-                            delete brush;
+                            BrushActor brush(pos - Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
+                            output << brush.getT3D(2, nameFactory) << std::endl;
+                            addLight = true;
                         }
                         if (nextX == Grid::EMPTY_CELL) {
-                            IActor *brush = new BrushActor(pos + Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
-                            output << brush->getT3D(2, nameFactory) << std::endl;
-                            delete brush;
+                            BrushActor brush(pos + Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
+                            output << brush.getT3D(2, nameFactory) << std::endl;
+                            addLight = true;
                         }
 
                         if (predY == Grid::EMPTY_CELL) {
-                            IActor *brush = new BrushActor(pos - Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
-                            output << brush->getT3D(2, nameFactory) << std::endl;
-                            delete brush;
+                            BrushActor brush(pos - Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
+                            output << brush.getT3D(2, nameFactory) << std::endl;
+                            addLight = true;
                         }
                         if (nextY == Grid::EMPTY_CELL) {
-                            IActor *brush = new BrushActor(pos + Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
-                            output << brush->getT3D(2, nameFactory) << std::endl;
-                            delete brush;
+                            BrushActor brush(pos + Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
+                            output << brush.getT3D(2, nameFactory) << std::endl;
+                            addLight = true;
                         }
 
                         if (predZ == Grid::EMPTY_CELL) {
-                            IActor *brush = new BrushActor(pos - Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
-                            output << brush->getT3D(2, nameFactory) << std::endl;
-                            delete brush;
+                            BrushActor brush(pos - Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
+                            output << brush.getT3D(2, nameFactory) << std::endl;
+                            addLight = true;
                         }
                         if (nextZ == Grid::EMPTY_CELL) {
-                            IActor *brush = new BrushActor(pos + Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
-                            output << brush->getT3D(2, nameFactory) << std::endl;
-                            delete brush;
+                            BrushActor brush(pos + Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
+                            output << brush.getT3D(2, nameFactory) << std::endl;
+                            addLight = true;
                         }
-                        PointLightActor pla(pos, CUBE_SIZE);
-                        output << pla.getT3D(2, nameFactory) << std::endl;
+
+                        if (addLight) {
+                            PointLightActor pla(pos, CUBE_SIZE);
+                            output << pla.getT3D(2, nameFactory) << std::endl;
+                        }
                     }
                 }
             }
