@@ -138,12 +138,12 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
             auto& v = path.at(i);
 
             Vector origin(std::get<0>(v), std::get<1>(v), std::get<2>(v));
-            Vector pred(-1000000, -1000000, -1000000); //C'est moche
+            Vector pred = origin;
             if (i != 0) {
                 auto& v2 = path.at(i-1);
                 pred = Vector(std::get<0>(v2), std::get<1>(v2), std::get<2>(v2));
             }
-            Vector next(-1000000, -1000000, -1000000); //Un cube a peu de chance d'être la
+            Vector next = origin;
             if (i != path.size() - 1) {
                 auto& v2 = path.at(i+1);
                 next = Vector(std::get<0>(v2), std::get<1>(v2), std::get<2>(v2));
@@ -159,36 +159,30 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
             Vector pos = origin * 2.0 * CUBE_SIZE;
 
             if ((predX != pred) && (predX != next)) {
-                IActor *brush = new BrushActor(pos + Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
-                output << brush->getT3D(2, nameFactory) << std::endl;
-                delete brush;
+                BrushActor brush(pos + Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
+                output << brush.getT3D(2, nameFactory) << std::endl;
             }
             if ((predY != pred) && (predY != next)) {
-                IActor *brush = new BrushActor(pos + Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
-                output << brush->getT3D(2, nameFactory) << std::endl;
-                delete brush;
+                BrushActor brush(pos + Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
+                output << brush.getT3D(2, nameFactory) << std::endl;
             }
 
             if ((predZ != pred) && (predZ != next)) {
-                IActor *brush = new BrushActor(pos + Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
-                output << brush->getT3D(2, nameFactory) << std::endl;
-                delete brush;
+                BrushActor brush(pos + Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
+                output << brush.getT3D(2, nameFactory) << std::endl;
             }
             if ((nextX != pred) && (nextX != next)) {
-                IActor *brush = new BrushActor(pos - Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
-                output << brush->getT3D(2, nameFactory) << std::endl;
-                delete brush;
+                BrushActor brush(pos - Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
+                output << brush.getT3D(2, nameFactory) << std::endl;
             }
 
             if ((nextY != pred) && (nextY != next)) {
-                IActor *brush = new BrushActor(pos - Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
-                output << brush->getT3D(2, nameFactory) << std::endl;
-                delete brush;
+                BrushActor brush(pos - Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
+                output << brush.getT3D(2, nameFactory) << std::endl;
             }
             if ((nextZ != pred) && (nextZ != next)) {
-                IActor *brush = new BrushActor(pos - Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
-                output << brush->getT3D(2, nameFactory) << std::endl;
-                delete brush;
+                BrushActor brush(pos - Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
+                output << brush.getT3D(2, nameFactory) << std::endl;
             }
             PointLightActor pla(pos, CUBE_SIZE);
             output << pla.getT3D(2, nameFactory) << std::endl;
