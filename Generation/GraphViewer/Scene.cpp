@@ -20,8 +20,8 @@ Scene::Scene(std::string filename) {
         mBoxes.push_back(std::make_pair(
                         t,
                         Box(x * CUBE_SIZE - CUBE_SIZE / 2, x * CUBE_SIZE + CUBE_SIZE / 2,
-                             y * CUBE_SIZE - CUBE_SIZE / 2, y * CUBE_SIZE + CUBE_SIZE / 2,
-                             z * CUBE_SIZE - CUBE_SIZE / 2, z * CUBE_SIZE + CUBE_SIZE / 2)));
+                             z * CUBE_SIZE - CUBE_SIZE / 2, z * CUBE_SIZE + CUBE_SIZE / 2,
+                             y * CUBE_SIZE - CUBE_SIZE / 2, y * CUBE_SIZE + CUBE_SIZE / 2)));
     }
 }
 
