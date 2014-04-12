@@ -20,6 +20,8 @@ class T3DExporter {
         void exportPathsBrushes(std::ofstream& output, NameFactory *nameFactory);
         void exportRoomsBrushes(std::ofstream& output, NameFactory *nameFactory);
         void exportPlayerStart(std::ofstream& output, NameFactory *NameFactory);
+
+        bool isPhysicalCell(long t);
     private:
         World *mWorld;
 };

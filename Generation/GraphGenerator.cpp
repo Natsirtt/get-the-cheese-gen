@@ -101,7 +101,7 @@ bool GraphGenerator::genGraph_Handler(int p, Id lastId, Id lastBranch, Perso per
 void GraphGenerator::addObstacles() {
     Id endNid = mEndPath.back();
     for (auto& it : mActivatorsPath) {
-        Id furtherNid = 1;
+        Id furtherNid = 1; // l'id du noeud le plus loin sur le chemin vers la fin
         for (auto& nid : it.second) {
             INode* node = mGraph->getNode(nid);
             if (!node->isOnEndPath()) {
