@@ -137,17 +137,49 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
         int lightCpt = 0;
         for (unsigned int i = 0; i < path.size(); ++i) {
             auto& v = path.at(i);
-
-            Vector origin(std::get<0>(v), std::get<1>(v), std::get<2>(v));
+            long x = std::get<0>(v);
+            long y = std::get<1>(v);
+            long z = std::get<2>(v);
+            Vector origin(x, y, z);
             Vector pred = origin;
             if (i != 0) {
                 auto& v2 = path.at(i-1);
                 pred = Vector(std::get<0>(v2), std::get<1>(v2), std::get<2>(v2));
+            } else {
+                //First block of the path, we search where to open it
+                if (mWorld->getGrid()->get(x - 1, y, z) == Grid::BLOCK_CELL) {
+                    pred = Vector(x - 1, y, z);
+                } else if (mWorld->getGrid()->get(x + 1, y, z) == Grid::BLOCK_CELL) {
+                    pred = Vector(x + 1, y, z);
+                } else if (mWorld->getGrid()->get(x, y - 1, z) == Grid::BLOCK_CELL) {
+                    pred = Vector(x, y - 1, z);
+                } else if (mWorld->getGrid()->get(x, y + 1, z) == Grid::BLOCK_CELL) {
+                    pred = Vector(x, y + 1, z);
+                } else if (mWorld->getGrid()->get(x, y, z  - 1) == Grid::BLOCK_CELL) {
+                    pred = Vector(x, y, z  - 1);
+                } else if (mWorld->getGrid()->get(x, y, z + 1) == Grid::BLOCK_CELL) {
+                    pred = Vector(x, y, z  + 1);
+                }
             }
             Vector next = origin;
             if (i != path.size() - 1) {
                 auto& v2 = path.at(i+1);
                 next = Vector(std::get<0>(v2), std::get<1>(v2), std::get<2>(v2));
+            } else {
+                //Last block, we search where to open the path
+                if (mWorld->getGrid()->get(x - 1, y, z) == Grid::BLOCK_CELL) {
+                    next = Vector(x - 1, y, z);
+                } else if (mWorld->getGrid()->get(x + 1, y, z) == Grid::BLOCK_CELL) {
+                    next = Vector(x + 1, y, z);
+                } else if (mWorld->getGrid()->get(x, y - 1, z) == Grid::BLOCK_CELL) {
+                    next = Vector(x, y - 1, z);
+                } else if (mWorld->getGrid()->get(x, y + 1, z) == Grid::BLOCK_CELL) {
+                    next = Vector(x, y + 1, z);
+                } else if (mWorld->getGrid()->get(x, y, z  - 1) == Grid::BLOCK_CELL) {
+                    next = Vector(x, y, z  - 1);
+                } else if (mWorld->getGrid()->get(x, y, z + 1) == Grid::BLOCK_CELL) {
+                    next = Vector(x, y, z  + 1);
+                }
             }
 
             Vector predX(origin.getX() - 1, origin.getY(), origin.getZ());
