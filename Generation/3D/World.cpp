@@ -34,7 +34,7 @@ void World::build() {
             long y = 0;
             long z = 0;
             Rand_Int<> rand(-20, 20);
-            Rand_Int<> randY(-5, 5);
+            Rand_Int<> randZ(-5, 5);
             for (unsigned int i = 1; i <= mGraph->getNodeCount(); ++i) {
                 auto now = std::chrono::high_resolution_clock::now();
                 bool added = false;
@@ -43,8 +43,8 @@ void World::build() {
                 while ((!added) && (tryCount < 1000)) {
                     added = addNode(node, x, y, z);
                     x += rand();
-                    y += randY();
-                    z += rand();
+                    y += rand();
+                    z += randZ();
                     tryCount++;
                 }
                 if (!added) {

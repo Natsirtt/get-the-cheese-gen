@@ -73,7 +73,7 @@ std::string PointLightActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     stream << indentation << "   Components(1)=DrawLightRadiusComponent'" << dlrcn1 << "'" << std::endl;
     stream << indentation << "   Components(2)=DrawLightRadiusComponent'" << dlrcn2 << "'" << std::endl;
     stream << indentation << "   Components(3)=PointLightComponent'" << plcn << "'" << std::endl;
-    stream << indentation << "   Location=(X=" << mLocation.getX() << ",Y=" << mLocation.getZ() << ",Z=" << mLocation.getY() << ")" << std::endl;
+    stream << indentation << "   Location=(X=" << mLocation.getX() << ",Y=" << mLocation.getY() << ",Z=" << mLocation.getZ() << ")" << std::endl;
     stream << indentation << "   Tag=\"PointLight\"" << std::endl;
     stream << indentation << "   Name=\"" << actorName << "\"" << std::endl;
     stream << indentation << "   ObjectArchetype=PointLight'Engine.Default__PointLight'" << std::endl;

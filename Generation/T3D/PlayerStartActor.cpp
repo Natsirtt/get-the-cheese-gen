@@ -90,7 +90,7 @@ std::string PlayerStartActor::getT3D(int indentLevel, NameFactory *nameFactory) 
     stream << indentation << "   Components(2)=ArrowComponent'" << acn << "'" << std::endl;
     stream << indentation << "   Components(3)=CylinderComponent'" << componentName << "'" << std::endl;
     stream << indentation << "   Components(4)=PathRenderingComponent'" << prcn << "'" << std::endl;
-    stream << indentation << "   Location=(X=" << mLocation.getX() << ",Y=" << mLocation.getZ() << ",Z=" << mLocation.getY() << ")" << std::endl;
+    stream << indentation << "   Location=(X=" << mLocation.getX() << ",Y=" << mLocation.getY() << ",Z=" << mLocation.getZ() << ")" << std::endl;
     stream << indentation << "   Rotation=(Pitch=0,Yaw=20480,Roll=0)" << std::endl;
     stream << indentation << "   Tag=\"PlayerStart\"" << std::endl;
     stream << indentation << "   CollisionComponent=CylinderComponent'" << componentName << "'" << std::endl;

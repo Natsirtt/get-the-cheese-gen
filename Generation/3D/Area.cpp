@@ -7,8 +7,8 @@
 Area::Area(bool defaut) : mCurrentInCell{}, mCurrentOutCell{} {
     if (defaut) {
         mGrid.set(1, 0, 0, 0);
-        addInCell(std::make_tuple(0, 0, -1));
-        addOutCell(std::make_tuple(0, 0, 1));
+        addInCell(std::make_tuple(0, -1, 0));
+        addOutCell(std::make_tuple(0, 1, 0));
     }
 }
 
