@@ -10,6 +10,7 @@
 #include "StaticMeshActor.hpp"
 #include "BrushActor.hpp"
 #include "PlayerStartActor.hpp"
+#include "PlayerFinishActor.hpp"
 #include "PointLightActor.hpp"
 #include "../Utils/Vector.hpp"
 
@@ -255,24 +256,29 @@ void T3DExporter::exportRoomsBrushes(std::ofstream& output, NameFactory *nameFac
 }
 
 void T3DExporter::exportPlayerStart(std::ofstream& output, NameFactory *nameFactory) {
-    PlayerStartActor *psa = new PlayerStartActor(Vector(0, -50, 0));
     for (unsigned int i = 0; i < mWorld->getAreas().size(); ++i) {
+        std::tuple<long, long, long> posTuple = mWorld->getAreaPosition(i);
+        Vector areaPositon(std::get<0>(posTuple), std::get<1>(posTuple), std::get<2>(posTuple));
         Grid g = mWorld->getAreas().at(i).getGrid();
         for (auto& itX : g.getMap()) {
             for (auto& itY : itX.second) {
                 for (auto& itZ : itY.second) {
                     if (itZ.second == Grid::START_CELL) {
-                        std::cout << "Detected player start at " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
-                        delete psa;
-                        psa = new PlayerStartActor(itX.first, itY.first, itZ.first);
-                        output << psa->getT3D(2, nameFactory) << std::endl;
-                        return; //To avoid doing lot of unecessary loops
+                        //std::cout << "Detected player start at " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
+                        Vector pos = (areaPositon + Vector(itX.first, itY.first, itZ.first)) * CUBE_SIZE * 2.0;
+                        PlayerStartActor psa(pos);
+                        output << psa.getT3D(2, nameFactory) << std::endl;
+                        //return; //To avoid doing lot of unecessary loops
+                    } else if (itZ.second == Grid::FINISH_CELL) {
+                        //std::cout << "Detected player Finish at " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
+                        Vector pos = (areaPositon + Vector(itX.first, itY.first, itZ.first)) * CUBE_SIZE * 2.0;
+                        PlayerFinishActor pfa(pos);
+                        output << pfa.getT3D(2, nameFactory) << std::endl;
                     }
                 }
             }
         }
     }
-
-    output << psa->getT3D(2, nameFactory) << std::endl;
-    delete psa;
+    //PlayerStartActor psa(Vector(0, -50, 0));
+    //output << psa.getT3D(2, nameFactory) << std::endl;
 }
