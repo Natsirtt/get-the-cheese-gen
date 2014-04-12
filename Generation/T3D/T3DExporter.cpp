@@ -63,9 +63,7 @@ void T3DExporter::exportT3D(std::string filepath) {
     //staticCubesRepresentation(output, mWorld->getGrid(), nameFactory); //Legacy
     exportPathsBrushes(output, &nameFactory);
     exportRoomsBrushes(output, &nameFactory);
-
-    PlayerStartActor psa(Vector(0, -50, 0));
-    output << psa.getT3D(2, &nameFactory) << std::endl;
+    exportPlayerStart(output, &nameFactory);
 
     std::getline(input2, buffer);
     while (!buffer.empty()) {
@@ -260,4 +258,27 @@ void T3DExporter::exportRoomsBrushes(std::ofstream& output, NameFactory *nameFac
             }
         }
     }
+}
+
+void T3DExporter::exportPlayerStart(std::ofstream& output, NameFactory *nameFactory) {
+    PlayerStartActor *psa = new PlayerStartActor(Vector(0, -50, 0));
+    for (unsigned int i = 0; i < mWorld->getAreas().size(); ++i) {
+        Grid g = mWorld->getAreas().at(i).getGrid();
+        for (auto& itX : g.getMap()) {
+            for (auto& itY : itX.second) {
+                for (auto& itZ : itY.second) {
+                    if (itZ.second == Grid::START_CELL) {
+                        std::cout << "Detected player start at " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
+                        delete psa;
+                        psa = new PlayerStartActor(itX.first, itY.first, itZ.first);
+                        output << psa->getT3D(2, nameFactory) << std::endl;
+                        return; //To avoid doing lot of unecessary loops
+                    }
+                }
+            }
+        }
+    }
+
+    output << psa->getT3D(2, nameFactory) << std::endl;
+    delete psa;
 }

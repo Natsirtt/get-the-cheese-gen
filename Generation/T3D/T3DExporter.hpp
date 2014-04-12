@@ -19,6 +19,7 @@ class T3DExporter {
     private:
         void exportPathsBrushes(std::ofstream& output, NameFactory *nameFactory);
         void exportRoomsBrushes(std::ofstream& output, NameFactory *nameFactory);
+        void exportPlayerStart(std::ofstream& output, NameFactory *NameFactory);
     private:
         World *mWorld;
 };
