@@ -19,6 +19,7 @@ std::vector<Cell> Pathfinding::getPath(Cell start, Cell end) {
     mEnd = end;
 
     Node startNode{0, 0, 0, start};
+    startNode.parent = start;
     Cell current = start;
 
     mOpenedNodes[current] = startNode;
@@ -96,12 +97,12 @@ bool Pathfinding::isInside(std::map<Cell, Node>& nodeMap, Cell cell) {
 
 std::vector<Cell> Pathfinding::getLastNodes(Cell cell, int n) {
     std::vector<Cell> nodes;
-    Node& tmp = mClosedNodes[cell];
+    Node tmp = mClosedNodes.at(cell);
     nodes.push_back(cell);
-    int i = 1;
+    int i = 0;
     while ((tmp.parent != mStart) && (i < n)) {
         nodes.push_back(tmp.parent);
-        tmp = mClosedNodes[tmp.parent];
+        tmp = mClosedNodes.at(tmp.parent);
         i++;
     }
     return nodes;
@@ -115,20 +116,20 @@ void Pathfinding::addNeighbors(Cell cell) {
         std::make_tuple(1,  0,  0),
         std::make_tuple(-1, 0,  0)
     };
-    /*int maxUpCell = 4;
+    int maxUpCell = 3;
     std::vector<Cell> cells = getLastNodes(cell, maxUpCell);
     int n = 0;
     for (int i = 0; i < cells.size() - 1; ++i) {
-        int dy = std::get<1>(cells[i]) - std::get<1>(cells[i + 1]);
-        if (dy > 0) {
+        int dz = std::get<2>(cells[i]) - std::get<2>(cells[i + 1]);
+        if (dz != 0) {
             n++;
         } else {
             break;
         }
     }
-    if (n <= maxUpCell) {
-        */dir.push_back(std::make_tuple(0,  1,  0));/*
-    }*/
+    if (n < maxUpCell) {
+        dir.push_back(std::make_tuple(0,  1,  0));
+    }
 
     for (auto& d : dir) {
         Cell pos = cell + d;
