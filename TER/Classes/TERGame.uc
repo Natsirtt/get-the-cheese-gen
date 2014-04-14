@@ -1,12 +1,25 @@
 class TERGame extends UTGame;
 
-var() float time;
+var int gameTime;
 var() bool gameStarted;
 var() bool gameFinished;
 
 function bool CheckModifiedEndGame(PlayerReplicationInfo Winner, string Reason)
 {
 	return gameFinished;
+}
+
+function simulated Timer()
+{
+	super.Timer();
+	gameTime++;
+}
+
+event simulated PostBeginPlay()
+{
+	super.PostBeginPlay();
+	SetTimer( 1, true);
+	gameTime = 0;
 }
 
 function EndGame(PlayerReplicationInfo Winner, string Reason )
@@ -23,8 +36,14 @@ function EndGame(PlayerReplicationInfo Winner, string Reason )
 	}
 }
 
+function int GetGameTime()
+{
+	return gameTime;
+}
+
 defaultproperties
 {
+	bUseClassicHUD = true;
 	HUDType=class'TER.TERHUD'
 	PlayerControllerClass=class'TER.TERPlayerController'
 	ConsolePlayerControllerClass=class'UTGame.UTConsolePlayerController'
@@ -78,7 +97,7 @@ defaultproperties
 	SpreeStatEvents.Add(SPREE_MASSACRE)
 
 	//TER
-	time=0.0
+	gameTime=0.0
 	gameStarted=false
 	gameFinished=false
 }
