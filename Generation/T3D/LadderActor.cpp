@@ -15,3 +15,11 @@ LadderActor::LadderActor(Vector location, std::vector<std::vector<Vector>> polyL
 
 LadderActor::LadderActor(double xLocation, double yLocation, double zLocation, std::vector<std::vector<Vector>> polyList, float degYaw) : mLocation{Vector(xLocation, yLocation, zLocation)}, mPolyList{polyList}, mYaw{(int) std::round(degYaw)} {
 }
+
+Vector LadderActor::getLocation() {
+    return Vector();
+}
+
+std::string LadderActor::getT3D(int indentLevel, NameFactory *nameFactory) {
+    return "";
+}
