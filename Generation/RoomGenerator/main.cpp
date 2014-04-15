@@ -126,8 +126,8 @@ void genRoom2() {
             }
         }
     }
-    a.addInCell(std::make_tuple(-1, -2, 0));
-    a.addInCell(std::make_tuple( 1, -2, 0));
+    a.addInCell(std::make_tuple(-1, 2, 0));
+    a.addInCell(std::make_tuple( 1, 2, 0));
 
     a.addOutCell(std::make_tuple(-1, -2, 0));
     a.addOutCell(std::make_tuple( 1, -2, 0));

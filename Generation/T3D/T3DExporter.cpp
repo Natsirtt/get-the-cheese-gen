@@ -133,6 +133,7 @@ std::vector<std::vector<Vector>> getWall(float sizeLen, bool reducedX, bool redu
 }
 
 void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFactory) {
+    Grid* g = mWorld->getGrid();
     for (auto& path : mWorld->getPaths()) {
         int lightCpt = 0;
         for (unsigned int i = 0; i < path.size(); ++i) {
@@ -147,7 +148,7 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
                 auto& v2 = path.at(i-1);
                 pred = Vector(std::get<0>(v2), std::get<1>(v2), std::get<2>(v2));
             } else {
-                auto& v2 = path.at(i+1);
+                /*auto& v2 = path.at(i+1);
                 next = Vector(std::get<0>(v2), std::get<1>(v2), std::get<2>(v2));
                 //First block of the path, we search where to open it
                 if ((mWorld->getGrid()->get(x - 1, y, z) != Grid::EMPTY_CELL) && (next != Vector(x - 1, y, z))) {
@@ -162,13 +163,13 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
                     pred = Vector(x, y, z - 1);
                 } else if ((mWorld->getGrid()->get(x, y, z + 1) != Grid::EMPTY_CELL) && (next != Vector(x, y, z + 1))) {
                     pred = Vector(x, y, z + 1);
-                }
+                }*/
             }
             if (i < (path.size() - 1)) {
                 auto& v2 = path.at(i+1);
                 next = Vector(std::get<0>(v2), std::get<1>(v2), std::get<2>(v2));
             } else {
-                //Last block, we search where to open the path
+                /*//Last block, we search where to open the path
                 if ((mWorld->getGrid()->get(x - 1, y, z) != Grid::EMPTY_CELL) && (pred != Vector(x - 1, y, z))) {
                     next = Vector(x - 1, y, z);
                 } else if ((mWorld->getGrid()->get(x + 1, y, z) != Grid::EMPTY_CELL) && (pred != Vector(x + 1, y, z))) {
@@ -181,8 +182,9 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
                     next = Vector(x, y, z - 1);
                 } else if ((mWorld->getGrid()->get(x, y, z + 1) != Grid::EMPTY_CELL) && (pred != Vector(x, y, z + 1))) {
                     next = Vector(x, y, z + 1);
-                }
+                }*/
             }
+            bool isFirstOrLast = (i == 0) || (i == (path.size() - 1));
 
             Vector predX(origin.getX() - 1, origin.getY(), origin.getZ());
             Vector nextX(origin.getX() + 1, origin.getY(), origin.getZ());
@@ -193,29 +195,35 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
 
             Vector pos = origin * 2.0 * CUBE_SIZE;
 
-            if ((predX != pred) && (predX != next)) {
+            if ((!isFirstOrLast && (predX != pred) && (predX != next)) ||
+                (isFirstOrLast && g->get(x - 1, y, z) == Grid::EMPTY_CELL)) {
                 BrushActor brush(pos - Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
-            if ((predY != pred) && (predY != next)) {
+            if ((!isFirstOrLast && (predY != pred) && (predY != next)) ||
+                (isFirstOrLast && g->get(x, y - 1, z) == Grid::EMPTY_CELL)) {
                 BrushActor brush(pos - Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
 
-            if ((predZ != pred) && (predZ != next)) {
+            if ((!isFirstOrLast && (predZ != pred) && (predZ != next)) ||
+                (isFirstOrLast && g->get(x, y, z - 1) == Grid::EMPTY_CELL)) {
                 BrushActor brush(pos - Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
-            if ((nextX != pred) && (nextX != next)) {
+            if ((!isFirstOrLast && (nextX != pred) && (nextX != next)) ||
+                (isFirstOrLast && g->get(x + 1, y, z) == Grid::EMPTY_CELL)) {
                 BrushActor brush(pos + Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
 
-            if ((nextY != pred) && (nextY != next)) {
+            if ((!isFirstOrLast && (nextY != pred) && (nextY != next)) ||
+                (isFirstOrLast && g->get(x, y + 1, z) == Grid::EMPTY_CELL)) {
                 BrushActor brush(pos + Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
-            if ((nextZ != pred) && (nextZ != next)) {
+            if ((!isFirstOrLast && (nextZ != pred) && (nextZ != next)) ||
+                (isFirstOrLast && g->get(x, y, z + 1) == Grid::EMPTY_CELL)) {
                 BrushActor brush(pos + Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
