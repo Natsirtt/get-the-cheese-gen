@@ -90,6 +90,8 @@
 		<Unit filename="T3D/BrushActor.cpp" />
 		<Unit filename="T3D/BrushActor.hpp" />
 		<Unit filename="T3D/IActor.hpp" />
+		<Unit filename="T3D/LadderActor.cpp" />
+		<Unit filename="T3D/LadderActor.hpp" />
 		<Unit filename="T3D/NameFactory.cpp" />
 		<Unit filename="T3D/NameFactory.hpp" />
 		<Unit filename="T3D/PlayerFinishActor.cpp" />
