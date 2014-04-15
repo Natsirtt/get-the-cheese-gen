@@ -33,8 +33,8 @@ void World::build() {
             long x = 0;
             long y = 0;
             long z = 0;
-            Rand_Int<> rand(-20, 20);
-            Rand_Int<> randZ(-5, 5);
+            Rand_Int<> rand(-10, 10);
+            Rand_Int<> randZ(-1, 1);
             for (unsigned int i = 1; i <= mGraph->getNodeCount(); ++i) {
                 auto now = std::chrono::high_resolution_clock::now();
                 bool added = false;
