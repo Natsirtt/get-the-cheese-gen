@@ -1,6 +1,7 @@
 class TERTriggerVolume extends Actor;
 
 var bool bIsTouched;
+var bool bHasBeenUnTouched; // Résoud un bug
 
 event simulated PostBeginPlay()
 {
@@ -14,12 +15,13 @@ event simulated Touch(Actor Other, PrimitiveComponent OtherComp, Vector Hit, Vec
 
 event simulated UnTouch(Actor Other)
 {
+	bHasBeenUnTouched = true;
 	bIsTouched = false;
 }
 
 function bool IsInside()
 {
-	return bIsTouched;
+	return bHasBeenUnTouched && bIsTouched;
 }
 
 defaultproperties
@@ -37,5 +39,6 @@ defaultproperties
  	Components.Add(MyCylinderComponent)
 	
 	bIsTouched = false
+	bHasBeenUnTouched = false
 	bHidden = true
 }

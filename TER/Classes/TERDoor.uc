@@ -1,7 +1,7 @@
 class TERDoor extends TERTriggerable
 	placeable;
 	
-var(CUSTOM) StaticMeshComponent CustomMesh;
+var(CUSTOM) StaticMeshComponent CustomMesh; // Le Mesh de la porte
 	
 function Trigger()
 {

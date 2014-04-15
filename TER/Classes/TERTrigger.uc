@@ -1,14 +1,13 @@
 class TERTrigger extends Trigger
 	placeable;
 
-var() name triggerableName;
-var TERTriggerable triggerable;
-var(CUSTOM) StaticMeshComponent CustomMesh;
+var() name triggerableName; // Le nom de l'objet à activer
 
-var TERTriggerVolume triggerVolume;
-
-var() ParticleSystemComponent BlueLight;
-var() ParticleSystemComponent RedLight;
+var TERTriggerable triggerable; // Référence de l'objet à activer
+var(CUSTOM) StaticMeshComponent CustomMesh; // Mesh du Trigger
+var() ParticleSystemComponent BlueLight; // Lumière bleue
+var() ParticleSystemComponent RedLight; // Lumière rouge
+var TERTriggerVolume triggerVolume; // Volume dans lequel on peut activer le trigger
 
 event simulated PostBeginPlay()
 {
@@ -78,7 +77,7 @@ event Tick(float DeltaTime)
 
 defaultproperties
 {
-	triggerableName='none'
+	//triggerableName='none'
 	triggerable=none
 
 	Begin Object class=StaticMeshComponent Name=MyStaticMeshComponent
