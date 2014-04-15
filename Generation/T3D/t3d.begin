@@ -225,7 +225,6 @@ Begin Map Name=GenereratedLevel
          Name="Brush_0"
          ObjectArchetype=Brush'Engine.Default__Brush'
       End Actor
-
       Begin Actor Class=LightmassImportanceVolume Name=LightmassImportanceVolume_0 Archetype=LightmassImportanceVolume'Engine.Default__LightmassImportanceVolume'
          Begin Object Class=BrushComponent Name=BrushComponent0 ObjName=BrushComponent_15 Archetype=BrushComponent'Engine.Default__LightmassImportanceVolume:BrushComponent0'
             Brush=Model'Model_7'
