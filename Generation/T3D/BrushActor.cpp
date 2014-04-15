@@ -45,7 +45,7 @@ std::string BrushActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     stream << indentation << "      Begin PolyList" << std::endl;
 
     for (std::vector<Vector> poly : mPolyList) {
-        stream << indentation << "         Begin Polygon Flags=3584" << std::endl;
+        stream << indentation << "         Begin Polygon Texture=LT_Floors.BSP.Materials.M_LT_Floors_BSP_Organic05b Flags=3584" << std::endl;
         for (Vector v : poly) {
             stream << indentation << "            Vertex   " << v.getX() << "," << v.getY() << "," << v.getZ() << std::endl;
         }
