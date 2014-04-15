@@ -41,6 +41,11 @@ function int GetGameTime()
 	return gameTime;
 }
 
+static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)
+{
+	return class'TERGame';
+}
+
 defaultproperties
 {
 	bUseClassicHUD = true;
