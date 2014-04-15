@@ -119,7 +119,7 @@ void Pathfinding::addNeighbors(Cell cell) {
     int maxUpCell = 2;
     std::vector<Cell> cells = getLastNodes(cell, maxUpCell);
     int n = 1;
-    for (int i = 0; i < (cells.size() - 1); ++i) {
+    for (unsigned int i = 0; i < (cells.size() - 1); ++i) {
         int dz = std::get<2>(cells[i]) - std::get<2>(cells[i + 1]);
         if (dz != 0) {
             n++;

@@ -317,12 +317,14 @@ void T3DExporter::exportPlayerStart(std::ofstream& output, NameFactory *nameFact
                     if (itZ.second == Grid::START_CELL) {
                         //std::cout << "Detected player start at " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
                         Vector pos = (areaPositon + Vector(itX.first, itY.first, itZ.first)) * CUBE_SIZE * 2.0;
+                        pos = Vector(pos.getX(), pos.getY(), pos.getZ() - CUBE_SIZE);
                         PlayerStartActor psa(pos);
                         output << psa.getT3D(2, nameFactory) << std::endl;
                         //return; //To avoid doing lot of unecessary loops
                     } else if (itZ.second == Grid::FINISH_CELL) {
                         //std::cout << "Detected player Finish at " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
                         Vector pos = (areaPositon + Vector(itX.first, itY.first, itZ.first)) * CUBE_SIZE * 2.0;
+                        pos = Vector(pos.getX(), pos.getY(), pos.getZ() - CUBE_SIZE);
                         PlayerFinishActor pfa(pos);
                         output << pfa.getT3D(2, nameFactory) << std::endl;
                     }
