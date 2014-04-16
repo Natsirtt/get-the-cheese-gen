@@ -278,8 +278,8 @@ void genClimbRoom() {
     g.set(Grid::CLIMB_CELL, 0, 3, 1);
     g.set(Grid::CLIMB_CELL, 0, 3, 2);
 
-    a.addInCell(std::make_tuple(0, 2, 3));
-    a.addOutCell(std::make_tuple(0, -3, 0));
+    a.addInCell(std::make_tuple(0, -3, 0));
+    a.addOutCell(std::make_tuple(0, 2, 3));
 
     a.save(std::string("ClimbWall.area"));
 }
