@@ -326,6 +326,7 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
             for (auto& itY : itX.second) {
                 for (auto& itZ : itY.second) {
                     if (itZ.second == Grid::CLIMB_CELL) {
+                        std::cout << "Detecting a CLIMB_CELL at " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
                         //Le bloc physique
                         BrushActor brush(&g);
                         //brush.IActor::writeT3D(...) ?! SERIOUSLY ?!!

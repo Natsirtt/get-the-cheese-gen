@@ -255,18 +255,25 @@ void genGridDoor() {
 
 void genClimbRoom() {
     Area a(false);
-//    int xSize = 5;
-//    int ySize = 5;
-//    int zSize = 5;
+    int xSize = 5;
+    int ySize = 5;
+    int zSize = 5;
 
     Grid& g = a.getGrid();
+    for (int x = -xSize / 2; x <= xSize / 2; ++x) {
+        for (int z = 0; z < zSize; ++z) {
+            for (int y = -ySize / 2; y <= ySize / 2; ++y) {
+                g.set(Grid::BLOCK_CELL, x, y, z);
+            }
+        }
+    }
     g.set(Grid::CLIMB_CELL, 0, 0, 0);
     g.set(Grid::CLIMB_CELL, 0, 0, 1);
     g.set(Grid::CLIMB_CELL, 0, 0, 2);
     g.set(Grid::CLIMB_CELL, 0, 0, 3);
 
-    a.addInCell(std::make_tuple(0, 4, 0));
-    a.addOutCell(std::make_tuple(0, -4, 0));
+    a.addInCell(std::make_tuple(0, 3, 0));
+    a.addOutCell(std::make_tuple(0, -3, 0));
 
     a.save(std::string("ClimbWall.area"));
 }
