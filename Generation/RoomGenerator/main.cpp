@@ -267,12 +267,18 @@ void genClimbRoom() {
             }
         }
     }
-    g.set(Grid::CLIMB_CELL, 0, 0, 0);
-    g.set(Grid::CLIMB_CELL, 0, 0, 1);
-    g.set(Grid::CLIMB_CELL, 0, 0, 2);
-    g.set(Grid::CLIMB_CELL, 0, 0, 3);
 
-    a.addInCell(std::make_tuple(0, 3, 0));
+    g.set(Grid::CLIMB_CELL, 0, 1, 0);
+    g.set(Grid::CLIMB_CELL, 0, 1, 1);
+    g.set(Grid::CLIMB_CELL, 0, 1, 2);
+    g.set(Grid::CLIMB_CELL, 0, 2, 0);
+    g.set(Grid::CLIMB_CELL, 0, 2, 1);
+    g.set(Grid::CLIMB_CELL, 0, 2, 2);
+    g.set(Grid::CLIMB_CELL, 0, 3, 0);
+    g.set(Grid::CLIMB_CELL, 0, 3, 1);
+    g.set(Grid::CLIMB_CELL, 0, 3, 2);
+
+    a.addInCell(std::make_tuple(0, 2, 3));
     a.addOutCell(std::make_tuple(0, -3, 0));
 
     a.save(std::string("ClimbWall.area"));
