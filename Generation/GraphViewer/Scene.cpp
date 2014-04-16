@@ -15,7 +15,7 @@ Scene::Scene(std::string filename) {
     while (!file.eof()) {
         file >> x >> y >> z >> t;
         mColors[t] = std::make_tuple(random(), random(), random());
-        auto& tup = mColors[t];
+        //auto& tup = mColors[t];
         //std::cout << std::get<0>(tup) << " " << std::get<1>(tup) << " " << std::get<2>(tup) << std::endl;
         mBoxes.push_back(std::make_pair(
                         t,

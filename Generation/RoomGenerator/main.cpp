@@ -16,6 +16,7 @@ void genLaser();
 void genDoor();
 void genTurret();
 void genGridDoor();
+void genClimbRoom();
 
 int main(int argc, char* argv[]) {
     genStartRoom();
@@ -29,7 +30,9 @@ int main(int argc, char* argv[]) {
     genDoor();
     genTurret();
     genGridDoor();
+    genClimbRoom();
 
+    std::cout << "Rooms generated" << std::endl;
     return 0;
 }
 
@@ -248,4 +251,22 @@ void genGridDoor() {
     a.addOutCell(std::make_tuple(0, -1, 0));
 
     a.save(std::string("GridDoor.area"));
+}
+
+void genClimbRoom() {
+    Area a(false);
+//    int xSize = 5;
+//    int ySize = 5;
+//    int zSize = 5;
+
+    Grid& g = a.getGrid();
+    g.set(Grid::CLIMB_CELL, 0, 0, 0);
+    g.set(Grid::CLIMB_CELL, 0, 0, 1);
+    g.set(Grid::CLIMB_CELL, 0, 0, 2);
+    g.set(Grid::CLIMB_CELL, 0, 0, 3);
+
+    a.addInCell(std::make_tuple(0, 4, 0));
+    a.addOutCell(std::make_tuple(0, -4, 0));
+
+    a.save(std::string("ClimbWall.area"));
 }

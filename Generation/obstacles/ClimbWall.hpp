@@ -4,6 +4,7 @@
 #include "../Gate.hpp"
 #include "../IGraph.hpp"
 #include "../Enum.hpp"
+#include "../3D/Area.hpp"
 
 /**
  * Un mur d'escalade à escalader avec ses compétences d'escaladeur.
@@ -37,6 +38,9 @@ public:
     }
     std::string getName() {
         return "ClimbWall";
+    }
+    Area getArea() {
+        return Area("Area/ClimbWall.area");
     }
 protected:
     friend ObstacleChooser;
