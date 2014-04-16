@@ -47,7 +47,6 @@ function bool UsedBy(Pawn User)
 
 function bool Trigger()
 {	
-	`Log("Trigger");
 	if (triggerVolume.IsInside() && (triggerable != none))
 	{
 		triggerable.Trigger();
@@ -66,13 +65,7 @@ function bool Trigger()
 
 event Tick(float DeltaTime)
 {
-	if (triggerVolume.IsInside())
-	{
-		`Log("inside");
-	} else 
-	{
-		`Log("not inside");
-	}
+	super.Tick(DeltaTime);
 }
 
 defaultproperties
