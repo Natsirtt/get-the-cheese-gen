@@ -12,10 +12,8 @@
 #include "PlayerStartActor.hpp"
 #include "PlayerFinishActor.hpp"
 #include "PointLightActor.hpp"
-#include "../Utils/Vector.hpp"
+#include "LadderActor.hpp"
 
-#define CUBE_SIZE 100.0
-#define REDUCED_SIZE 1.0
 #define LIGHTS_MODULO 6
 
 T3DExporter::T3DExporter(World *world) : mWorld{world} {
@@ -23,22 +21,6 @@ T3DExporter::T3DExporter(World *world) : mWorld{world} {
 
 T3DExporter::T3DExporter(Graph *graph) : mWorld{new World(graph)} {
     mWorld->build();
-}
-
-//Legacy : fisrt T3D test
-void staticCubesRepresentation(std::ofstream& output, Grid *g, NameFactory *nameFactory) {
-    for (auto& itX : g->getMap()) {
-        for (auto& itY : itX.second) {
-            for (auto& itZ : itY.second) {
-                std::cout << "Parsing : " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
-                if (g->get(itX.first, itY.first, itZ.first) != Grid::EMPTY_CELL) {
-                    IActor *actor = new StaticMeshActor(itZ.first * CUBE_SIZE, itY.first * CUBE_SIZE, itX.first * CUBE_SIZE);
-                    output << actor->getT3D(2, nameFactory);
-                    delete actor;
-                }
-            }
-        }
-    }
 }
 
 void T3DExporter::exportT3D(std::string filepath) {
@@ -77,7 +59,7 @@ void T3DExporter::exportT3D(std::string filepath) {
     output.close();
 }
 
-std::vector<std::vector<Vector>> getWall(float sizeLen, bool reducedX, bool reducedY, bool reducedZ) {
+std::vector<std::vector<Vector>> T3DExporter::getWall(float sizeLen, bool reducedX, bool reducedY, bool reducedZ) {
     float sizeX = sizeLen;
     float sizeY = sizeLen;
     float sizeZ = sizeLen;
@@ -130,6 +112,10 @@ std::vector<std::vector<Vector>> getWall(float sizeLen, bool reducedX, bool redu
     f6.push_back(Vector(-sizeX, sizeY, sizeZ));
     polyList.push_back(f6);
     return polyList;
+}
+
+std::vector<std::vector<Vector>> T3DExporter::getCube(float sizeLen) {
+    return getWall(sizeLen, false, false, false);
 }
 
 void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFactory) {
@@ -329,6 +315,40 @@ void T3DExporter::exportPlayerStart(std::ofstream& output, NameFactory *nameFact
     }
     //PlayerStartActor psa(Vector(0, -50, 0));
     //output << psa.getT3D(2, nameFactory) << std::endl;
+}
+
+void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFactory) {
+    for (unsigned int i = 0; i < mWorld->getAreas().size(); ++i) {
+        std::tuple<long, long, long> posTuple = mWorld->getAreaPosition(i);
+        Vector areaPositon(std::get<0>(posTuple), std::get<1>(posTuple), std::get<2>(posTuple));
+        Grid g = mWorld->getAreas().at(i).getGrid();
+        for (auto& itX : g.getMap()) {
+            for (auto& itY : itX.second) {
+                for (auto& itZ : itY.second) {
+                    if (itZ.second == Grid::CLIMB_CELL) {
+                        //Le bloc physique
+                        BrushActor brush(&g);
+                        //brush.IActor::writeT3D(...) ?! SERIOUSLY ?!!
+                        brush.IActor::writeT3D(output, 2, nameFactory, itX.first, itY.first, itZ.first);
+                        //Les blocs ladder autour
+                        LadderActor ladder(&g);
+                        if (g.get(itX.first - 1, itY.first, itZ.first) == Grid::EMPTY_CELL) {
+                            ladder.IActor::writeT3D(output, 2, nameFactory, itX.first - 1, itY.first, itZ.first);
+                        }
+                        if (g.get(itX.first + 1, itY.first, itZ.first) == Grid::EMPTY_CELL) {
+                            ladder.IActor::writeT3D(output, 2, nameFactory, itX.first + 1, itY.first, itZ.first);
+                        }
+                        if (g.get(itX.first, itY.first - 1, itZ.first) == Grid::EMPTY_CELL) {
+                            ladder.IActor::writeT3D(output, 2, nameFactory, itX.first, itY.first - 1, itZ.first);
+                        }
+                        if (g.get(itX.first, itY.first + 1, itZ.first) == Grid::EMPTY_CELL) {
+                            ladder.IActor::writeT3D(output, 2, nameFactory, itX.first, itY.first + 1, itZ.first);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 bool T3DExporter::isPhysicalCell(long t) {

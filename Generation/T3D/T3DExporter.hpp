@@ -5,6 +5,7 @@
 #include <fstream>
 
 #include "../3D/World.hpp"
+#include "../Utils/Vector.hpp"
 #include "../Graph.hpp"
 #include "NameFactory.hpp"
 
@@ -15,11 +16,17 @@ class T3DExporter {
         virtual ~T3DExporter(){};
 
         void exportT3D(std::string filepath);
+        static std::vector<std::vector<Vector>> getWall(float sizeLen, bool reducedX, bool reducedY, bool reducedZ);
+        static std::vector<std::vector<Vector>> getCube(float sizeLen);
+
+        static const int CUBE_SIZE = 100;
+        static const int REDUCED_SIZE = 1;
     protected:
     private:
         void exportPathsBrushes(std::ofstream& output, NameFactory *nameFactory);
         void exportRoomsBrushes(std::ofstream& output, NameFactory *nameFactory);
-        void exportPlayerStart(std::ofstream& output, NameFactory *NameFactory);
+        void exportPlayerStart(std::ofstream& output, NameFactory *nameFactory);
+        void exportSpecialsCells(std::ofstream& output, NameFactory *nameFactory);
 
         bool isPhysicalCell(long t);
     private:

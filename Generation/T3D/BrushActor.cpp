@@ -1,6 +1,9 @@
 #include "BrushActor.hpp"
 
+#include "T3DExporter.hpp"
+
 #include <sstream>
+#include <vector>
 
 //BrushActor::BrushActor() {}
 
@@ -9,6 +12,8 @@ BrushActor::BrushActor(Vector location, std::vector<std::vector<Vector>> polyLis
 
 BrushActor::BrushActor(double xLocation, double yLocation, double zLocation, std::vector<std::vector<Vector>> polyList, bool sub) : mLocation{Vector(xLocation, yLocation, zLocation)}, mPolyList{polyList}, mSub{sub} {
 }
+
+BrushActor::BrushActor(Grid *g) : IActor(g), mSub{false} {}
 
 Vector BrushActor::getLocation() {
     return mLocation;
@@ -85,4 +90,15 @@ std::string BrushActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     stream << indentation << "End Actor";
 
     return stream.str();
+}
+
+/**
+ * Just a cube on the gridPosition
+ */
+void BrushActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition) {
+    if (mGrid != nullptr) {
+        mLocation = gridPosition;
+        mPolyList = T3DExporter::getCube(T3DExporter::CUBE_SIZE);
+    }
+    output << getT3D(indentLevel, nameFactory);
 }

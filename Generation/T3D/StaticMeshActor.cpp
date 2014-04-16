@@ -73,3 +73,10 @@ std::string StaticMeshActor::getT3D(int indentLevel, NameFactory *nameFactory) {
 
     return stream.str();
 }
+
+void StaticMeshActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition) {
+    if (mGrid != nullptr) {
+        mLocation = gridPosition;
+    }
+    output << getT3D(indentLevel, nameFactory);
+}

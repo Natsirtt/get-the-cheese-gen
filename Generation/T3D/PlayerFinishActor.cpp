@@ -9,6 +9,7 @@ PlayerFinishActor::PlayerFinishActor(Vector location) : mLocation{location} {
 PlayerFinishActor::PlayerFinishActor(double xLocation, double yLocation, double zLocation) : mLocation{Vector(xLocation, yLocation, zLocation)} {
 }
 
+PlayerFinishActor::PlayerFinishActor(Grid *g) : IActor(g) {}
 
 std::string PlayerFinishActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     std::stringstream indentStream;
@@ -47,3 +48,9 @@ std::string PlayerFinishActor::getT3D(int indentLevel, NameFactory *nameFactory)
     return stream.str();
 }
 
+void PlayerFinishActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition) {
+    if (mGrid != nullptr) {
+        mLocation = gridPosition;
+    }
+    output << getT3D(indentLevel, nameFactory);
+}

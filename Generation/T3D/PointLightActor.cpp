@@ -9,6 +9,7 @@ PointLightActor::PointLightActor(Vector location, float radius) : mLocation{loca
 PointLightActor::PointLightActor(double xLocation, double yLocation, double zLocation, float radius) : mLocation{Vector(xLocation, yLocation, zLocation)}, mRadius{radius} {
 }
 
+PointLightActor::PointLightActor(Grid *g, float radius) : IActor(g), mRadius{radius} {}
 
 std::string PointLightActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     std::stringstream indentStream;
@@ -82,3 +83,9 @@ std::string PointLightActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     return stream.str();
 }
 
+void PointLightActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition) {
+    if (mGrid != nullptr) {
+        mLocation = gridPosition;
+    }
+    output << getT3D(indentLevel, nameFactory);
+}

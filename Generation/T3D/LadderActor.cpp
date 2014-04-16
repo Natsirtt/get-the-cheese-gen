@@ -1,5 +1,7 @@
 #include "LadderActor.hpp"
 
+#include "T3DExporter.hpp"
+
 #include <cmath>
 #include <sstream>
 
@@ -16,6 +18,8 @@ LadderActor::LadderActor(Vector location, std::vector<std::vector<Vector>> polyL
 
 LadderActor::LadderActor(double xLocation, double yLocation, double zLocation, std::vector<std::vector<Vector>> polyList, float degYaw) : mLocation{Vector(xLocation, yLocation, zLocation)}, mPolyList{polyList}, mYaw{(int) std::round(degYaw)} {
 }
+
+LadderActor::LadderActor(Grid *g) : IActor(g) {}
 
 Vector LadderActor::getLocation() {
     return mLocation;
@@ -93,4 +97,22 @@ std::string LadderActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     stream << indentation << "End Actor" << std::endl;
 
     return stream.str();
+}
+
+void LadderActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition) {
+    if (mGrid != nullptr) {
+        mLocation = gridPosition;
+        mPolyList = T3DExporter::getCube(T3DExporter::CUBE_SIZE);
+        //On cherche le voisin qui est le bloc d'échelle
+        if (mGrid->get(mLocation.getX() - 1, mLocation.getY(), mLocation.getZ()) == Grid::CLIMB_CELL) {
+            mYaw = NEG_X_YAW;
+        } else if (mGrid->get(mLocation.getX() + 1, mLocation.getY(), mLocation.getZ()) == Grid::CLIMB_CELL) {
+            mYaw = X_YAW;
+        } else if (mGrid->get(mLocation.getX(), mLocation.getY() - 1, mLocation.getZ()) == Grid::CLIMB_CELL) {
+            mYaw = NEG_Y_YAW;
+        } else {
+            mYaw = Y_YAW;
+        }
+    }
+    output << getT3D(indentLevel, nameFactory);
 }
