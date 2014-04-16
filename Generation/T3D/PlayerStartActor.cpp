@@ -102,7 +102,7 @@ std::string PlayerStartActor::getT3D(int indentLevel, NameFactory *nameFactory) 
     return stream.str();
 }
 
-void PlayerStartActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition) {
+void PlayerStartActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition, Vector gridTranslation) {
     if (mGrid != nullptr) {
         mLocation = gridPosition;
     }

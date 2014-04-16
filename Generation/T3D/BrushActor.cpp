@@ -95,10 +95,12 @@ std::string BrushActor::getT3D(int indentLevel, NameFactory *nameFactory) {
 /**
  * Just a cube on the gridPosition
  */
-void BrushActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition) {
+void BrushActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition, Vector gridTranslation) {
     if (mGrid != nullptr) {
-        mLocation = gridPosition;
+        mLocation = (gridPosition + gridTranslation) * T3DExporter::CUBE_SIZE * 2.0;
+        mLocation = mLocation - Vector(0, 0, T3DExporter::CUBE_SIZE / 2);
+
         mPolyList = T3DExporter::getCube(T3DExporter::CUBE_SIZE);
+        output << getT3D(indentLevel, nameFactory);
     }
-    output << getT3D(indentLevel, nameFactory);
 }

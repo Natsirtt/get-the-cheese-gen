@@ -22,7 +22,7 @@ class LadderActor : public IActor {
 
         Vector getLocation();
         virtual std::string getT3D(int indentLevel, NameFactory *nameFactory);
-        virtual void writeT3D(std::ofstream& output, int indentLevel, NameFactory *NameFactory, Vector gridPosition);
+        virtual void writeT3D(std::ofstream& output, int indentLevel, NameFactory *NameFactory, Vector gridPosition, Vector gridTranslation);
 
         //CF unreal rotators conversions
         static const float DEG_TO_UNREAL;

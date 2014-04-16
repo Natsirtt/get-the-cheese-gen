@@ -17,7 +17,7 @@ class PlayerFinishActor : public IActor {
         virtual ~PlayerFinishActor() {};
 
         virtual std::string getT3D(int indentLevel, NameFactory *nameFactory);
-        virtual void writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition);
+        virtual void writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition, Vector gridTranslation);
 
     protected:
     private:

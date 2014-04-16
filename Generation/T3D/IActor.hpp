@@ -13,9 +13,9 @@ public:
     virtual ~IActor() {}
 
     virtual std::string getT3D(int indentLevel, NameFactory *nameFactory) = 0;
-    virtual void writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition) = 0;
+    virtual void writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition, Vector gridTranslation) = 0;
     void writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, const long& xGridPos, const long& yGridPos, const long& zGridPos) {
-        writeT3D(output, indentLevel, nameFactory, Vector(xGridPos, yGridPos, zGridPos));
+        writeT3D(output, indentLevel, nameFactory, Vector(xGridPos, yGridPos, zGridPos), Vector(0, 0, 0));
     }
 
 protected:
