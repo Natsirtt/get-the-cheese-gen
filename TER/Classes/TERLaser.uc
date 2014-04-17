@@ -2,76 +2,67 @@ class TERLaser extends Actor
 	placeable;
 	
 	
-var ParticleSystemComponent BeamEmitter;
-var UTEmitter BeamEndpointEffect;
-
-event simulated PostBeginPlay()
-{
-	super.PostBeginPlay();
-}
+var ParticleSystemComponent BeamEmitter; // L'effet de particule du laser
+var UTEmitter BeamEndpointEffect; // L'effet au bout du laser lorsque le laser touche quelque chose
+var int LaserMaxLength; // La longueur maximale du laser
 
 function Tick(float dt)
 {
-	local actor HitActor;
+	local Actor HitActor;
+	local Actor nearestActor;
+	local int nearestDistance;
+	local vector NearestHitLoc, NearestHitNorm;
 	local TERPawn player;
     local vector HitLoc, HitNorm, start, end;
-	local rotator LaserRotation;
-	local bool hit;
-	local vector baseDir;
+	local vector projDir;
 	super.Tick(dt);
 	
-	hit = false;
     start = location;
 	
-	//baseDir = GetRotatorAxis(rotation, AXIS_Z);
-	//`Log(rotator(baseDir));
-	//LaserRotation = rotator(baseDir) + rotation;
+	// On fait une rotation pour que la direction de la projection soit la même que celle du laser
+	projDir = QuatRotateVector(QuatFromRotator(Rotation), vect(0, 0, 1));
+	end = start + projDir * LaserMaxLength;
 	
-	//LaserRotation = BeamEmitter.Rotation;
-    //end = start + Vector(LaserRotation) * 32768;
-	baseDir = Normal(Vector(Rotation + rot(16380, 0, 0)) /* cross vect(0, 1, 0)*/);
-	end = start + baseDir * 32768;
-	//`Log(Vector(LaserRotation));
-	
+	// On teste tous les acteurs dans la direction
 	foreach TraceActors(class'actor', HitActor, HitLoc, HitNorm, end, start)
 	{
-		BeamEmitter.SetVectorParameter('LinkBeamEnd', HitLoc);
-		BeamEndpointEffect.SetLocation(HitLoc);
-		BeamEndpointEffect.SetRotation(rotator(HitNorm));
-		BeamEndpointEffect.SetFloatParameter('Touch', 1);	
-		hit = true;
-		
-		player = TERPawn(HitActor);
-		if (player != none)
+		if ((nearestActor == none) || (nearestDistance > VSize(start - HitLoc)))
 		{
-			//player.TakeDamage(1, none, HitLoc, vect(0, 0, 0), class'DmgType_Fell');
-			`Log("Hit someone");
-			HitLoc = player.location;
-			BeamEmitter.SetVectorParameter('LinkBeamEnd', player.location);
-			BeamEndpointEffect.SetLocation(player.location);
-			break;
+			nearestActor = HitActor;
+			nearestDistance = VSize(start - HitLoc);
+			NearestHitLoc = HitLoc;
+			NearestHitNorm = HitNorm;
 		}
 	}
-	if (hit)
+	
+	if (nearestActor != none) // Si le laser a touché quelque chose (Un mur ou un joueur par exemple)
 	{
-		if (BeamEndpointEffect != None && !BeamEndpointEffect.bDeleteMe)
+		player = TERPawn(nearestActor);
+		if (player != none) // Si l'Actor est un joueur
 		{
-			BeamEndpointEffect.SetLocation(HitLoc);
-			BeamEndpointEffect.SetRotation(rotator(HitNorm));
+			player.TakeDamage(1, none, NearestHitLoc, vect(0, 0, 0), class'DmgType_Fell');
+			NearestHitLoc = player.location;
+		}
+		// On modifie le point d'arrivée du laser 
+		BeamEmitter.SetVectorParameter('LinkBeamEnd', NearestHitLoc);
+		if (BeamEndpointEffect != None && !BeamEndpointEffect.bDeleteMe) // Si l'effet de particule n'a pas été recyclé
+		{
 			if (BeamEndpointEffect.ParticleSystemComponent.Template != ParticleSystem'WP_LinkGun.Effects.P_WP_Linkgun_Beam_Impact_Gold')
 			{
 				BeamEndpointEffect.SetTemplate(ParticleSystem'WP_LinkGun.Effects.P_WP_Linkgun_Beam_Impact_Gold', true);
 			}
-		}
-		else
+		} else // Sinon on le recrée
 		{
-			BeamEndpointEffect = Spawn(class'UTEmitter', self,, HitLoc, rotator(HitNorm));
+			BeamEndpointEffect = Spawn(class'UTEmitter', self,, NearestHitLoc, rotator(NearestHitNorm));
 			BeamEndpointEffect.SetTemplate(ParticleSystem'WP_LinkGun.Effects.P_WP_Linkgun_Beam_Impact_Gold', true);
 			BeamEndpointEFfect.LifeSpan = 0.0;
 		}
+		BeamEndpointEffect.SetLocation(NearestHitLoc);
+		BeamEndpointEffect.SetRotation(rotator(NearestHitNorm));
 		BeamEndpointEffect.SetFloatParameter('Touch',1);
-	} else
+	} else // Aucune colision
 	{
+		// On supprime l'effet en bout de laser
 		if (BeamEndpointEffect != None)
 		{
 			BeamEndpointEffect.SetFloatParameter('Touch', 0);
@@ -79,12 +70,14 @@ function Tick(float dt)
 			BeamEndpointEffect.LifeSpan = 2.0;
 			BeamEndpointEffect = None;
 		}
-		BeamEmitter.SetVectorParameter('LinkBeamEnd', start + baseDir * 500);
+		// On change le point d'arrivé du laser
+		BeamEmitter.SetVectorParameter('LinkBeamEnd', start + projDir * LaserMaxLength);
 	}
 }
 
 defaultproperties
 {
+	// La base du laser
 	Begin Object class=DynamicLightEnvironmentComponent Name=MyLightEnvironment
 		bEnabled=true
 		bDynamic=true
@@ -112,4 +105,6 @@ defaultproperties
 	End Object
 	BeamEmitter=BeamEmitterComponent
 	components.Add(BeamEmitterComponent)
+	
+	LaserMaxLength = 32768
 }
