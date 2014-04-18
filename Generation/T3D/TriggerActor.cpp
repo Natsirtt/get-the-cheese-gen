@@ -2,6 +2,7 @@
 
 #include <sstream>
 
+#include "T3DExporter.hpp"
 
 TriggerActor::TriggerActor(Vector location, std::string triggerableName) : mLocation{location}, mTriggerableName{triggerableName} {
 }
@@ -9,7 +10,7 @@ TriggerActor::TriggerActor(Vector location, std::string triggerableName) : mLoca
 TriggerActor::TriggerActor(double xLocation, double yLocation, double zLocation, std::string triggerableName) : mLocation{Vector(xLocation, yLocation, zLocation)}, mTriggerableName{triggerableName} {
 }
 
-TriggerActor::TriggerActor(Grid *g) : IActor(g) {}
+TriggerActor::TriggerActor(Grid *g, std::string triggerableName) : IActor(g), mTriggerableName{triggerableName} {}
 
 std::string TriggerActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     std::stringstream indentStream;
@@ -89,3 +90,10 @@ std::string TriggerActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     return stream.str();
 }
 
+void TriggerActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition, Vector gridTranslation) {
+    if (mGrid != nullptr) {
+        mLocation = (gridPosition + gridTranslation) * T3DExporter::DEMI_CUBE_SIZE * 2.0;
+        mLocation = mLocation - Vector(0, 0, T3DExporter::DEMI_CUBE_SIZE);
+    }
+    output << getT3D(indentLevel, nameFactory);
+}

@@ -101,7 +101,7 @@ std::string LadderActor::getT3D(int indentLevel, NameFactory *nameFactory) {
 
 void LadderActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition, Vector gridTranslation) {
     if (mGrid != nullptr) {
-        std::cout << "Ladder" << std::endl;
+        //std::cout << "Ladder" << std::endl;
         mLocation = (gridPosition + gridTranslation) * T3DExporter::DEMI_CUBE_SIZE * 2.0;
         //mLocation = Vector(mLocation.getX(), mLocation.getY(), mLocation.getZ() - T3DExporter::CUBE_SIZE);
 

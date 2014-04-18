@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <vector>
 #include <tuple>
+#include <map>
 
 #include "../3D/Grid.hpp"
 #include "IActor.hpp"
@@ -322,15 +323,17 @@ void T3DExporter::exportPlayerStart(std::ofstream& output, NameFactory *nameFact
 }
 
 void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFactory) {
+    std::map<std::tuple<long, long, long>, std::string> triggerPositionDoorNameMap;
     for (unsigned int i = 0; i < mWorld->getAreas().size(); ++i) {
         std::tuple<long, long, long> posTuple = mWorld->getAreaPosition(i);
         Vector areaPositon(std::get<0>(posTuple), std::get<1>(posTuple), std::get<2>(posTuple));
         Grid g = mWorld->getAreas().at(i).getGrid();
-        std::cout << "area : " << i << std::endl;
+        std::map<std::tuple<long, long, long>, std::tuple<long, long, long>>& doorTriggerMap = mWorld->getTriggerDoorMap();
+        //std::cout << "area : " << i << std::endl;
         for (auto& itX : g.getMap()) {
             for (auto& itY : itX.second) {
                 for (auto& itZ : itY.second) {
-                    std::cout << itZ.second << std::endl;
+                    //std::cout << itZ.second << std::endl;
                     Vector pos = Vector(itX.first, itY.first, itZ.first);
                     //******************FULLING IDLE CELLS*****************//
                     if (itZ.second == Grid::FULLED_IDLE_CELL) {
@@ -347,26 +350,47 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                         //Les blocs ladder autour
                         LadderActor ladder(&g);
                         if (g.get(itX.first - 1, itY.first, itZ.first) == Grid::BLOCK_CELL) {
-                            std::cout << "ok1" << std::endl;
+                            //std::cout << "ok1" << std::endl;
                             ladder.writeT3D(output, 2, nameFactory, Vector(itX.first - 1, itY.first, itZ.first), areaPositon);
                         }
                         if (g.get(itX.first + 1, itY.first, itZ.first) == Grid::BLOCK_CELL) {
-                            std::cout << "ok2" << std::endl;
+                            //std::cout << "ok2" << std::endl;
                             ladder.writeT3D(output, 2, nameFactory, Vector(itX.first + 1, itY.first, itZ.first), areaPositon);
                         }
                         if (g.get(itX.first, itY.first - 1, itZ.first) == Grid::BLOCK_CELL) {
-                            std::cout << "ok3" << std::endl;
+                            //std::cout << "ok3" << std::endl;
                             ladder.writeT3D(output, 2, nameFactory, Vector(itX.first, itY.first - 1, itZ.first), areaPositon);
                         }
                         if (g.get(itX.first, itY.first + 1, itZ.first) == Grid::BLOCK_CELL) {
-                            std::cout << "ok4" << std::endl;
+                            //std::cout << "ok4" << std::endl;
                             ladder.writeT3D(output, 2, nameFactory, Vector(itX.first, itY.first + 1, itZ.first), areaPositon);
                         }
                     }
-                    //********************DOORS & TRIGGERS*******************//
-                    if (itZ.second == Grid::DOOR_CELL) {
+                    //********************DOORS*************************//
+                    else if (itZ.second == Grid::DOOR_CELL) {
                         DoorActor door(&g);
                         door.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                        auto& triggerPos = doorTriggerMap.at(std::make_tuple(itX.first, itY.first, itZ.first));
+                        //On dit au trigger de la door quel est le nom de cette dernière
+                        triggerPositionDoorNameMap[triggerPos] = door.getName();
+                    }
+                }
+            }
+        }
+    }
+    //Toutes les portes doivent être exportées pour exporter leurs triggers, alors on fait une dernière boucle juste pour eux
+    for (unsigned int i = 0; i < mWorld->getAreas().size(); ++i) {
+        std::tuple<long, long, long> posTuple = mWorld->getAreaPosition(i);
+        Vector areaPositon(std::get<0>(posTuple), std::get<1>(posTuple), std::get<2>(posTuple));
+        Grid g = mWorld->getAreas().at(i).getGrid();
+        for (auto& itX : g.getMap()) {
+            for (auto& itY : itX.second) {
+                for (auto& itZ : itY.second) {
+                    Vector pos = Vector(itX.first, itY.first, itZ.first);
+                     if (itZ.second == Grid::TRIGGER_CELL) {
+                        std::cout << "Trigger at " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
+                        TriggerActor trigger(&g, triggerPositionDoorNameMap[std::make_tuple(itX.first, itY.first, itZ.first)]);
+                        trigger.writeT3D(output, 2, nameFactory, pos, areaPositon);
                     }
                 }
             }

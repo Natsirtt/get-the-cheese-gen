@@ -5,6 +5,10 @@
 #include "Grid.hpp"
 #include "Area.hpp"
 
+#include <tuple>
+#include <vector>
+#include <map>
+
 class IGraph;
 class INode;
 class IGate;
@@ -18,6 +22,7 @@ public:
     std::vector<std::vector<std::tuple<long, long, long>>> getPaths();
     std::vector<Area> getAreas();
     std::tuple<long, long, long> getAreaPosition(int areaNb);
+    std::map<std::tuple<long, long, long>, std::tuple<long, long, long>>& getTriggerDoorMap();
 private:
     bool addNode(INode* n, long x, long y, long z);
     bool addGate(IGate* g, long x, long y, long z);
@@ -35,6 +40,8 @@ private:
     std::vector<Area> mAreas;
     // tableau des chemins dans le monde
     std::vector<std::vector<std::tuple<long, long, long>>> mPaths;
+    // Association emplacement d'une porte <=> emplacement de son trigger
+    std::map<std::tuple<long, long, long>, std::tuple<long, long, long>> mMapDoorTrigger;
 };
 
 #endif // WORLD_HPP
