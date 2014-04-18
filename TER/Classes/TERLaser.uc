@@ -4,7 +4,7 @@ class TERLaser extends Actor
 	
 var ParticleSystemComponent BeamEmitter; // L'effet de particule du laser
 var UTEmitter BeamEndpointEffect; // L'effet au bout du laser lorsque le laser touche quelque chose
-var int LaserMaxLength; // La longueur maximale du laser
+var() int LaserMaxLength; // La longueur maximale du laser
 
 function Tick(float dt)
 {
