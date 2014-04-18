@@ -12,6 +12,7 @@ class TriggerActor : public IActor {
     public:
         TriggerActor(Vector location, std::string triggerableName);
         TriggerActor(double xLocation, double yLocation, double zLocation, std::string triggerableName);
+        TriggerActor(Grid *g);
         virtual ~TriggerActor() {};
 
         virtual std::string getT3D(int indentLevel, NameFactory *nameFactory);

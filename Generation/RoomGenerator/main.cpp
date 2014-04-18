@@ -233,11 +233,25 @@ void genTurret() {
 
 void genDoor() {
     Area a(false);
+    int ySize = 4;
+    int zSize = 2;
 
-    a.getGrid().set(Grid::DOOR_CELL, 0, 0, 0);
+    Grid& g = a.getGrid();
+    for (int z = 0; z < zSize; ++z) {
+        for (int y = -ySize / 2; y <= ySize / 2; ++y) {
+            //some useless brushes to avoid the door to cross some paths next to the room
+            g.set(Grid::FULLED_IDLE_CELL, -2, y, z);
+            g.set(Grid::FULLED_IDLE_CELL, -1, y, z);
+            g.set(Grid::BLOCK_CELL, 0, y, z);
+            g.set(Grid::FULLED_IDLE_CELL, 1, y, z);
+            g.set(Grid::FULLED_IDLE_CELL, 2, y, z);
+        }
+    }
 
-    a.addInCell(std::make_tuple(0, 1, 0));
-    a.addOutCell(std::make_tuple(0, -1, 0));
+    g.set(Grid::DOOR_CELL, 0, 0, 0);
+
+    a.addInCell(std::make_tuple(0, 3, 0));
+    a.addOutCell(std::make_tuple(0, -3, 0));
 
     a.save(std::string("Door.area"));
 }

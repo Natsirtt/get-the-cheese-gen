@@ -9,6 +9,7 @@ TriggerActor::TriggerActor(Vector location, std::string triggerableName) : mLoca
 TriggerActor::TriggerActor(double xLocation, double yLocation, double zLocation, std::string triggerableName) : mLocation{Vector(xLocation, yLocation, zLocation)}, mTriggerableName{triggerableName} {
 }
 
+TriggerActor::TriggerActor(Grid *g) : IActor(g) {}
 
 std::string TriggerActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     std::stringstream indentStream;

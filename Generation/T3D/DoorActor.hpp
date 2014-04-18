@@ -12,11 +12,13 @@ class DoorActor : public IActor {
     public:
         DoorActor(Vector location);
         DoorActor(double xLocation, double yLocation, double zLocation);
+        DoorActor(Grid *g);
         virtual ~DoorActor() {};
 
         virtual std::string getT3D(int indentLevel, NameFactory *nameFactory);
+        virtual void writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition, Vector gridTranslation);
 
-        std::string getName();
+        std::string getName(NameFactory *nameFactory = nullptr);
     protected:
     private:
         Vector mLocation;

@@ -13,6 +13,8 @@
 #include "PlayerFinishActor.hpp"
 #include "PointLightActor.hpp"
 #include "LadderActor.hpp"
+#include "DoorActor.hpp"
+#include "TriggerActor.hpp"
 
 #define LIGHTS_MODULO 6
 
@@ -181,43 +183,43 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
             Vector predZ(origin.getX(), origin.getY(), origin.getZ() - 1);
             Vector nextZ(origin.getX(), origin.getY(), origin.getZ() + 1);
 
-            Vector pos = origin * 2.0 * CUBE_SIZE;
+            Vector pos = origin * 2.0 * DEMI_CUBE_SIZE;
 
             if ((!isFirstOrLast && (predX != pred) && (predX != next)) ||
                 (isFirstOrLast && g->get(x - 1, y, z) == Grid::EMPTY_CELL)) {
-                BrushActor brush(pos - Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
+                BrushActor brush(pos - Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, true, false, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
             if ((!isFirstOrLast && (predY != pred) && (predY != next)) ||
                 (isFirstOrLast && g->get(x, y - 1, z) == Grid::EMPTY_CELL)) {
-                BrushActor brush(pos - Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
+                BrushActor brush(pos - Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, false, true, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
 
             if ((!isFirstOrLast && (predZ != pred) && (predZ != next)) ||
                 (isFirstOrLast && g->get(x, y, z - 1) == Grid::EMPTY_CELL)) {
-                BrushActor brush(pos - Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
+                BrushActor brush(pos - Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, false, false, true));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
             if ((!isFirstOrLast && (nextX != pred) && (nextX != next)) ||
                 (isFirstOrLast && g->get(x + 1, y, z) == Grid::EMPTY_CELL)) {
-                BrushActor brush(pos + Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
+                BrushActor brush(pos + Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, true, false, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
 
             if ((!isFirstOrLast && (nextY != pred) && (nextY != next)) ||
                 (isFirstOrLast && g->get(x, y + 1, z) == Grid::EMPTY_CELL)) {
-                BrushActor brush(pos + Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
+                BrushActor brush(pos + Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, false, true, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
             if ((!isFirstOrLast && (nextZ != pred) && (nextZ != next)) ||
                 (isFirstOrLast && g->get(x, y, z + 1) == Grid::EMPTY_CELL)) {
-                BrushActor brush(pos + Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
+                BrushActor brush(pos + Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, false, false, true));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
 
             if (lightCpt == 0) {
-                PointLightActor pla(pos, CUBE_SIZE);
+                PointLightActor pla(pos, DEMI_CUBE_SIZE);
                 output << pla.getT3D(2, nameFactory) << std::endl;
             }
             lightCpt = (lightCpt + 1) % LIGHTS_MODULO;
@@ -249,36 +251,36 @@ void T3DExporter::exportRoomsBrushes(std::ofstream& output, NameFactory *nameFac
                         long predZ = g.get(itX.first, itY.first, itZ.first - 1);
                         long nextZ = g.get(itX.first, itY.first, itZ.first + 1);
 
-                        Vector pos = (areaPositon + Vector(itX.first, itY.first, itZ.first)) * CUBE_SIZE * 2.0;
+                        Vector pos = (areaPositon + Vector(itX.first, itY.first, itZ.first)) * DEMI_CUBE_SIZE * 2.0;
                         if (predX == Grid::EMPTY_CELL) {
-                            BrushActor brush(pos - Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
+                            BrushActor brush(pos - Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, true, false, false));
                             output << brush.getT3D(2, nameFactory) << std::endl;
                         }
                         if (nextX == Grid::EMPTY_CELL) {
-                            BrushActor brush(pos + Vector(CUBE_SIZE, 0, 0), getWall(CUBE_SIZE, true, false, false));
+                            BrushActor brush(pos + Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, true, false, false));
                             output << brush.getT3D(2, nameFactory) << std::endl;
                         }
 
                         if (predY == Grid::EMPTY_CELL) {
-                            BrushActor brush(pos - Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
+                            BrushActor brush(pos - Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, false, true, false));
                             output << brush.getT3D(2, nameFactory) << std::endl;
                         }
                         if (nextY == Grid::EMPTY_CELL) {
-                            BrushActor brush(pos + Vector(0, CUBE_SIZE, 0), getWall(CUBE_SIZE, false, true, false));
+                            BrushActor brush(pos + Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, false, true, false));
                             output << brush.getT3D(2, nameFactory) << std::endl;
                         }
 
                         if (predZ == Grid::EMPTY_CELL) {
-                            BrushActor brush(pos - Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
+                            BrushActor brush(pos - Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, false, false, true));
                             output << brush.getT3D(2, nameFactory) << std::endl;
                         }
                         if (nextZ == Grid::EMPTY_CELL) {
-                            BrushActor brush(pos + Vector(0, 0, CUBE_SIZE), getWall(CUBE_SIZE, false, false, true));
+                            BrushActor brush(pos + Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, false, false, true));
                             output << brush.getT3D(2, nameFactory) << std::endl;
                         }
 
                         if (addLight) {
-                            PointLightActor pla(pos, CUBE_SIZE);
+                            PointLightActor pla(pos, DEMI_CUBE_SIZE);
                             output << pla.getT3D(2, nameFactory) << std::endl;
                             addLight = false;
                         }
@@ -299,15 +301,15 @@ void T3DExporter::exportPlayerStart(std::ofstream& output, NameFactory *nameFact
                 for (auto& itZ : itY.second) {
                     if (itZ.second == Grid::START_CELL) {
                         //std::cout << "Detected player start at " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
-                        Vector pos = (areaPositon + Vector(itX.first, itY.first, itZ.first)) * CUBE_SIZE * 2.0;
-                        pos = Vector(pos.getX(), pos.getY(), pos.getZ() - CUBE_SIZE);
+                        Vector pos = (areaPositon + Vector(itX.first, itY.first, itZ.first)) * DEMI_CUBE_SIZE * 2.0;
+                        pos = Vector(pos.getX(), pos.getY(), pos.getZ() - DEMI_CUBE_SIZE);
                         PlayerStartActor psa(pos);
                         output << psa.getT3D(2, nameFactory) << std::endl;
                         //return; //To avoid doing lot of unecessary loops
                     } else if (itZ.second == Grid::FINISH_CELL) {
                         //std::cout << "Detected player Finish at " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
-                        Vector pos = (areaPositon + Vector(itX.first, itY.first, itZ.first)) * CUBE_SIZE * 2.0;
-                        pos = Vector(pos.getX(), pos.getY(), pos.getZ() - CUBE_SIZE);
+                        Vector pos = (areaPositon + Vector(itX.first, itY.first, itZ.first)) * DEMI_CUBE_SIZE * 2.0;
+                        pos = Vector(pos.getX(), pos.getY(), pos.getZ() - DEMI_CUBE_SIZE);
                         PlayerFinishActor pfa(pos);
                         output << pfa.getT3D(2, nameFactory) << std::endl;
                     }
@@ -329,11 +331,17 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
             for (auto& itY : itX.second) {
                 for (auto& itZ : itY.second) {
                     std::cout << itZ.second << std::endl;
+                    Vector pos = Vector(itX.first, itY.first, itZ.first);
+                    //******************FULLING IDLE CELLS*****************//
+                    if (itZ.second == Grid::FULLED_IDLE_CELL) {
+                        BrushActor brush(&g);
+                        brush.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                    }
+                    //********************CLIMBING AREAS*******************//
                     if (itZ.second == Grid::CLIMB_CELL) {
                         std::cout << "Detecting a CLIMB_CELL at " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
                         //Le bloc physique
                         BrushActor brush(&g);
-                        Vector pos = Vector(itX.first, itY.first, itZ.first);
                         //brush.IActor::writeT3D(...) ?! SERIOUSLY ?!!
                         brush.writeT3D(output, 2, nameFactory, pos, areaPositon);
                         //Les blocs ladder autour
@@ -354,6 +362,11 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                             std::cout << "ok4" << std::endl;
                             ladder.writeT3D(output, 2, nameFactory, Vector(itX.first, itY.first + 1, itZ.first), areaPositon);
                         }
+                    }
+                    //********************DOORS & TRIGGERS*******************//
+                    if (itZ.second == Grid::DOOR_CELL) {
+                        DoorActor door(&g);
+                        door.writeT3D(output, 2, nameFactory, pos, areaPositon);
                     }
                 }
             }
