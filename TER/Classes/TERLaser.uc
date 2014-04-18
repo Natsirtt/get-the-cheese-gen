@@ -24,6 +24,9 @@ function Tick(float dt)
 	end = start + projDir * LaserMaxLength;
 	
 	// On teste tous les acteurs dans la direction
+	/**
+	 * A optimiser avec Trace : http://wiki.beyondunreal.com/UE3:Actor_native_functions_%28UDK%29#Trace
+	 */
 	foreach TraceActors(class'actor', HitActor, HitLoc, HitNorm, end, start)
 	{
 		if ((nearestActor == none) || (nearestDistance > VSize(start - HitLoc)))
