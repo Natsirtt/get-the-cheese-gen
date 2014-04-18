@@ -58,6 +58,7 @@ void T3DExporter::exportT3D(std::string filepath) {
     }
     input2.close();
     output.close();
+    std::cout << "t3d exported to " << filepath << "." << std::endl;
 }
 
 std::vector<std::vector<Vector>> T3DExporter::getWall(float sizeLen, bool reducedX, bool reducedY, bool reducedZ) {
