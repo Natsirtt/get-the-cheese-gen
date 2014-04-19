@@ -376,7 +376,7 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                         Id tmpId = doorTriggerMap.at(i);
                         std::cout << "value = " << tmpId << std::endl;
                         std::cout << "name = " << door.getName() << std::endl;
-                        triggerPositionDoorNameMap[tmpId] = "test";
+                        triggerPositionDoorNameMap[tmpId] = door.getName();
                         //triggerPositionDoorNameMap[tmpId] = door.getName();
                         std::cout << "mamamama" << std::endl;
                         //std::cout << triggerPositionDoorNameMap[tmpId] << std::endl;
@@ -395,7 +395,8 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                 for (auto& itZ : itY.second) {
                     Vector pos = Vector(itX.first, itY.first, itZ.first);
                      if (itZ.second == Grid::TRIGGER_CELL) {
-                        std::cout << "Trigger at " << itX.first << " " << itY.first << " " << itZ.first << " with id = " << i << " and door name = " << doorTriggerMap.at(i) << std::endl;
+                        std::cout << "Trigger at " << itX.first << " " << itY.first << " " << itZ.first << " with id = " << i
+                                    << " and door name = " << triggerPositionDoorNameMap.at(i) << std::endl;
                         TriggerActor trigger(&g, triggerPositionDoorNameMap.at(i));
                         trigger.writeT3D(output, 2, nameFactory, pos, areaPositon);
                     }

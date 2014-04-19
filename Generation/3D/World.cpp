@@ -163,7 +163,11 @@ bool World::addGate(IGate* g, long x, long y, long z) {
         mGateArea[g->getID()] = aid;
         mAreaPos[aid] = std::make_tuple(x, y ,z);
         if (g->canChangeState()) {
-            mMapDoorTrigger[aid] = mTmpMap[g->getID()];
+            try {
+                mMapDoorTrigger[aid] = mTmpMap.at(g->getID());
+            } catch(...) {
+                // Rien
+            }
             std::cout << "mMapDoorTrigger[" << aid << "] = " << mTmpMap[g->getID()] << std::endl;
         }
         return true;
