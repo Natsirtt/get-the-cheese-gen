@@ -30,11 +30,7 @@ void World::build() {
             mAreas.clear();
             mPaths.clear();
             mMapDoorTrigger.clear();
-            //On va associer l'id de sa porte à la position de son trigger
-            //Les trigger étant des nodes et les portes des gates,
-            //on est certain de disposer de tous les emplacements des
-            //tiggers avant les portes
-            std::map<Id, std::tuple<long, long, long>> tmpTriggerDoorMap;
+            mTmpMap.clear();
 
             long x = 0;
             long y = 0;
@@ -48,10 +44,6 @@ void World::build() {
                 INode* node = mGraph->getNode(i);
                 while ((!added) && (tryCount < 1000)) {
                     added = addNode(node, x, y, z);
-                    //Si c'est un trigger, il faut mettre a jour la map emplacement trigger <=> id door
-                    if (added && (node->getType() == NodeType::Activator)) {
-                        tmpTriggerDoorMap[node->getLinkedGate()] = std::make_tuple(x, y, z);
-                    }
                     x += rand();
                     y += rand();
                     z += randZ();
@@ -81,11 +73,6 @@ void World::build() {
 
                 while ((!added) && (tryCount < 1000)) {
                     added = addGate(gate, x, y, z);
-                    if (gate->canChangeState()) {
-                        //On trouve le trigger correspondant pour remplir
-                        //la variable membre associant une porte a un trigger
-                        mMapDoorTrigger[std::make_tuple(x, y , z)] = tmpTriggerDoorMap[gate->getID()];
-                    }
                     x += rand();
                     y += rand();
                     z += rand();
@@ -146,6 +133,7 @@ void World::build() {
         std::fstream file("temp.g3d", std::fstream::out | std::fstream::trunc);
         file << mGrid;
     }
+    mTmpMap.clear();
 }
 
 bool World::addNode(INode* n, long x, long y, long z) {
@@ -156,6 +144,10 @@ bool World::addNode(INode* n, long x, long y, long z) {
         Id aid = mAreas.size() - 1;
         mNodeArea[n->getID()] = aid;
         mAreaPos[aid] = std::make_tuple(x, y ,z);
+        if (n->getType() == NodeType::Activator) {
+            mTmpMap[n->getLinkedGate()] = aid;
+            std::cout << "mTmpMap[" << n->getLinkedGate() << "] = " << aid << std::endl;
+        }
         return true;
     }
 
@@ -170,6 +162,10 @@ bool World::addGate(IGate* g, long x, long y, long z) {
         Id aid = mAreas.size() - 1;
         mGateArea[g->getID()] = aid;
         mAreaPos[aid] = std::make_tuple(x, y ,z);
+        if (g->canChangeState()) {
+            mMapDoorTrigger[aid] = mTmpMap[g->getID()];
+            std::cout << "mMapDoorTrigger[" << aid << "] = " << mTmpMap[g->getID()] << std::endl;
+        }
         return true;
     }
     return false;
@@ -191,6 +187,6 @@ std::tuple<long, long, long> World::getAreaPosition(int areaNb) {
     return mAreaPos.at(areaNb);
 }
 
-std::map<std::tuple<long, long, long>, std::tuple<long, long, long>>& World::getTriggerDoorMap() {
+std::map<Id, Id>& World::getTriggerDoorMap() {
     return mMapDoorTrigger;
 }

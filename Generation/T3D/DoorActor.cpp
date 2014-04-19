@@ -12,7 +12,7 @@ DoorActor::DoorActor(Vector location) : mLocation{location}, mName{mBaseName} {
 DoorActor::DoorActor(double xLocation, double yLocation, double zLocation) : mLocation{Vector(xLocation, yLocation, zLocation)}, mName{mBaseName} {
 }
 
-DoorActor::DoorActor(Grid *g) : IActor(g) {}
+DoorActor::DoorActor(Grid *g) : IActor(g), mName{mBaseName} {}
 
 std::string DoorActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     std::stringstream indentStream;
@@ -52,7 +52,9 @@ std::string DoorActor::getT3D(int indentLevel, NameFactory *nameFactory) {
 
 void DoorActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition, Vector gridTranslation) {
     if (mGrid != nullptr) {
+        std::cout << "BANANA" << std::endl;
         mLocation = (gridPosition + gridTranslation) * T3DExporter::DEMI_CUBE_SIZE * 2.0;
+        std::cout << "BANANA 2" << std::endl;
         mLocation = mLocation - Vector(0, 0, T3DExporter::DEMI_CUBE_SIZE);
         if (mName == mBaseName) {
             mName = nameFactory->getName(mBaseName);
@@ -66,7 +68,7 @@ std::string DoorActor::getName(NameFactory *nameFactory) {
         if (nameFactory == nullptr) {
             throw std::runtime_error("If the name is not yet updated, you need to give getName() a nameFactory");
         }
-        mName = nameFactory->getName(mBaseName);
     }
+    std::cout << "YALALALAL" << std::endl;
     return mName;
 }

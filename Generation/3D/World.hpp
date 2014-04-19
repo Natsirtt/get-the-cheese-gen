@@ -22,7 +22,7 @@ public:
     std::vector<std::vector<std::tuple<long, long, long>>> getPaths();
     std::vector<Area> getAreas();
     std::tuple<long, long, long> getAreaPosition(int areaNb);
-    std::map<std::tuple<long, long, long>, std::tuple<long, long, long>>& getTriggerDoorMap();
+    std::map<Id, Id>& getTriggerDoorMap();
 private:
     bool addNode(INode* n, long x, long y, long z);
     bool addGate(IGate* g, long x, long y, long z);
@@ -41,7 +41,8 @@ private:
     // tableau des chemins dans le monde
     std::vector<std::vector<std::tuple<long, long, long>>> mPaths;
     // Association emplacement d'une porte <=> emplacement de son trigger
-    std::map<std::tuple<long, long, long>, std::tuple<long, long, long>> mMapDoorTrigger;
+    std::map<Id, Id> mMapDoorTrigger;
+    std::map<Id, Id> mTmpMap;
 };
 
 #endif // WORLD_HPP
