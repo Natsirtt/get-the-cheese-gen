@@ -47,7 +47,7 @@ std::string TurretActor::getT3D(int indentLevel, NameFactory *nameFactory) {
 
     stream << indentBase << indent << "End Object" << std::endl;
 
-    stream << indentBase << indent << "Begin Object Class=UTParticleSystemComponent Name=BeamEmitterComponent ObjName=" << particleComponent << std::endl;
+    stream << indentBase << indent << "Begin Object Class=UTParticleSystemComponent Name=BeamEmitterComponent ObjName=" << particleComponent << " Archetype=UTParticleSystemComponent'ter.Default__TERTurret:BeamEmitterComponent'" << std::endl;
 
     stream << indentBase << indent << indent << "Archetype=UTParticleSystemComponent'ter.Default__TERTurret:BeamEmitterComponent'" << std::endl;
     stream << indentBase << indent << indent << "Template=ParticleSystem'WP_LinkGun.Effects.P_WP_Linkgun_Altbeam'" << std::endl;

@@ -46,7 +46,9 @@ void World::build() {
                     added = addNode(node, x, y, z);
                     x += rand();
                     y += rand();
-                    z += randZ();
+                    if (!added) {
+                        z += randZ();
+                    }
                     tryCount++;
                 }
                 if (!added) {

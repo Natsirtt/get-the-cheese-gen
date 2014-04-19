@@ -109,13 +109,12 @@ void GraphGenerator::addObstacles() {
             }
             furtherNid = nid;
         }
-        INode* trigger = mGraph->getNode(it.first);
         Id rid = furtherNid;
         if (furtherNid < (endNid - 1)) {
             rid = getRandomNodeBetween(furtherNid, endNid);
         }
         // On récupére un noeud aléatoire
-        //std::cout << it.first << " " << furtherNid << " " << endNid << " " << rid << std::endl;
+        std::cout << it.first << " " << furtherNid << " " << endNid << " " << rid << std::endl;
         INode* rNode = mGraph->getNode(rid);
         // On récupére une transition aléatoire sortant du noeud
         Id gid = rNode->getTransitions()[0];
@@ -125,17 +124,18 @@ void GraphGenerator::addObstacles() {
         INode* n1 = mGraph->getNode(first);
         Id second = rGate->getSecondNode();
         INode* n2 = mGraph->getNode(second);
-        // On ajoute un nouveau noed vide
+        // On ajoute un nouveau noeud vide
         INode* newNode = new Node(mGraph, NodeType::Empty, n2->getDepth());
         Id newNid = mGraph->addNode(newNode);
         // On ajoute un nouvel obstacle
         IGate* newGate = mChooser.chooseWithTrigger(mGraph, first, newNid, Perso::All); // TODO
         Id newGid = mGraph->addGate(newGate);
         // On lie le trigger et l'obstacle
+        INode* trigger = mGraph->getNode(it.first);
         trigger->linkGate(newGid);
         // On modifie l'ancien obstacle
         rGate->changeFirst(newNid);
-        n1->changeGate(gid, newGid);
+        n1->deleteGate(gid);
     }
 }
 

@@ -51,6 +51,11 @@ public:
      */
     virtual bool isOnEndPath();
     /**
+     * Supprime une transition.
+     * @param gate l'id de la transition à supprimer.
+     */
+    virtual void deleteGate(Id gate);
+    /**
      * Remplace un obstacle par un nouvel obstacle.
      * @param oldGate l'id de l'ancien obstacle.
      * @param newGate l'id du nouvel obstacle.

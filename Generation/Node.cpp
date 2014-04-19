@@ -56,6 +56,15 @@ bool Node::isOnEndPath() {
     return mIsOnEndPath;
 }
 
+void Node::deleteGate(Id gate) {
+    for (auto it = mGates.begin(); it != mGates.end(); ++it) {
+        if (*it == gate) {
+            mGates.erase(it);
+            break;
+        }
+    }
+}
+
 void Node::changeGate(Id oldGate, Id newGate) {
     for (auto& id : mGates) {
         if (id == oldGate) {
@@ -75,7 +84,7 @@ Id Node::getLinkedGate() {
 Area Node::getArea() {
     try {
         int count = mGates.size() / 2;
-        if (mGates.size() % 2 != 0) {
+        if ((mGates.size() % 2) != 0) {
             count++;
         }
         switch (mType) {
