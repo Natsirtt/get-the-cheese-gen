@@ -50,9 +50,7 @@ std::string DoorActor::getT3D(int indentLevel, NameFactory *nameFactory) {
 
 void DoorActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition, Vector gridTranslation) {
     if (mGrid != nullptr) {
-        std::cout << "BANANA" << std::endl;
         mLocation = (gridPosition + gridTranslation) * T3DExporter::DEMI_CUBE_SIZE * 2.0;
-        std::cout << "BANANA 2" << std::endl;
         mLocation = mLocation - Vector(0, 0, T3DExporter::DEMI_CUBE_SIZE);
     }
     output << getT3D(indentLevel, nameFactory);

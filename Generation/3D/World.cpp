@@ -132,7 +132,9 @@ void World::build() {
     } else {
         std::fstream file("temp.g3d", std::fstream::out | std::fstream::trunc);
         file << mGrid;
+        std::cout << "temp.g3d exported" << std::endl;
     }
+    std::cout << "map size = " << mMapDoorTrigger.size() << std::endl;
     mTmpMap.clear();
 }
 

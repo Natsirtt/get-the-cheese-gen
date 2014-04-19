@@ -21,6 +21,12 @@ class T3DExporter {
 
         static const int DEMI_CUBE_SIZE = 100;
         static const int REDUCED_SIZE = 1;
+        //CF unreal rotators conversions
+        static const float DEG_TO_UNREAL;
+        static const int X_YAW = 0;
+        static const int NEG_X_YAW = 32768;
+        static const int Y_YAW = 16384;
+        static const int NEG_Y_YAW = 49152;
     protected:
     private:
         void exportPathsBrushes(std::ofstream& output, NameFactory *nameFactory);
