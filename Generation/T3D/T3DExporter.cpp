@@ -138,42 +138,10 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
             if (i > 0) {
                 auto& v2 = path.at(i-1);
                 pred = Vector(std::get<0>(v2), std::get<1>(v2), std::get<2>(v2));
-            } else {
-                /*auto& v2 = path.at(i+1);
-                next = Vector(std::get<0>(v2), std::get<1>(v2), std::get<2>(v2));
-                //First block of the path, we search where to open it
-                if ((mWorld->getGrid()->get(x - 1, y, z) != Grid::EMPTY_CELL) && (next != Vector(x - 1, y, z))) {
-                    pred = Vector(x - 1, y, z);
-                } else if ((mWorld->getGrid()->get(x + 1, y, z) != Grid::EMPTY_CELL) && (next != Vector(x + 1, y, z))) {
-                    pred = Vector(x + 1, y, z);
-                } else if ((mWorld->getGrid()->get(x, y - 1, z) != Grid::EMPTY_CELL) && (next != Vector(x, y - 1, z))) {
-                    pred = Vector(x, y - 1, z);
-                } else if ((mWorld->getGrid()->get(x, y + 1, z) != Grid::EMPTY_CELL) && (next != Vector(x, y + 1, z))) {
-                    pred = Vector(x, y + 1, z);
-                } else if ((mWorld->getGrid()->get(x, y, z - 1) != Grid::EMPTY_CELL) && (next != Vector(x, y, z - 1))) {
-                    pred = Vector(x, y, z - 1);
-                } else if ((mWorld->getGrid()->get(x, y, z + 1) != Grid::EMPTY_CELL) && (next != Vector(x, y, z + 1))) {
-                    pred = Vector(x, y, z + 1);
-                }*/
             }
             if (i < (path.size() - 1)) {
                 auto& v2 = path.at(i+1);
                 next = Vector(std::get<0>(v2), std::get<1>(v2), std::get<2>(v2));
-            } else {
-                /*//Last block, we search where to open the path
-                if ((mWorld->getGrid()->get(x - 1, y, z) != Grid::EMPTY_CELL) && (pred != Vector(x - 1, y, z))) {
-                    next = Vector(x - 1, y, z);
-                } else if ((mWorld->getGrid()->get(x + 1, y, z) != Grid::EMPTY_CELL) && (pred != Vector(x + 1, y, z))) {
-                    next = Vector(x + 1, y, z);
-                } else if ((mWorld->getGrid()->get(x, y - 1, z) != Grid::EMPTY_CELL) && (pred != Vector(x, y - 1, z))) {
-                    next = Vector(x, y - 1, z);
-                } else if ((mWorld->getGrid()->get(x, y + 1, z) != Grid::EMPTY_CELL) && (pred != Vector(x, y + 1, z))) {
-                    next = Vector(x, y + 1, z);
-                } else if ((mWorld->getGrid()->get(x, y, z - 1) != Grid::EMPTY_CELL) && (pred != Vector(x, y, z - 1))) {
-                    next = Vector(x, y, z - 1);
-                } else if ((mWorld->getGrid()->get(x, y, z + 1) != Grid::EMPTY_CELL) && (pred != Vector(x, y, z + 1))) {
-                    next = Vector(x, y, z + 1);
-                }*/
             }
             bool isFirstOrLast = (i == 0) || (i == (path.size() - 1));
 

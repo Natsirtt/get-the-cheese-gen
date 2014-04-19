@@ -54,12 +54,12 @@ function Tick(float dt)
 			}
 		} else // Sinon on le recrée
 		{
-			BeamEndpointEffect = Spawn(class'UTEmitter', self,, HitPawn.Location/*, rotator(HitNorm)*/);
+			BeamEndpointEffect = Spawn(class'UTEmitter', self,, HitPawn.Location, rotator(HitNorm));
 			BeamEndpointEffect.SetTemplate(ParticleSystem'WP_LinkGun.Effects.P_WP_Linkgun_Beam_Impact_Gold', true);
 			BeamEndpointEFfect.LifeSpan = 0.0;
 		}
 		BeamEndpointEffect.SetLocation(HitPawn.Location);
-		/*BeamEndpointEffect.SetRotation(rotator(HitNorm));*/
+		BeamEndpointEffect.SetRotation(rotator(HitNorm));
 		BeamEndpointEffect.SetFloatParameter('Touch',1);
 	} else // Aucune colision
 	{
@@ -99,7 +99,6 @@ defaultproperties
 		SecondsBeforeInactive=1.0
 		bUpdateComponentInTick = true
 		TickGroup=TG_PostUpdateWork
-		//Rotation=(Pitch=0,Yaw=49140,Roll=0)
 	End Object
 	BeamEmitter=BeamEmitterComponent
 	components.Add(BeamEmitterComponent)
