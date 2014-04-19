@@ -5,8 +5,6 @@
 #include <cmath>
 #include <sstream>
 
-const float LadderActor::DEG_TO_UNREAL = 182.0444;
-
 LadderActor::LadderActor(Vector location, std::vector<std::vector<Vector>> polyList, int yaw) : mLocation{location}, mPolyList{polyList}, mYaw{yaw} {
 }
 
@@ -108,13 +106,13 @@ void LadderActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *
         mPolyList = T3DExporter::getCube(T3DExporter::DEMI_CUBE_SIZE);
         //On cherche le voisin qui est le bloc d'échelle
         if (mGrid->get(gridPosition.getX() - 1, gridPosition.getY(), gridPosition.getZ()) == Grid::CLIMB_CELL) {
-            mYaw = NEG_X_YAW;
+            mYaw = T3DExporter::NEG_X_YAW;
         } else if (mGrid->get(gridPosition.getX() + 1, gridPosition.getY(), gridPosition.getZ()) == Grid::CLIMB_CELL) {
-            mYaw = X_YAW;
+            mYaw = T3DExporter::X_YAW;
         } else if (mGrid->get(gridPosition.getX(), gridPosition.getY() - 1, gridPosition.getZ()) == Grid::CLIMB_CELL) {
-            mYaw = NEG_Y_YAW;
+            mYaw = T3DExporter::NEG_Y_YAW;
         } else {
-            mYaw = Y_YAW;
+            mYaw = T3DExporter::Y_YAW;
         }
         output << getT3D(indentLevel, nameFactory);
     }

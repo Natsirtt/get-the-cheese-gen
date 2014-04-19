@@ -16,6 +16,7 @@
 #include "LadderActor.hpp"
 #include "DoorActor.hpp"
 #include "TriggerActor.hpp"
+#include "TurretActor.h"
 
 #define LIGHTS_MODULO 6
 
@@ -346,8 +347,13 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                         std::cout << "name = " << door.getName() << std::endl;
                         triggerPositionDoorNameMap[tmpId] = door.getName();
                         //triggerPositionDoorNameMap[tmpId] = door.getName();
-                        std::cout << "mamamama" << std::endl;
                         //std::cout << triggerPositionDoorNameMap[tmpId] << std::endl;
+                    }
+                    //********************TURRETS*************************//
+                    else if (itZ.second == Grid::TURRET_CELL) {
+                        std::cout << "Detecting a TURRET_CELL" << std::endl;
+                        TurretActor turret(&g);
+                        turret.writeT3D(output, 2, nameFactory, pos, areaPositon);
                     }
                 }
             }
