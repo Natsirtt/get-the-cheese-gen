@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
+#include <algorithm>
 
 Area::Area(bool defaut) : mCurrentInCell{}, mCurrentOutCell{} {
     if (defaut) {
@@ -25,32 +26,14 @@ Area& Area::operator=(const Area& a) {
 }
 
 Area::Area(const char* filename) : mCurrentInCell{}, mCurrentOutCell{} {
-    std::fstream file(filename, std::fstream::in);
-
-    if (!file.is_open()) {
-        throw std::runtime_error("Impossible d'ouvrir le fichier de représentation");
-    }
-
-    int nbIn = 0;
-    int nbOut = 0;
-    int nbCell = 0;
-    file >> nbIn >> nbOut >> nbCell;
-    long x, y, z, t;
-    for (int i = 0; i < nbIn; ++i) {
-        file >> x >> y >> z;
-        addInCell(std::make_tuple(x, y, z));
-    }
-    for (int i = 0; i < nbOut; ++i) {
-        file >> x >> y >> z;
-        addOutCell(std::make_tuple(x, y, z));
-    }
-    for (int i = 0; i < nbCell; ++i) {
-        file >> x >> y >> z >> t;
-        mGrid.set(t, x, y, z);
-    }
+    load(std::string(filename));
 }
 
 Area::Area(std::string filename) : mCurrentInCell{}, mCurrentOutCell{} {
+    load(filename);
+}
+
+void Area::load(std::string filename) {
     std::fstream file(filename, std::fstream::in);
 
     if (!file.is_open()) {
@@ -74,6 +57,8 @@ Area::Area(std::string filename) : mCurrentInCell{}, mCurrentOutCell{} {
         file >> x >> y >> z >> t;
         mGrid.set(t, x, y, z);
     }
+    std::random_shuffle(mInCells.begin(), mInCells.end());
+    std::random_shuffle(mOutCells.begin(), mOutCells.end());
 }
 
 std::tuple<long, long, long> Area::getNextInCell() {

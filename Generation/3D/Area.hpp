@@ -48,8 +48,9 @@ public:
     void addInCell(std::tuple<long, long, long> in);
     void addOutCell(std::tuple<long, long, long> out);
 
-
 private:
+    void load(std::string filename);
+
     Grid mGrid;
     unsigned int mCurrentInCell;
     std::vector<std::tuple<long, long, long>> mInCells;
