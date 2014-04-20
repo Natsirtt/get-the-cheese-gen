@@ -55,6 +55,8 @@ public:
     long getOccupiedCellsCount();
     std::unordered_map<long, std::unordered_map<long, std::unordered_map<long, long>>>& getMap();
 
+    static bool isPhysicalCell(long t);
+
     std::ostream& write(std::ostream& stream);
 
     static const long EMPTY_CELL = 0;

@@ -83,3 +83,7 @@ long Grid::getOccupiedCellsCount() {
 std::unordered_map<long, std::unordered_map<long, std::unordered_map<long, long>>>& Grid::getMap() {
     return mGrid;
 }
+
+bool Grid::isPhysicalCell(long t) {
+    return (t != Grid::EMPTY_CELL) && (t != Grid::IN_CELL) && (t != Grid::OUT_CELL);
+}

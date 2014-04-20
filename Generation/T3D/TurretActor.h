@@ -10,8 +10,7 @@
 #include "NameFactory.hpp"
 #include "../3D/Grid.hpp"
 
-class TurretActor : public IActor
-{
+class TurretActor : public IActor {
     public:
         TurretActor(Vector location);
         TurretActor(double xLocation, double yLocation, double zLocation);

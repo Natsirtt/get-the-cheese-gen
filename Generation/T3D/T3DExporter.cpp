@@ -5,6 +5,7 @@
 #include <vector>
 #include <tuple>
 #include <map>
+#include <cmath>
 
 #include "../3D/Grid.hpp"
 #include "IActor.hpp"
@@ -17,8 +18,17 @@
 #include "DoorActor.hpp"
 #include "TriggerActor.hpp"
 #include "TurretActor.h"
+#include "LaserActor.hpp"
 
 #define LIGHTS_MODULO 6
+
+const float T3DExporter::DEG_TO_UNREAL = 182.0444;
+const Vector T3DExporter::FACING_X_VECTOR = Vector(T3DExporter::DEG_0, T3DExporter::DEG_270, T3DExporter::DEG_0);
+const Vector T3DExporter::FACING_NEG_X_VECTOR = Vector(T3DExporter::DEG_0, T3DExporter::DEG_90, T3DExporter::DEG_0);
+const Vector T3DExporter::FACING_Y_VECTOR = Vector(T3DExporter::DEG_90, T3DExporter::DEG_0, T3DExporter::DEG_0);
+const Vector T3DExporter::FACING_NEG_Y_VECTOR = Vector(T3DExporter::DEG_270, T3DExporter::DEG_0, T3DExporter::DEG_0);
+const Vector T3DExporter::FACING_Z_VECTOR = Vector(T3DExporter::DEG_0, T3DExporter::DEG_0, T3DExporter::DEG_0);
+const Vector T3DExporter::FACING_NEG_Z_VECTOR = Vector(T3DExporter::DEG_180, T3DExporter::DEG_0, T3DExporter::DEG_0);
 
 T3DExporter::T3DExporter(World *world) : mWorld{world} {
 }
@@ -211,7 +221,7 @@ void T3DExporter::exportRoomsBrushes(std::ofstream& output, NameFactory *nameFac
 //                std::cout << "\titY" << std::endl;
                 for (auto& itZ : itY.second) {
 //                    std::cout << "\t\titZ" << std::endl;
-                    if (isPhysicalCell(itZ.second)) {
+                    if (Grid::isPhysicalCell(itZ.second)) {
 //                        Vector origin = (areaPositon + Vector(itX.first, itZ.first, itY.first)) * (CUBE_SIZE + 10) * 2;
 //                        std::cout << "Detected room cell at " << origin.getX() << " " << origin.getY() << " " << origin.getZ() << std::endl;
                         long predX = g.get(itX.first - 1, itY.first, itZ.first);
@@ -355,6 +365,12 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                         TurretActor turret(&g);
                         turret.writeT3D(output, 2, nameFactory, pos, areaPositon);
                     }
+                    //********************LASERS**************************//
+                    else if (itZ.second == Grid::LASER_CELL) {
+                        std::cout << "Detecting a LASER_CELL" << std::endl;
+                        LaserActor laser(&g);
+                        laser.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                    }
                 }
             }
         }
@@ -378,8 +394,4 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
             }
         }
     }
-}
-
-bool T3DExporter::isPhysicalCell(long t) {
-    return (t != Grid::EMPTY_CELL) && (t != Grid::IN_CELL) && (t != Grid::OUT_CELL);
 }
