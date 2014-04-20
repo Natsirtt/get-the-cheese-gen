@@ -20,7 +20,7 @@ function Tick(float dt)
 	
 	super.Tick(dt);
 		
-	foreach VisibleActors(class'TERPawn', player, detectionRadius)
+	foreach VisibleActors(class'TERPawn', player, detectionRadius, Location + vect(0, 0, 50))
 	{
 		if ((nearestPlayer == none) || (nearestDistance > VSize(Location - player.Location)))
 		{
