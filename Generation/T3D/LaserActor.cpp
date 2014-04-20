@@ -102,6 +102,15 @@ void LaserActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *n
         long nextZ = mGrid->get(gridPosition.getX(), gridPosition.getY(), gridPosition.getZ() + 1);
 
         //chosir la rotation
+        // G & !H & !F -> D
+        if (!Grid::isPhysicalCell(predX) && Grid::isPhysicalCell(nextX) && Grid::isPhysicalCell(predY)) {
+            mRotation = FACING_X_VECTOR;
+        }
+        //B & !D & !F -> H
+        else if (!Grid::isPhysicalCell(predZ) && Grid::isPhysicalCell(nextX) && Grid::isPhysicalCell(predY)) {
+            mRotation = FACING_NEG_X_VECTOR;
+        }
+
 
         if (mRotation == T3DExporter::FACING_X_VECTOR) {
             mLocation = mLocation - Vector(T3DExporter::DEMI_CUBE_SIZE, 0, 0);
