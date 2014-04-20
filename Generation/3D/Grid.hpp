@@ -72,7 +72,8 @@ public:
     static const long GRIDDOOR_CELL = 12;
     static const long CRUSHER_CELL = 13;
     static const long GRIDWALL_CELL = 14;
-    static const long FULLED_IDLE_CELL = 15;
+    static const long FULLED_IDLE_CELL = 15; // Cellule réservée
+    static const long LASER_CELL = 16;
 
 private:
     //  x -> y -> z -> type
