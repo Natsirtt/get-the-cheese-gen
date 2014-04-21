@@ -19,6 +19,9 @@
 #include "TriggerActor.hpp"
 #include "TurretActor.h"
 #include "LaserActor.hpp"
+#include "LavaActor.hpp"
+#include "LavaPostProcessActor.hpp"
+#include "FluidActor.hpp"
 
 #define LIGHTS_MODULO 6
 
@@ -370,6 +373,16 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                         std::cout << "Detecting a LASER_CELL" << std::endl;
                         LaserActor laser(&g);
                         laser.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                    }
+                    //********************Lave**************************//
+                    else if (itZ.second == Grid::DEATH_CELL) {
+                        std::cout << "Detecting a DEATH_CELL" << std::endl;
+                        LavaActor lava(&g);
+                        lava.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                        LavaPostProcessActor lavapp(&g);
+                        lavapp.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                        FluidActor fa(&g);
+                        fa.writeT3D(output, 2, nameFactory, pos, areaPositon);
                     }
                 }
             }

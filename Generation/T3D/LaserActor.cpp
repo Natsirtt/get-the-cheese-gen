@@ -104,11 +104,11 @@ void LaserActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *n
         //chosir la rotation
         // G & !H & !F -> D
         if (!Grid::isPhysicalCell(predX) && Grid::isPhysicalCell(nextX) && Grid::isPhysicalCell(predY)) {
-            mRotation = FACING_X_VECTOR;
+            //mRotation = FACING_X_VECTOR;
         }
         //B & !D & !F -> H
         else if (!Grid::isPhysicalCell(predZ) && Grid::isPhysicalCell(nextX) && Grid::isPhysicalCell(predY)) {
-            mRotation = FACING_NEG_X_VECTOR;
+           // mRotation = FACING_NEG_X_VECTOR;
         }
 
 

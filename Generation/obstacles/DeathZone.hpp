@@ -36,6 +36,9 @@ public:
     std::string getName() {
         return "DeathZone";
     }
+    Area getArea() {
+        return Area("Area/DeathRoom.area");
+    }
 private:
     friend ObstacleChooser;
     DeathZone() : Gate() {
