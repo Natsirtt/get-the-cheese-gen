@@ -305,8 +305,8 @@ void genClimbRoom() {
 
 void genDeathRoom() {
     Area a(false);
-    int xSize = 5;
-    int ySize = 5;
+    int xSize = 10;
+    int ySize = 10;
     int zSize = 5;
 
     Grid& g = a.getGrid();
@@ -317,12 +317,17 @@ void genDeathRoom() {
             }
         }
     }
+    for (int x = -xSize / 2; x <= xSize / 2; ++x) {
+        for (int y = -ySize / 2; y <= ySize / 2; ++y) {
+            if ((((x % 2) == 0) && ((y % 2) == 0)) ||
+                (((x % 2) != 0) && ((y % 2) != 0))) {
+                g.set(Grid::DEATH_CELL, x, y, -1);
+            }
+        }
+    }
 
-    g.set(Grid::DEATH_CELL, 0, 0, -1);
-
-
-    a.addInCell(std::make_tuple(0, -3, 0));
-    a.addOutCell(std::make_tuple(0, 2, 3));
+    a.addInCell(std::make_tuple(0, -6, 0));
+    a.addOutCell(std::make_tuple(0, 6, 0));
 
     a.save(std::string("DeathRoom.area"));
 }

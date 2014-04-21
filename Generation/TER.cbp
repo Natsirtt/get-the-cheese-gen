@@ -91,11 +91,17 @@
 		<Unit filename="T3D/BrushActor.hpp" />
 		<Unit filename="T3D/DoorActor.cpp" />
 		<Unit filename="T3D/DoorActor.hpp" />
+		<Unit filename="T3D/FluidActor.cpp" />
+		<Unit filename="T3D/FluidActor.hpp" />
 		<Unit filename="T3D/IActor.hpp" />
 		<Unit filename="T3D/LadderActor.cpp" />
 		<Unit filename="T3D/LadderActor.hpp" />
 		<Unit filename="T3D/LaserActor.cpp" />
 		<Unit filename="T3D/LaserActor.hpp" />
+		<Unit filename="T3D/LavaActor.cpp" />
+		<Unit filename="T3D/LavaActor.hpp" />
+		<Unit filename="T3D/LavaPostProcessActor.cpp" />
+		<Unit filename="T3D/LavaPostProcessActor.hpp" />
 		<Unit filename="T3D/NameFactory.cpp" />
 		<Unit filename="T3D/NameFactory.hpp" />
 		<Unit filename="T3D/PlayerFinishActor.cpp" />
