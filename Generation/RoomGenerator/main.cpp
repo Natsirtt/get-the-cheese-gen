@@ -15,6 +15,7 @@ void genRoom4();
 void genLaser();
 void genDoor();
 void genTurret();
+void genTurret2();
 void genGridDoor();
 void genClimbRoom();
 void genDeathRoom();
@@ -30,6 +31,7 @@ int main(int argc, char* argv[]) {
     genLaser();
     genDoor();
     genTurret();
+    genTurret2();
     genGridDoor();
     genClimbRoom();
     genDeathRoom();
@@ -235,6 +237,31 @@ void genTurret() {
     a.addOutCell(std::make_tuple(0, -3, 0));
 
     a.save(std::string("Area/TurretRoom/Turret.area"));
+}
+
+void genTurret2() {
+    Area a(false);
+    int xSize = 4;
+    int ySize = 4;
+    int zSize = 4;
+
+    Grid& g = a.getGrid();
+    for (int x = -xSize / 2; x <= xSize / 2; ++x) {
+        for (int z = 0; z < zSize; ++z) {
+            for (int y = -ySize / 2; y <= ySize / 2; ++y) {
+                g.set(1, x, y, z);
+            }
+        }
+    }
+    g.set(Grid::TURRET_CELL, xSize / 2, ySize / 2, 0);
+    g.set(Grid::TURRET_CELL, -xSize / 2, ySize / 2, 0);
+    g.set(Grid::TURRET_CELL, -xSize / 2, -ySize / 2, 0);
+    g.set(Grid::TURRET_CELL, xSize / 2, -ySize / 2, 0);
+
+    a.addInCell(std::make_tuple(0, 3, 0));
+    a.addOutCell(std::make_tuple(0, -3, 0));
+
+    a.save(std::string("Area/TurretRoom/Turret2.area"));
 }
 
 void genDoor() {
