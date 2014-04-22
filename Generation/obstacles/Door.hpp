@@ -39,7 +39,8 @@ public:
         return "Door";
     }
     Area getArea() {
-        return Area("Area/Door.area");
+        return AreaManager::get().getRandomArea(std::string("DoorRoom"));
+        //return Area("Area/Door.area");
     }
 private:
     friend ObstacleChooser;

@@ -2,6 +2,8 @@
 #include "IGraph.hpp"
 #include "IGate.hpp"
 
+#include "AreaManager.hpp"
+
 Node::Node(IGraph* graph, NodeType type, int depth) : mGraph{graph}, mId{0}, mType{type}, mDepth{depth},
                                                     mIsOnEndPath{false}, mGate{ID_ERROR} {
 }
@@ -89,25 +91,21 @@ Area Node::getArea() {
         }
         switch (mType) {
         case NodeType::Activator:
-            return Area("Area/TriggerRoom.area");
+            return AreaManager::get().getRandomArea(std::string("TriggerRoom"));
         case NodeType::Start:
-            return Area("Area/StartRoom.area");
+            return AreaManager::get().getRandomArea(std::string("StartRoom"));
         case NodeType::Finish:
-            return Area("Area/FinishRoom.area");
+            return AreaManager::get().getRandomArea(std::string("FinishRoom"));
         case NodeType::Room:
             switch(count) {
             case 1:
-                return Area("Area/Room1.area");
-                break;
+                return AreaManager::get().getRandomArea(std::string("Room1"));
             case 2:
-                return Area("Area/Room2.area");
-                break;
+                return AreaManager::get().getRandomArea(std::string("Room2"));
             case 3:
-                return Area("Area/Room3.area");
-                break;
+                return AreaManager::get().getRandomArea(std::string("Room3"));
             case 4:
-                return Area("Area/Room4.area");
-                break;
+                return AreaManager::get().getRandomArea(std::string("Room4"));
             default:
                 return Area();
             }

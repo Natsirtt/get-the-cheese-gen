@@ -63,6 +63,8 @@
 		<Unit filename="3D/Pathfinding.hpp" />
 		<Unit filename="3D/World.cpp" />
 		<Unit filename="3D/World.hpp" />
+		<Unit filename="AreaManager.cpp" />
+		<Unit filename="AreaManager.hpp" />
 		<Unit filename="Enum.hpp" />
 		<Unit filename="Gate.cpp" />
 		<Unit filename="Gate.hpp" />

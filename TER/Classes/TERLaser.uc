@@ -5,6 +5,7 @@ class TERLaser extends Actor
 var ParticleSystemComponent BeamEmitter; // L'effet de particule du laser
 var UTEmitter BeamEndpointEffect; // L'effet au bout du laser lorsque le laser touche quelque chose
 var() int LaserMaxLength; // La longueur maximale du laser
+var() Float Degat; // Les dégats par seconde
 
 function Tick(float dt)
 {
@@ -43,7 +44,7 @@ function Tick(float dt)
 		player = TERPawn(nearestActor);
 		if (player != none) // Si l'Actor est un joueur
 		{
-			player.TakeDamage(1000, none, NearestHitLoc, vect(0, 0, 0), class'DmgType_Fell');
+			player.TakeDamage(Degat * dt, none, NearestHitLoc, vect(0, 0, 0), class'DmgType_Fell');
 			NearestHitLoc = player.location;
 		}
 		// On modifie le point d'arrivée du laser 
@@ -110,4 +111,5 @@ defaultproperties
 	components.Add(BeamEmitterComponent)
 	
 	LaserMaxLength = 32768
+	Degat=1000
 }

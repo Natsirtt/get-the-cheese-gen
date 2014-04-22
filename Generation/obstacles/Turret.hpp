@@ -40,7 +40,8 @@ public:
         return "Turret";
     }
     Area getArea() {
-        return Area("Area/Turret.area");
+        return AreaManager::get().getRandomArea(std::string("TurretRoom"));
+        //return Area("Area/Turret.area");
     }
 private:
     friend ObstacleChooser;

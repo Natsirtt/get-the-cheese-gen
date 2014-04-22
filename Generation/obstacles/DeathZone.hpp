@@ -37,7 +37,8 @@ public:
         return "DeathZone";
     }
     Area getArea() {
-        return Area("Area/DeathRoom.area");
+        return AreaManager::get().getRandomArea(std::string("DeathRoom"));
+        //return Area("Area/DeathRoom.area");
     }
 private:
     friend ObstacleChooser;
