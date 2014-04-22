@@ -206,7 +206,8 @@ void genLaser() {
         }
     }
 
-    g.set(Grid::LASER_CELL, 0, 0, 0);
+    g.set(Grid::LASER_Z_STICKED_CELL, 0, 0, 0);
+    g.set(Grid::LASER_X_STICKED_CELL, 2, 2, 0);
 
     a.addInCell(std::make_tuple(0, 3, 0));
     a.addOutCell(std::make_tuple(0, -3, 0));

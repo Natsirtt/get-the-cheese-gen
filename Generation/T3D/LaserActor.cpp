@@ -81,6 +81,7 @@ std::string LaserActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     stream << indentation << indent << "Components(1)=StaticMeshComponent'" << staticMeshComponent << "'" << std::endl;
     stream << indentation << indent << "Components(2)=UTParticleSystemComponent'" << particleSystemComponent << "'" << std::endl;
     stream << indentation << indent << "Location=(X=" << mLocation.getX() << ",Y=" << mLocation.getY() << ",Z=" << mLocation.getZ() << ")" << std::endl;
+    stream << indentation << indent << indent << "Rotation=(Pitch=" << mRotation.getY() << ",Yaw=" << mRotation.getZ() << ",Roll=" << mRotation.getX() << ")" << std::endl;
     stream << indentation << indent << "Tag=\"TERLaser\"" << std::endl;
     stream << indentation << indent << "CollisionComponent=StaticMeshComponent'" << staticMeshComponent << "'" << std::endl;
     stream << indentation << indent << "Name=\"" << name << "\"" << std::endl;
@@ -97,33 +98,43 @@ void LaserActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *n
         long predX = mGrid->get(gridPosition.getX() - 1, gridPosition.getY(), gridPosition.getZ());
         long predY = mGrid->get(gridPosition.getX(), gridPosition.getY() - 1, gridPosition.getZ());
         long predZ = mGrid->get(gridPosition.getX(), gridPosition.getY(), gridPosition.getZ() - 1);
-        long nextX = mGrid->get(gridPosition.getX() + 1, gridPosition.getY(), gridPosition.getZ());
-        long nextY = mGrid->get(gridPosition.getX(), gridPosition.getY() + 1, gridPosition.getZ());
-        long nextZ = mGrid->get(gridPosition.getX(), gridPosition.getY(), gridPosition.getZ() + 1);
+        //long nextX = mGrid->get(gridPosition.getX() + 1, gridPosition.getY(), gridPosition.getZ());
+        //long nextY = mGrid->get(gridPosition.getX(), gridPosition.getY() + 1, gridPosition.getZ());
+        //long nextZ = mGrid->get(gridPosition.getX(), gridPosition.getY(), gridPosition.getZ() + 1);
 
-        //chosir la rotation
-        // G & !H & !F -> D
-        if (!Grid::isPhysicalCell(predX) && Grid::isPhysicalCell(nextX) && Grid::isPhysicalCell(predY)) {
-            //mRotation = FACING_X_VECTOR;
+        if (mGrid->get(gridPosition) == Grid::LASER_X_STICKED_CELL) {
+            if (!Grid::isPhysicalCell(predX)) {
+                mRotation = T3DExporter::FACING_X_VECTOR;
+            } else {
+                mRotation = T3DExporter::FACING_NEG_X_VECTOR;
+            }
+        } else if (mGrid->get(gridPosition) == Grid::LASER_Y_STICKED_CELL) {
+            if (!Grid::isPhysicalCell(predY)) {
+                mRotation = T3DExporter::FACING_Y_VECTOR;
+            } else {
+                mRotation = T3DExporter::FACING_NEG_Y_VECTOR;
+            }
+        } else {
+            if (!Grid::isPhysicalCell(predZ)) {
+                mRotation = T3DExporter::FACING_Z_VECTOR;
+            } else {
+                mRotation = T3DExporter::FACING_NEG_Z_VECTOR;
+            }
         }
-        //B & !D & !F -> H
-        else if (!Grid::isPhysicalCell(predZ) && Grid::isPhysicalCell(nextX) && Grid::isPhysicalCell(predY)) {
-           // mRotation = FACING_NEG_X_VECTOR;
-        }
 
-
+        double offset = T3DExporter::DEMI_CUBE_SIZE - 5;
         if (mRotation == T3DExporter::FACING_X_VECTOR) {
-            mLocation = mLocation - Vector(T3DExporter::DEMI_CUBE_SIZE, 0, 0);
+            mLocation = mLocation - Vector(offset, 0, 0);
         } else if (mRotation == T3DExporter::FACING_NEG_X_VECTOR) {
-            mLocation = mLocation + Vector(T3DExporter::DEMI_CUBE_SIZE, 0, 0);
+            mLocation = mLocation + Vector(offset, 0, 0);
         } else if (mRotation == T3DExporter::FACING_Y_VECTOR) {
-            mLocation = mLocation - Vector(0, T3DExporter::DEMI_CUBE_SIZE, 0);
+            mLocation = mLocation - Vector(0, offset, 0);
         } else if (mRotation == T3DExporter::FACING_NEG_Y_VECTOR) {
-            mLocation = mLocation + Vector(0, T3DExporter::DEMI_CUBE_SIZE, 0);
+            mLocation = mLocation + Vector(0, offset, 0);
         } else if (mRotation == T3DExporter::FACING_Z_VECTOR) {
-            mLocation = mLocation - Vector(0, 0, T3DExporter::DEMI_CUBE_SIZE);
+            mLocation = mLocation - Vector(0, 0, offset);
         } else if (mRotation == T3DExporter::FACING_NEG_Z_VECTOR) {
-            mLocation = mLocation + Vector(0, 0, T3DExporter::DEMI_CUBE_SIZE);
+            mLocation = mLocation + Vector(0, 0, offset);
         }
     }
     output << getT3D(indentLevel, nameFactory);

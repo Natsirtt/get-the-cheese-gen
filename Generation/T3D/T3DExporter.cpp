@@ -369,7 +369,7 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                         turret.writeT3D(output, 2, nameFactory, pos, areaPositon);
                     }
                     //********************LASERS**************************//
-                    else if (itZ.second == Grid::LASER_CELL) {
+                    else if ((itZ.second == Grid::LASER_X_STICKED_CELL) || (itZ.second == Grid::LASER_Y_STICKED_CELL) || (itZ.second == Grid::LASER_Z_STICKED_CELL)) {
                         std::cout << "Detecting a LASER_CELL" << std::endl;
                         LaserActor laser(&g);
                         laser.writeT3D(output, 2, nameFactory, pos, areaPositon);

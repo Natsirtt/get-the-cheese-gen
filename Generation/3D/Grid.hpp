@@ -4,6 +4,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <tuple>
+#include "../Utils/Vector.hpp"
 
 /**
  * Représente une grille 3D.
@@ -28,10 +29,16 @@ public:
      *   x La coordonnée x dans le graphe
      *   y La coordonnée y dans le graphe
      *   z La coordonnée z dans le graphe
-     *   type La nouvelle valeur de la case
      */
     long get(long x, long y, long z);
     long get(std::tuple<long, long, long> p);
+    /**
+     * Renvoie la valeur d'une case.
+     * @param
+     * v le vecteur (x,y,z) des coordonnées dans le graphe
+     */
+     long get(Vector v);
+
     /**
      * Fusionne une grille avec la grille courante.
      * @param
@@ -75,7 +82,9 @@ public:
     static const long CRUSHER_CELL = 13;
     static const long GRIDWALL_CELL = 14;
     static const long FULLED_IDLE_CELL = 15; // Cellule réservée
-    static const long LASER_CELL = 16;
+    static const long LASER_X_STICKED_CELL = 16;
+    static const long LASER_Y_STICKED_CELL = 17;
+    static const long LASER_Z_STICKED_CELL = 18;
 
 private:
     //  x -> y -> z -> type

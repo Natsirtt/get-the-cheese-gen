@@ -32,6 +32,10 @@ long Grid::get(long x, long y, long z) {
     return EMPTY_CELL;
 }
 
+long Grid::get(Vector v) {
+    return get(v.getX(), v.getY(), v.getZ());
+}
+
 long Grid::get(std::tuple<long, long, long> p) {
     return get(std::get<0>(p), std::get<1>(p), std::get<2>(p));
 }
