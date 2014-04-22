@@ -317,8 +317,8 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                 for (auto& itZ : itY.second) {
                     //std::cout << itZ.second << std::endl;
                     Vector pos = Vector(itX.first, itY.first, itZ.first);
-                    //******************FULLING IDLE CELLS*****************//
-                    if (itZ.second == Grid::FULLED_IDLE_CELL) {
+                    //*************FULLED IDLE CELLS & PLATFORMS***********//
+                    if (itZ.second == Grid::FULLED_IDLE_CELL || itZ.second == Grid::PLATFORM_CELL) {
                         BrushActor brush(&g);
                         brush.writeT3D(output, 2, nameFactory, pos, areaPositon);
                     }
