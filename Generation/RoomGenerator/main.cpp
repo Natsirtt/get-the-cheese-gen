@@ -57,7 +57,7 @@ void genStartRoom() {
 
     a.addOutCell(std::make_tuple(0, -2, 0));
 
-    a.save(std::string("StartRoom.area"));
+    a.save(std::string("Area/StartRoom/StartRoom.area"));
 }
 
 void genFinishRoom() {
@@ -79,7 +79,7 @@ void genFinishRoom() {
 
     a.addInCell(std::make_tuple(0, 2, 0));
 
-    a.save(std::string("FinishRoom.area"));
+    a.save(std::string("Area/FinishRoom/FinishRoom.area"));
 }
 
 void genTriggerRoom() {
@@ -102,7 +102,7 @@ void genTriggerRoom() {
     a.addInCell(std::make_tuple(0, 2, 0));
     a.addOutCell(std::make_tuple(0, -2, 0));
 
-    a.save(std::string("TriggerRoom.area"));
+    a.save(std::string("Area/TriggerRoom/TriggerRoom.area"));
 }
 
 void genRoom1() {
@@ -113,7 +113,7 @@ void genRoom1() {
     a.addInCell(std::make_tuple(0, 1, 0));
     a.addOutCell(std::make_tuple(0, -1, 0));
 
-    a.save(std::string("Room1.area"));
+    a.save(std::string("Area/Room1/Room1.area"));
 }
 
 
@@ -136,7 +136,7 @@ void genRoom2() {
 
     a.addOutCell(std::make_tuple(-1, -2, 0));
     a.addOutCell(std::make_tuple( 1, -2, 0));
-    a.save(std::string("Room2.area"));
+    a.save(std::string("Area/Room2/Room2.area"));
 }
 
 void genRoom3() {
@@ -161,7 +161,7 @@ void genRoom3() {
     a.addOutCell(std::make_tuple( 1, 2, 0));
     a.addOutCell(std::make_tuple( 2, 0, 0));
 
-    a.save(std::string("Room3.area"));
+    a.save(std::string("Area/Room3/Room3.area"));
 }
 
 void genRoom4() {
@@ -188,7 +188,7 @@ void genRoom4() {
     a.addOutCell(std::make_tuple( 2, 1,  0));
     a.addOutCell(std::make_tuple( 2, -1, 0));
 
-    a.save(std::string("Room4.area"));
+    a.save(std::string("Area/Room4/Room4.area"));
 }
 
 void genLaser() {
@@ -212,7 +212,7 @@ void genLaser() {
     a.addInCell(std::make_tuple(0, 3, 0));
     a.addOutCell(std::make_tuple(0, -3, 0));
 
-    a.save(std::string("Laser.area"));
+    a.save(std::string("Area/LaserRoom/Laser.area"));
 }
 
 void genTurret() {
@@ -234,7 +234,7 @@ void genTurret() {
     a.addInCell(std::make_tuple(0, 3, 0));
     a.addOutCell(std::make_tuple(0, -3, 0));
 
-    a.save(std::string("Turret.area"));
+    a.save(std::string("Area/TurretRoom/Turret.area"));
 }
 
 void genDoor() {
@@ -259,7 +259,7 @@ void genDoor() {
     a.addInCell(std::make_tuple(0, 3, 0));
     a.addOutCell(std::make_tuple(0, -3, 0));
 
-    a.save(std::string("Door.area"));
+    a.save(std::string("Area/DoorRoom/Door.area"));
 }
 
 void genGridDoor() {
@@ -270,7 +270,7 @@ void genGridDoor() {
     a.addInCell(std::make_tuple(0, 1, 0));
     a.addOutCell(std::make_tuple(0, -1, 0));
 
-    a.save(std::string("GridDoor.area"));
+    a.save(std::string("Area/GridRoom/GridDoor.area"));
 }
 
 void genClimbRoom() {
@@ -301,7 +301,7 @@ void genClimbRoom() {
     a.addInCell(std::make_tuple(0, -3, 0));
     a.addOutCell(std::make_tuple(0, 2, 3));
 
-    a.save(std::string("ClimbWall.area"));
+    a.save(std::string("Area/ClimbRoom/ClimbWall.area"));
 }
 
 void genDeathRoom() {
@@ -330,5 +330,5 @@ void genDeathRoom() {
     a.addInCell(std::make_tuple(0, -6, 0));
     a.addOutCell(std::make_tuple(0, 6, 0));
 
-    a.save(std::string("DeathRoom.area"));
+    a.save(std::string("Area/DeathRoom/DeathRoom.area"));
 }
