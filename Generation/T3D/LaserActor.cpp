@@ -58,7 +58,7 @@ std::string LaserActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     stream << indentation << indent << indent << "bUpdateComponentInTick=True" << std::endl;
     stream << indentation << indent << indent << "ReplacementPrimitive=None" << std::endl;
     stream << indentation << indent << indent << "LightingChannels=(bInitialized=True,Dynamic=True)" << std::endl;
-    stream << indentation << indent << indent << "Rotation=(Pitch=" << mRotation.getY() << ",Yaw=" << mRotation.getZ() << ",Roll=" << mRotation.getX() << ")" << std::endl;
+    stream << indentation << indent << indent << "Rotation=(Pitch=16380,Yaw=0,Roll=0)" << std::endl;
     stream << indentation << indent << indent << "TickGroup=TG_PostUpdateWork" << std::endl;
     stream << indentation << indent << indent << "Name=\"" << particleSystemComponent << "\"" << std::endl;
     stream << indentation << indent << indent << "ObjectArchetype=UTParticleSystemComponent'ter.Default__TERLaser:BeamEmitterComponent'" << std::endl;
