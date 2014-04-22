@@ -45,7 +45,7 @@ public:
         return "MetalGateDoor";
     }
     Area getArea() {
-        return Area("Area/GridDoor.area");
+        return AreaManager::get().getRandomArea(std::string("GridRoom"));
     }
 private:
     friend ObstacleChooser;

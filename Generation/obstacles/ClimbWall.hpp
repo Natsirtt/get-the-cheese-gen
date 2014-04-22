@@ -6,6 +6,8 @@
 #include "../Enum.hpp"
 #include "../3D/Area.hpp"
 
+#include "../AreaManager.hpp"
+
 /**
  * Un mur d'escalade à escalader avec ses compétences d'escaladeur.
  */
@@ -40,7 +42,8 @@ public:
         return "ClimbWall";
     }
     Area getArea() {
-        return Area("Area/ClimbWall.area");
+        return AreaManager::get().getRandomArea(std::string("ClimbRoom"));
+        //return Area("Area/ClimbWall.area");
     }
 protected:
     friend ObstacleChooser;

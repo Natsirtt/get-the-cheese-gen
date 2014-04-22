@@ -34,7 +34,8 @@ public:
         return "Laser";
     }
     Area getArea() {
-        return Area("Area/Laser.area");
+        return AreaManager::get().getRandomArea(std::string("LaserRoom"));
+        //return Area("Area/Laser.area");
     }
 private:
     friend ObstacleChooser;
