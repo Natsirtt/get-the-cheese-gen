@@ -10,6 +10,7 @@ void genFinishRoom();
 void genTriggerRoom();
 void genRoom1();
 void genRoom2();
+void genRoom2_2();
 void genRoom3();
 void genRoom4();
 void genLaser();
@@ -26,6 +27,7 @@ int main(int argc, char* argv[]) {
     genTriggerRoom();
     genRoom1();
     genRoom2();
+    genRoom2_2();
     genRoom3();
     genRoom4();
     genLaser();
@@ -139,6 +141,31 @@ void genRoom2() {
     a.addOutCell(std::make_tuple(-1, -2, 0));
     a.addOutCell(std::make_tuple( 1, -2, 0));
     a.save(std::string("Area/Room2/Room2.area"));
+}
+
+void genRoom2_2() {
+    Area a(false);
+    int xSize = 1;
+    int zSize = 4;
+    int ySize = 3;
+
+    Grid& g = a.getGrid();
+    for (int x = -xSize / 2; x <= xSize / 2; ++x) {
+        for (int z = 0; z < zSize; ++z) {
+            for (int y = -ySize / 2; y <= ySize / 2; ++y) {
+                g.set(1, x, y, z);
+            }
+        }
+    }
+    g.set(Grid::PLATFORM_CELL, 0, 1, 1);
+    g.set(Grid::PLATFORM_CELL, 0, -1, 1);
+
+    a.addInCell(std::make_tuple(0, 2, 0));
+    a.addInCell(std::make_tuple(0, 2, 2));
+
+    a.addOutCell(std::make_tuple(0, -2, 0));
+    a.addOutCell(std::make_tuple(0, -2, 2));
+    a.save(std::string("Area/Room2/Room2-2.area"));
 }
 
 void genRoom3() {
