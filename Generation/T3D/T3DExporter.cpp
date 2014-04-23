@@ -78,19 +78,19 @@ void T3DExporter::exportT3D(std::string filepath) {
     std::cout << "t3d exported to " << filepath << "." << std::endl;
 }
 
-std::vector<std::vector<Vector>> T3DExporter::getWall(float sizeLen, bool reducedX, bool reducedY, bool reducedZ) {
+std::vector<std::vector<Vector>> T3DExporter::getWall(float sizeLen, float reducedSize, bool reducedX, bool reducedY, bool reducedZ) {
     float sizeX = sizeLen;
     float sizeY = sizeLen;
     float sizeZ = sizeLen;
 
     if (reducedX) {
-        sizeX = REDUCED_SIZE;
+        sizeX = reducedSize;
     }
     if (reducedY) {
-        sizeY = REDUCED_SIZE;
+        sizeY = reducedSize;
     }
     if (reducedZ) {
-        sizeZ = REDUCED_SIZE;
+        sizeZ = reducedSize;
     }
 
     std::vector<std::vector<Vector>> polyList;
@@ -134,7 +134,7 @@ std::vector<std::vector<Vector>> T3DExporter::getWall(float sizeLen, bool reduce
 }
 
 std::vector<std::vector<Vector>> T3DExporter::getCube(float sizeLen) {
-    return getWall(sizeLen, false, false, false);
+    return getWall(sizeLen, REDUCED_SIZE, false, false, false);
 }
 
 void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFactory) {
@@ -170,34 +170,34 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
 
             if ((!isFirstOrLast && (predX != pred) && (predX != next)) ||
                 (isFirstOrLast && g->get(x - 1, y, z) == Grid::EMPTY_CELL)) {
-                BrushActor brush(pos - Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, true, false, false));
+                BrushActor brush(pos - Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, true, false, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
             if ((!isFirstOrLast && (predY != pred) && (predY != next)) ||
                 (isFirstOrLast && g->get(x, y - 1, z) == Grid::EMPTY_CELL)) {
-                BrushActor brush(pos - Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, false, true, false));
+                BrushActor brush(pos - Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, false, true, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
 
             if ((!isFirstOrLast && (predZ != pred) && (predZ != next)) ||
                 (isFirstOrLast && g->get(x, y, z - 1) == Grid::EMPTY_CELL)) {
-                BrushActor brush(pos - Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, false, false, true));
+                BrushActor brush(pos - Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, false, false, true));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
             if ((!isFirstOrLast && (nextX != pred) && (nextX != next)) ||
                 (isFirstOrLast && g->get(x + 1, y, z) == Grid::EMPTY_CELL)) {
-                BrushActor brush(pos + Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, true, false, false));
+                BrushActor brush(pos + Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, true, false, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
 
             if ((!isFirstOrLast && (nextY != pred) && (nextY != next)) ||
                 (isFirstOrLast && g->get(x, y + 1, z) == Grid::EMPTY_CELL)) {
-                BrushActor brush(pos + Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, false, true, false));
+                BrushActor brush(pos + Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, false, true, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
             if ((!isFirstOrLast && (nextZ != pred) && (nextZ != next)) ||
                 (isFirstOrLast && g->get(x, y, z + 1) == Grid::EMPTY_CELL)) {
-                BrushActor brush(pos + Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, false, false, true));
+                BrushActor brush(pos + Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, false, false, true));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
 
@@ -236,29 +236,29 @@ void T3DExporter::exportRoomsBrushes(std::ofstream& output, NameFactory *nameFac
 
                         Vector pos = (areaPositon + Vector(itX.first, itY.first, itZ.first)) * DEMI_CUBE_SIZE * 2.0;
                         if (predX == Grid::EMPTY_CELL) {
-                            BrushActor brush(pos - Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, true, false, false));
+                            BrushActor brush(pos - Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, true, false, false));
                             output << brush.getT3D(2, nameFactory) << std::endl;
                         }
                         if (nextX == Grid::EMPTY_CELL) {
-                            BrushActor brush(pos + Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, true, false, false));
+                            BrushActor brush(pos + Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, true, false, false));
                             output << brush.getT3D(2, nameFactory) << std::endl;
                         }
 
                         if (predY == Grid::EMPTY_CELL) {
-                            BrushActor brush(pos - Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, false, true, false));
+                            BrushActor brush(pos - Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, false, true, false));
                             output << brush.getT3D(2, nameFactory) << std::endl;
                         }
                         if (nextY == Grid::EMPTY_CELL) {
-                            BrushActor brush(pos + Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, false, true, false));
+                            BrushActor brush(pos + Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, false, true, false));
                             output << brush.getT3D(2, nameFactory) << std::endl;
                         }
 
                         if (predZ == Grid::EMPTY_CELL) {
-                            BrushActor brush(pos - Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, false, false, true));
+                            BrushActor brush(pos - Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, false, false, true));
                             output << brush.getT3D(2, nameFactory) << std::endl;
                         }
                         if (nextZ == Grid::EMPTY_CELL) {
-                            BrushActor brush(pos + Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, false, false, true));
+                            BrushActor brush(pos + Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, false, false, true));
                             output << brush.getT3D(2, nameFactory) << std::endl;
                         }
 
@@ -317,13 +317,20 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                 for (auto& itZ : itY.second) {
                     //std::cout << itZ.second << std::endl;
                     Vector pos = Vector(itX.first, itY.first, itZ.first);
-                    //*************FULLED IDLE CELLS & PLATFORMS***********//
-                    if (itZ.second == Grid::FULLED_IDLE_CELL || itZ.second == Grid::PLATFORM_CELL) {
+                    //*******************FULLED IDLE CELLS*****************//
+                    if (itZ.second == Grid::FULLED_IDLE_CELL) {
+                        std::cout << "Detecting a FULLED_IDLE_CELL" << std::endl;
                         BrushActor brush(&g);
                         brush.writeT3D(output, 2, nameFactory, pos, areaPositon);
                     }
+                    //**********************PLATFORMS**********************//
+                    else if (itZ.second == Grid::PLATFORM_CELL) {
+                        std::cout << "Detecting a PLATFORM_CELL" << std::endl;
+                        BrushActor brush((areaPositon + pos) * DEMI_CUBE_SIZE * 2.0 + Vector(0, 0, DEMI_CUBE_SIZE / 4.), getWall(DEMI_CUBE_SIZE, DEMI_CUBE_SIZE / 4., false, false, true));
+                        output << brush.getT3D(2, nameFactory) << std::endl;
+                    }
                     //********************CLIMBING AREAS*******************//
-                    if (itZ.second == Grid::CLIMB_CELL) {
+                    else if (itZ.second == Grid::CLIMB_CELL) {
                         std::cout << "Detecting a CLIMB_CELL at " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
                         //Le bloc physique
                         BrushActor brush(&g);

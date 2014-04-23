@@ -16,7 +16,7 @@ class T3DExporter {
         virtual ~T3DExporter(){};
 
         void exportT3D(std::string filepath);
-        static std::vector<std::vector<Vector>> getWall(float sizeLen, bool reducedX, bool reducedY, bool reducedZ);
+        static std::vector<std::vector<Vector>> getWall(float sizeLen, float reducedSize, bool reducedX, bool reducedY, bool reducedZ);
         static std::vector<std::vector<Vector>> getCube(float sizeLen);
 
         static const int DEMI_CUBE_SIZE = 100;
