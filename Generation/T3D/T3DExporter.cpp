@@ -177,6 +177,13 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
                     sba.setDirection(stairDir);
                     sba.writeT3D(output, 2, nameFactory, stairLocation, Vector(0, 0, 0));
                     needFloor[i + 2] = false;
+
+                    Vector pos = stairLocation * 2.0 * DEMI_CUBE_SIZE;
+                    Vector dir(stairDir.getY(), stairDir.getX(), 0);
+                    BrushActor brush(pos + dir * DEMI_CUBE_SIZE, getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, stairDir.getX() == 0, stairDir.getY() == 0, false));
+                    output << brush.getT3D(2, nameFactory) << std::endl;
+                    BrushActor brush2(pos - dir * DEMI_CUBE_SIZE, getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, stairDir.getX() == 0, stairDir.getY() == 0, false));
+                    output << brush2.getT3D(2, nameFactory) << std::endl;
                 }
             }
 
