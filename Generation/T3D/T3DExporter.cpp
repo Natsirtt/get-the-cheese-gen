@@ -142,6 +142,7 @@ std::vector<std::vector<Vector>> T3DExporter::getCube(float sizeLen) {
 void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFactory) {
     Grid* g = mWorld->getGrid();
     for (auto& path : mWorld->getPaths()) {
+        std::vector<bool> needFloor(path.size(), true);
         int lightCpt = 0;
         for (unsigned int i = 0; i < path.size(); ++i) {
             auto& v = path.at(i);
@@ -160,6 +161,24 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
                 next = Vector(std::get<0>(v2), std::get<1>(v2), std::get<2>(v2));
             }
             bool isFirstOrLast = (i == 0) || (i == (path.size() - 1));
+            bool needStair = pathNeedStairs(path, i);
+            Vector stairLocation = origin;
+            Vector stairDir;
+            if (needStair) {
+                stairLocation = Vector(path[i + 2]);
+                stairLocation = stairLocation - Vector(0, 0, 1);
+                if ((g->get(stairLocation.getX(), stairLocation.getY(), stairLocation.getZ()) != Grid::EMPTY_CELL) &&
+                    (g->get(stairLocation.getX(), stairLocation.getY(), stairLocation.getZ()) != Grid::FULLED_IDLE_CELL)) {
+                    stairLocation = origin;
+                    needStair = false;
+                } else {
+                    stairDir = stairLocation - Vector(path[i]);
+                    StairBrushActor sba(g);
+                    sba.setDirection(stairDir);
+                    sba.writeT3D(output, 2, nameFactory, stairLocation, Vector(0, 0, 0));
+                    needFloor[i + 2] = false;
+                }
+            }
 
             Vector predX(origin.getX() - 1, origin.getY(), origin.getZ());
             Vector nextX(origin.getX() + 1, origin.getY(), origin.getZ());
@@ -170,29 +189,29 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
 
             Vector pos = origin * 2.0 * DEMI_CUBE_SIZE;
 
-            if ((!isFirstOrLast && (predX != pred) && (predX != next)) ||
+            if ((!isFirstOrLast && (predX != pred) && (predX != next) && (predX != stairLocation)) ||
                 (isFirstOrLast && g->get(x - 1, y, z) == Grid::EMPTY_CELL)) {
                 BrushActor brush(pos - Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, true, false, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
-            if ((!isFirstOrLast && (predY != pred) && (predY != next)) ||
+            if ((!isFirstOrLast && (predY != pred) && (predY != next) && (predY != stairLocation)) ||
                 (isFirstOrLast && g->get(x, y - 1, z) == Grid::EMPTY_CELL)) {
                 BrushActor brush(pos - Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, false, true, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
 
-            if ((!isFirstOrLast && (predZ != pred) && (predZ != next)) ||
-                (isFirstOrLast && g->get(x, y, z - 1) == Grid::EMPTY_CELL)) {
+            if (((!isFirstOrLast && (predZ != pred) && (predZ != next)) ||
+                (isFirstOrLast && g->get(x, y, z - 1) == Grid::EMPTY_CELL)) && needFloor[i]) {
                 BrushActor brush(pos - Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, false, false, true));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
-            if ((!isFirstOrLast && (nextX != pred) && (nextX != next)) ||
+            if ((!isFirstOrLast && (nextX != pred) && (nextX != next) && (nextX != stairLocation)) ||
                 (isFirstOrLast && g->get(x + 1, y, z) == Grid::EMPTY_CELL)) {
                 BrushActor brush(pos + Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, true, false, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
             }
 
-            if ((!isFirstOrLast && (nextY != pred) && (nextY != next)) ||
+            if ((!isFirstOrLast && (nextY != pred) && (nextY != next) && (nextY != stairLocation)) ||
                 (isFirstOrLast && g->get(x, y + 1, z) == Grid::EMPTY_CELL)) {
                 BrushActor brush(pos + Vector(0, DEMI_CUBE_SIZE, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, false, true, false));
                 output << brush.getT3D(2, nameFactory) << std::endl;
@@ -210,6 +229,41 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
             lightCpt = (lightCpt + 1) % LIGHTS_MODULO;
         }
     }
+}
+
+bool T3DExporter::pathNeedStairs(std::vector<std::tuple<long, long, long>>& path, unsigned int cellNb) {
+    if ((cellNb + 2) < path.size()) {
+        Vector c1 = Vector(path[cellNb]);
+        Vector c2 = Vector(path[cellNb + 1]);
+        Vector c3 = Vector(path[cellNb + 2]);
+
+        bool res = false;
+
+        if ((c1.getX() == c2.getX()) && (c2.getX() == c3.getX()) &&
+            (c1.getZ() == (c2.getZ() - 1)) && (c2.getZ() == c3.getZ())) {
+            res = true;
+        } else if ((c1.getX() == c2.getX()) && (c2.getX() == c3.getX()) &&
+            (c1.getZ() == (c2.getZ() - 1)) && (c2.getZ() == c3.getZ())) {
+            res = true;
+        } else {
+            return false;
+        }
+
+        if (res) {
+            Vector stairLocation = Vector(path[cellNb + 2]);
+            stairLocation = stairLocation - Vector(0, 0, 1);
+            if (cellNb > 0) {
+                Vector pred = Vector(path[cellNb - 1]);
+                Vector down = Vector(path[cellNb]) - Vector(0, 0, 1);
+                if ((pred == stairLocation) || (pred == down)) {
+                    return false;
+                }
+            }
+
+        }
+        return true;
+    }
+    return false;
 }
 
 void T3DExporter::exportRoomsBrushes(std::ofstream& output, NameFactory *nameFactory) {

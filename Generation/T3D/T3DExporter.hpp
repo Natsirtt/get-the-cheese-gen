@@ -44,6 +44,8 @@ class T3DExporter {
         void exportPlayerStart(std::ofstream& output, NameFactory *nameFactory);
         void exportSpecialsCells(std::ofstream& output, NameFactory *nameFactory);
 
+        bool pathNeedStairs(std::vector<std::tuple<long, long, long>>& path, unsigned int cellNb);
+
     private:
         World *mWorld;
 };

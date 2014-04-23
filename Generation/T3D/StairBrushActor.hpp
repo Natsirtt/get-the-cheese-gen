@@ -22,6 +22,7 @@ class StairBrushActor : public IActor {
         static const Vector Y_NEG;
 
         Vector getLocation();
+        void setDirection(Vector dir);
         virtual std::string getT3D(int indentLevel, NameFactory *nameFactory);
         virtual void writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition, Vector gridTranslation);
     protected:

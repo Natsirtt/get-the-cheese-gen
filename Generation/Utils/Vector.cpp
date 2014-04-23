@@ -12,6 +12,12 @@ Vector::Vector(double x, double y, double z) : mX(x), mY(y), mZ(z) {
 Vector::Vector(const Vector& v) : mX(v.mX), mY(v.mY), mZ(v.mZ) {
 }
 
+Vector::Vector(std::tuple<long, long, long> t) {
+    mX = std::get<0>(t);
+    mY = std::get<1>(t);
+    mZ = std::get<2>(t);
+}
+
 double Vector::getX() const {
     return mX;
 }

@@ -2,12 +2,14 @@
 #define VECTOR_HPP
 
 #include <string>
+#include <tuple>
 
 class Vector {
     public:
         Vector();
         Vector(double x, double y, double z);
         Vector(const Vector& v);
+        Vector(std::tuple<long, long, long> t);
 
         double getX() const;
         double getY() const;

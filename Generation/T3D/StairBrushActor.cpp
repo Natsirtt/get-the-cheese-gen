@@ -40,6 +40,10 @@ std::string StairBrushActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     return stream.str();
 }
 
+void StairBrushActor::setDirection(Vector dir) {
+    mDirection = dir;
+}
+
 /**
  * Just a cube on the gridPosition
  */
