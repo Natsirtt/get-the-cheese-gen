@@ -461,6 +461,34 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                         FluidActor fa(&g);
                         fa.writeT3D(output, 2, nameFactory, pos, areaPositon);
                     }
+                    //********************Escalier**************************//
+                    else if (itZ.second == Grid::STAIRS_XPOS_CELL) {
+                        std::cout << "Detecting a STAIRS_XPOS_CELL" << std::endl;
+                        StairBrushActor sba(&g);
+                        sba.setDirection(Vector(1, 0, 0));
+                        sba.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                    }
+                    //********************Escalier**************************//
+                    else if (itZ.second == Grid::STAIRS_XNEG_CELL) {
+                        std::cout << "Detecting a STAIRS_XNEG_CELL" << std::endl;
+                        StairBrushActor sba(&g);
+                        sba.setDirection(Vector(-1, 0, 0));
+                        sba.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                    }
+                    //********************Escalier**************************//
+                    else if (itZ.second == Grid::STAIRS_YPOS_CELL) {
+                        std::cout << "Detecting a STAIRS_YPOS_CELL" << std::endl;
+                        StairBrushActor sba(&g);
+                        sba.setDirection(Vector(0, 1, 0));
+                        sba.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                    }
+                    //********************Escalier**************************//
+                    else if (itZ.second == Grid::STAIRS_YNEG_CELL) {
+                        std::cout << "Detecting a STAIRS_YNEG_CELL" << std::endl;
+                        StairBrushActor sba(&g);
+                        sba.setDirection(Vector(0, -1, 0));
+                        sba.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                    }
                 }
             }
         }
