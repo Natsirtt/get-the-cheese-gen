@@ -58,6 +58,7 @@ void genStartRoom() {
     }
     // On positionne la zone de départ
     g.set(Grid::START_CELL, 0, 0, 0);
+    g.set(Grid::MOVING_PLATFORM_CELL, 0, 0, 1);
 
     a.addOutCell(std::make_tuple(0, -2, 0));
 

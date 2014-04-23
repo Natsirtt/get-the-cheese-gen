@@ -104,6 +104,8 @@
 		<Unit filename="T3D/LavaActor.hpp" />
 		<Unit filename="T3D/LavaPostProcessActor.cpp" />
 		<Unit filename="T3D/LavaPostProcessActor.hpp" />
+		<Unit filename="T3D/MovableBrushActor.cpp" />
+		<Unit filename="T3D/MovableBrushActor.hpp" />
 		<Unit filename="T3D/NameFactory.cpp" />
 		<Unit filename="T3D/NameFactory.hpp" />
 		<Unit filename="T3D/PlayerFinishActor.cpp" />
@@ -114,6 +116,8 @@
 		<Unit filename="T3D/PlayerStartActor.hpp" />
 		<Unit filename="T3D/PointLightActor.cpp" />
 		<Unit filename="T3D/PointLightActor.hpp" />
+		<Unit filename="T3D/StairBrushActor.cpp" />
+		<Unit filename="T3D/StairBrushActor.hpp" />
 		<Unit filename="T3D/StaticMeshActor.cpp" />
 		<Unit filename="T3D/StaticMeshActor.hpp" />
 		<Unit filename="T3D/T3DExporter.cpp" />

@@ -85,6 +85,7 @@ public:
     static const long LASER_X_STICKED_CELL = 16;
     static const long LASER_Y_STICKED_CELL = 17;
     static const long LASER_Z_STICKED_CELL = 18;
+    static const long MOVING_PLATFORM_CELL = 19;
 
 private:
     //  x -> y -> z -> type

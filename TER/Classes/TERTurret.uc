@@ -84,6 +84,8 @@ defaultproperties
 	Begin Object class=StaticMeshComponent Name=MyStaticMeshComponent
 		StaticMesh=StaticMesh'NEC_Deco.SM.Mesh.S_NEC_Deco_SM_Cuchulainn_Pose3'
 		Rotation=(Pitch=0,Yaw=49140,Roll=0)
+		bAcceptsLights=true
+		LightingChannels=(Dynamic=TRUE,bInitialized=TRUE)
 	End Object
 	CollisionComponent=MyStaticMeshComponent
  	Components.Add(MyStaticMeshComponent)
