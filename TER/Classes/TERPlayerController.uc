@@ -1,7 +1,139 @@
-class TERPlayerController extends UTPlayerController ;
+class TERPlayerController extends UTPlayerController;
 
 
 var bool bIsSprinting;  // sprintons nous ?
+
+var array <TERPawn> Pawns;
+var int CurrentPawnIndex;
+var bool bReadyToMerge;
+
+simulated function PostBeginPlay()
+{
+	super.PostBeginPlay();
+	CurrentPawnIndex = 0;
+	bReadyToMerge = false;
+}
+
+exec function Divide()
+{
+	local TERPawn p;
+	
+	if ((Pawns.Length == 0) || (Pawns.Find(TERPawn(Pawn)) == -1)) { // Si le Pawn actuel n'est pas dans la liste
+		Pawns.AddItem(TERPawn(Pawn)); // On l'ajoute
+	}
+	
+	p = Pawns[CurrentPawnIndex];
+	p.Acceleration = vect(0, 0, 0);
+	p.Velocity = vect(0, 0, 0);
+	p = Spawn(class'TERPawn', , ,p.Location + vect(50, 50, 50), p.Rotation); // On crée un nouveau Pawn
+
+	//use false if you spawned a character and true for a vehicle
+	Possess(p, false); // On change le Pawn actuel par le nouveau Pawn
+	Pawns.AddItem(p); // On ajoute le nouveau Pawn à la liste
+	CurrentPawnIndex = CurrentPawnIndex + 1;
+}
+
+exec function NextPawn()
+{
+	local bool ValidPlayer;
+	local TERPawn OldPawn;
+	`Log("Next");
+	
+	if (Pawns.Find(TERPawn(Pawn)) == -1)
+	{
+		Pawns.AddItem(TERPawn(Pawn));
+		CurrentPawnIndex = Pawns.Length - 1;
+	}
+	
+	ValidPlayer = false;
+	while (ValidPlayer == false)
+	{
+		if (Pawns.Length > 1)
+		{
+			OldPawn = Pawns[CurrentPawnIndex];
+			CurrentPawnIndex = (CurrentPawnIndex + 1) % Pawns.Length;
+			if (Pawns[CurrentPawnIndex].IsAliveAndWell())
+			{
+				OldPawn.Acceleration = vect(0, 0, 0);
+				OldPawn.Velocity = vect(0, 0, 0);
+				UnPossess();
+				
+				Possess(Pawns[CurrentPawnIndex], false);
+				ValidPlayer = true;
+			} else {
+				Pawns.RemoveItem(Pawns[CurrentPawnIndex]);
+			}
+		} else {
+			Pawns.AddItem(TERPawn(Pawn));
+			CurrentPawnIndex = 0;
+		}
+	}
+}
+
+exec function PreviousPawn()
+{
+	local bool ValidPlayer;
+	local TERPawn OldPawn;
+	`Log("Prev");
+	if (Pawns.Find(TERPawn(Pawn)) == -1)
+	{
+		Pawns.AddItem(TERPawn(Pawn));
+		CurrentPawnIndex = Pawns.Length - 1;
+	}
+	
+	ValidPlayer = false;
+	while (ValidPlayer == false)
+	{
+		if (Pawns.Length > 1)
+		{
+			OldPawn = Pawns[CurrentPawnIndex];
+			CurrentPawnIndex = (CurrentPawnIndex - 1);
+			if (CurrentPawnIndex < 0)
+			{
+				CurrentPawnIndex = CurrentPawnIndex + Pawns.Length;
+			}
+			if (Pawns[CurrentPawnIndex].IsAliveAndWell())
+			{
+				OldPawn.Acceleration = vect(0, 0, 0);
+				OldPawn.Velocity = vect(0, 0, 0);
+				UnPossess();
+				Possess(Pawns[CurrentPawnIndex], false);
+				ValidPlayer = true;
+			} else {
+				Pawns.RemoveItem(Pawns[CurrentPawnIndex]);
+			}
+		} else {
+			Pawns.AddItem(TERPawn(Pawn));
+			CurrentPawnIndex = 0;
+		}
+	}
+}
+
+exec function PrepareMerge()
+{
+	bReadyToMerge = true;
+}
+
+exec function UnPrepareMerge()
+{
+	bReadyToMerge = false;
+}
+
+function TryMerge(TERPawn PawnToMerge)
+{
+	local int ptmIndex;
+	if (bReadyToMerge) {
+		ptmIndex = Pawns.find(PawnToMerge);
+		if ((ptmIndex != -1) && (ptmIndex != CurrentPawnIndex)) {
+			if (ptmIndex < CurrentPawnIndex)
+			{
+				CurrentPawnIndex = CurrentPawnIndex - 1;
+			}
+			Pawns.RemoveItem(PawnToMerge);
+			PawnToMerge.destroy();
+		}
+	}
+}
 
 /*
 	// CODE POUR MARCHER SUR LES MURS

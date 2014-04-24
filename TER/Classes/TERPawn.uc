@@ -115,6 +115,14 @@ function bool DoWallJump( bool bUpdating )
     return false;
 }
 
+event Bump(Actor Other, PrimitiveComponent OtherComp, Vector HitNormal)
+{
+	if ((TERPawn(Other) != none) && (Controller != none))
+	{
+		TERPlayerController(Controller).TryMerge(TERPawn(Other));
+	}
+}
+
 defaultproperties
 {
 	//Components.Remove(Sprite)
