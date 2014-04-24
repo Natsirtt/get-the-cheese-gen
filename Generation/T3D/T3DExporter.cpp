@@ -404,24 +404,21 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                         std::cout << "Detecting a CLIMB_CELL at " << itX.first << " " << itY.first << " " << itZ.first << std::endl;
                         //Le bloc physique
                         BrushActor brush(&g);
-                        //brush.IActor::writeT3D(...) ?! SERIOUSLY ?!!
+                        brush.setTexture("FoliageDemo.Materials.M_PaintableRock_MasterOpt");
+                                        //"GenericFoliage01.Trees.Material.M_GEN_Foliage01_Trees_BarkComplex_MASTER"
                         brush.writeT3D(output, 2, nameFactory, pos, areaPositon);
                         //Les blocs ladder autour
                         LadderActor ladder(&g);
                         if (g.get(itX.first - 1, itY.first, itZ.first) == Grid::BLOCK_CELL) {
-                            //std::cout << "ok1" << std::endl;
                             ladder.writeT3D(output, 2, nameFactory, Vector(itX.first - 1, itY.first, itZ.first), areaPositon);
                         }
                         if (g.get(itX.first + 1, itY.first, itZ.first) == Grid::BLOCK_CELL) {
-                            //std::cout << "ok2" << std::endl;
                             ladder.writeT3D(output, 2, nameFactory, Vector(itX.first + 1, itY.first, itZ.first), areaPositon);
                         }
                         if (g.get(itX.first, itY.first - 1, itZ.first) == Grid::BLOCK_CELL) {
-                            //std::cout << "ok3" << std::endl;
                             ladder.writeT3D(output, 2, nameFactory, Vector(itX.first, itY.first - 1, itZ.first), areaPositon);
                         }
                         if (g.get(itX.first, itY.first + 1, itZ.first) == Grid::BLOCK_CELL) {
-                            //std::cout << "ok4" << std::endl;
                             ladder.writeT3D(output, 2, nameFactory, Vector(itX.first, itY.first + 1, itZ.first), areaPositon);
                         }
                     }

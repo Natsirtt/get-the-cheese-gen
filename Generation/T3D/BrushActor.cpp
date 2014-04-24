@@ -7,16 +7,22 @@
 
 //BrushActor::BrushActor() {}
 
-BrushActor::BrushActor(Vector location, std::vector<std::vector<Vector>> polyList, bool sub) : mLocation{location}, mPolyList{polyList}, mSub{sub} {
+BrushActor::BrushActor(Vector location, std::vector<std::vector<Vector>> polyList, bool sub) : mLocation{location}, mPolyList{polyList},
+                                                                                            mSub{sub}, mTexture{"LT_Floors.BSP.Materials.M_LT_Floors_BSP_Organic05b"} {
 }
 
-BrushActor::BrushActor(double xLocation, double yLocation, double zLocation, std::vector<std::vector<Vector>> polyList, bool sub) : mLocation{Vector(xLocation, yLocation, zLocation)}, mPolyList{polyList}, mSub{sub} {
+BrushActor::BrushActor(double xLocation, double yLocation, double zLocation, std::vector<std::vector<Vector>> polyList, bool sub)
+                            : mLocation{Vector(xLocation, yLocation, zLocation)}, mPolyList{polyList}, mSub{sub}, mTexture{"LT_Floors.BSP.Materials.M_LT_Floors_BSP_Organic05b"} {
 }
 
-BrushActor::BrushActor(Grid *g) : IActor(g), mSub{false} {}
+BrushActor::BrushActor(Grid *g) : IActor(g), mSub{false}, mTexture{"LT_Floors.BSP.Materials.M_LT_Floors_BSP_Organic05b"} {}
 
 Vector BrushActor::getLocation() {
     return mLocation;
+}
+
+void BrushActor::setTexture(std::string text) {
+    mTexture = text;
 }
 
 std::string BrushActor::getT3D(int indentLevel, NameFactory *nameFactory) {
@@ -50,7 +56,7 @@ std::string BrushActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     stream << indentation << "      Begin PolyList" << std::endl;
 
     for (std::vector<Vector> poly : mPolyList) {
-        stream << indentation << "         Begin Polygon Texture=LT_Floors.BSP.Materials.M_LT_Floors_BSP_Organic05b Flags=3584" << std::endl;
+        stream << indentation << "         Begin Polygon Texture=" << mTexture << " Flags=3584" << std::endl;
         for (Vector v : poly) {
             stream << indentation << "            Vertex   " << v.getX() << "," << v.getY() << "," << v.getZ() << std::endl;
         }
