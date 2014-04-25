@@ -1,5 +1,5 @@
-#ifndef STAIRBRUSHACTOR_H
-#define STAIRBRUSHACTOR_H
+#ifndef WALLPLATFORMACTOR_HPP
+#define WALLPLATFORMACTOR_HPP
 
 #include "IActor.hpp"
 #include "../Utils/Vector.hpp"
@@ -9,17 +9,17 @@
 #include <string>
 #include <vector>
 
-class StairBrushActor : public IActor {
+class WallPlatformActor : public IActor {
     public:
-        /*StairBrushActor(Vector location, Vector gridPosition, Vector gridTranslation);
-        StairBrushActor(double xLocation, double yLocation, double zLocation);*/
-        StairBrushActor(Grid *g);
-        virtual ~StairBrushActor() {};
+        WallPlatformActor(Grid *g);
+        virtual ~WallPlatformActor() {};
 
         static const Vector X_POS;
         static const Vector X_NEG;
         static const Vector Y_POS;
         static const Vector Y_NEG;
+
+        const float MAX_JUMP_HEIGHT = 200;
 
         Vector getLocation();
         void setDirection(Vector dir);

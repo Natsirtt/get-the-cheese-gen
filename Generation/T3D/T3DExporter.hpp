@@ -1,5 +1,5 @@
-#ifndef T3DEXPORTER_H
-#define T3DEXPORTER_H
+#ifndef T3DEXPORTER_HPP
+#define T3DEXPORTER_HPP
 
 #include <string>
 #include <fstream>
@@ -19,8 +19,8 @@ class T3DExporter {
         static std::vector<std::vector<Vector>> getWall(float sizeLen, float reducedSize, bool reducedX, bool reducedY, bool reducedZ);
         static std::vector<std::vector<Vector>> getCube(float sizeLen);
 
-        static const int DEMI_CUBE_SIZE = 100;
-        static const int REDUCED_SIZE = 1;
+        static const int DEMI_CUBE_SIZE = 200;
+        static const int REDUCED_SIZE = 5;
         //CF unreal rotators conversions
         static const float DEG_TO_UNREAL;
         static const int DEG_0 = 0;
@@ -45,6 +45,7 @@ class T3DExporter {
         void exportSpecialsCells(std::ofstream& output, NameFactory *nameFactory);
 
         bool pathNeedStairs(std::vector<std::tuple<long, long, long>>& path, unsigned int cellNb);
+        bool pathNeedWallPlatform(std::vector<std::tuple<long, long, long>>& path, unsigned int cellNb);
 
     private:
         World *mWorld;
