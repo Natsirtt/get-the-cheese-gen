@@ -110,15 +110,31 @@ void GraphGenerator::addObstacles() {
             furtherNid = nid;
         }
         Id rid = furtherNid;
-        if (furtherNid < (endNid - 1)) {
+
+        // Le noeud choisi au hasard pour à partir duquel on va accéder à la porte
+        INode* rNode = nullptr;
+        // L'Id de la transition qui va succéder à la porte
+        Id gid = 0;
+        IGate* rGate = nullptr;
+
+        if (furtherNid != mEndPath[mEndPath.size() - 2]) {
             rid = getRandomNodeBetween(furtherNid, endNid);
+            //std::cout << it.first << " " << furtherNid << " " << endNid << " " << rid << std::endl;
+            rNode = mGraph->getNode(rid);
+            // On récupére une transition aléatoire sortant du noeud
+            gid = rNode->getTransitions()[0];
+            rGate = mGraph->getGate(gid);
+        } else {
+            rNode = mGraph->getNode(rid);
+            for (auto tempGid : rNode->getTransitions()) {
+                IGate* g = mGraph->getGate(tempGid);
+                gid = tempGid;
+                rGate = g;
+                if (g->getSecondNode() == endNid) {
+                    break;
+                }
+            }
         }
-        // On récupére un noeud aléatoire
-        std::cout << it.first << " " << furtherNid << " " << endNid << " " << rid << std::endl;
-        INode* rNode = mGraph->getNode(rid);
-        // On récupére une transition aléatoire sortant du noeud
-        Id gid = rNode->getTransitions()[0];
-        IGate* rGate = mGraph->getGate(gid);
         // On récupére les deux noeuds entre lesquelle on ajoute une porte
         Id first = rGate->getFirstNode();
         INode* n1 = mGraph->getNode(first);
