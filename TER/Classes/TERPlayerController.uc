@@ -26,11 +26,12 @@ exec function Divide()
 	p.Acceleration = vect(0, 0, 0);
 	p.Velocity = vect(0, 0, 0);
 	p = Spawn(class'TERPawn', , ,p.Location + vect(50, 50, 50), p.Rotation); // On crée un nouveau Pawn
-
-	//use false if you spawned a character and true for a vehicle
-	Possess(p, false); // On change le Pawn actuel par le nouveau Pawn
-	Pawns.AddItem(p); // On ajoute le nouveau Pawn à la liste
-	CurrentPawnIndex = CurrentPawnIndex + 1;
+	if (p != none)
+	{
+		Possess(p, false); // On change le Pawn actuel par le nouveau Pawn
+		Pawns.AddItem(p); // On ajoute le nouveau Pawn à la liste
+		CurrentPawnIndex = CurrentPawnIndex + 1;	
+	}
 }
 
 exec function NextPawn()
