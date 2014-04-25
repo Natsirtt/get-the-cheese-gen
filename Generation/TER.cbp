@@ -126,6 +126,8 @@
 		<Unit filename="T3D/TriggerActor.hpp" />
 		<Unit filename="T3D/TurretActor.cpp" />
 		<Unit filename="T3D/TurretActor.h" />
+		<Unit filename="T3D/WallPlatformActor.cpp" />
+		<Unit filename="T3D/WallPlatformActor.hpp" />
 		<Unit filename="Utils/Random.cpp" />
 		<Unit filename="Utils/Random.hpp" />
 		<Unit filename="Utils/Tuple.hpp" />
