@@ -14,8 +14,8 @@ function Trigger()
 defaultproperties
 {
 	Begin Object class=StaticMeshComponent Name=MyStaticMeshComponent
-		bAcceptsLights=true
-		LightingChannels=(Dynamic=TRUE,bInitialized=TRUE)
+		/*bAcceptsLights=true
+		LightingChannels=(Dynamic=TRUE,bInitialized=TRUE)*/
 		StaticMesh=StaticMesh'NEC_WALLS.SM.Mesh.S_NEC_Walls_SM_CAWall_STRc'
 	End Object
 	bBlockActors=true

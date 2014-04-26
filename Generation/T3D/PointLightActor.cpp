@@ -47,12 +47,12 @@ std::string PointLightActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     stream << indentation << "      PreviewLightRadius=DrawLightRadiusComponent'DrawLightRadiusComponent_0'" << std::endl;
     stream << indentation << "      LightmassSettings=(LightSourceRadius=32.000000)" << std::endl;
     stream << indentation << "      PreviewLightSourceRadius=DrawLightRadiusComponent'DrawLightRadiusComponent_1'" << std::endl;
-    stream << indentation << "      LightGuid=(A=653825264,B=1127919774,C=259772584,D=997455248)" << std::endl;
-    stream << indentation << "      LightmapGuid=(A=1175780442,B=1272834779,C=-1559076990,D=258521850)" << std::endl;
+    //stream << indentation << "      LightGuid=(A=653825264,B=1127919774,C=259772584,D=997455248)" << std::endl;
+    //stream << indentation << "      LightmapGuid=(A=1175780442,B=1272834779,C=-1559076990,D=258521850)" << std::endl;
     stream << indentation << "      CastDynamicShadows=False" << std::endl;
     stream << indentation << "      UseDirectLightMap=True" << std::endl;
-    stream << indentation << "      bPrecomputedLightingIsValid=False" << std::endl;
-    stream << indentation << "      LightingChannels=(Dynamic=False)" << std::endl;
+    stream << indentation << "      bPrecomputedLightingIsValid=true" << std::endl;
+    stream << indentation << "      LightingChannels=(Dynamic=true)" << std::endl;
     stream << indentation << "      LightAffectsClassification=LAC_STATIC_AFFECTING" << std::endl;
     stream << indentation << "      Name=\"" << plcn << "\"" << std::endl;
     stream << indentation << "      ObjectArchetype=PointLightComponent'Engine.Default__PointLight:PointLightComponent0'" << std::endl;

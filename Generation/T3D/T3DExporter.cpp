@@ -6,7 +6,9 @@
 #include <tuple>
 #include <map>
 #include <cmath>
+#include <algorithm>
 
+#include "../Utils/Random.hpp"
 #include "../3D/Grid.hpp"
 #include "IActor.hpp"
 #include "StaticMeshActor.hpp"
@@ -25,6 +27,7 @@
 #include "MovableBrushActor.hpp"
 #include "StairBrushActor.hpp"
 #include "WallPlatformActor.hpp"
+#include "TrapBrushActor.hpp"
 
 #define LIGHTS_MODULO 6
 
@@ -151,6 +154,7 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
             long y = std::get<1>(v);
             long z = std::get<2>(v);
             Vector origin(x, y, z);
+            Vector pos = origin * 2.0 * DEMI_CUBE_SIZE;
             Vector pred = origin;
             Vector next = origin;
             if (i > 0) {
@@ -192,6 +196,14 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
             if (!needStair) {
                 needPlatform = pathNeedWallPlatform(path, i);
             }
+            if ((!needPlatform) && pathNeedTrap(path, i)) {
+                if ((g->get(origin.getX(), origin.getY(), origin.getZ() - 1) == Grid::EMPTY_CELL) ||
+                    (g->get(origin.getX(), origin.getY(), origin.getZ() - 1) == Grid::FULLED_IDLE_CELL)) {
+                     TrapBrushActor tba(pos - Vector(0, 0, DEMI_CUBE_SIZE * 2));
+                    output << tba.getT3D(2, nameFactory) << std::endl;
+                    needFloor[i] = false;
+                }
+            }
 
             Vector predX(origin.getX() - 1, origin.getY(), origin.getZ());
             Vector nextX(origin.getX() + 1, origin.getY(), origin.getZ());
@@ -199,8 +211,6 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
             Vector nextY(origin.getX(), origin.getY() + 1, origin.getZ());
             Vector predZ(origin.getX(), origin.getY(), origin.getZ() - 1);
             Vector nextZ(origin.getX(), origin.getY(), origin.getZ() + 1);
-
-            Vector pos = origin * 2.0 * DEMI_CUBE_SIZE;
 
             if ((!isFirstOrLast && (predX != pred) && (predX != next) && (predX != stairLocation)) ||
                 (isFirstOrLast && g->get(x - 1, y, z) == Grid::EMPTY_CELL)) {
@@ -298,6 +308,34 @@ bool T3DExporter::pathNeedWallPlatform(std::vector<std::tuple<long, long, long>>
 
         return c1.getZ() < c2.getZ();
     }
+    return false;
+}
+
+bool T3DExporter::pathNeedTrap(std::vector<std::tuple<long, long, long>>& path, unsigned int cellNb) {
+   if (((cellNb + 1) < path.size()) && ((cellNb - 1) > 0)) {
+        Vector c1 = Vector(path[cellNb - 1]);
+        Vector c2 = Vector(path[cellNb]);
+        Vector c3 = Vector(path[cellNb + 1]);
+
+        bool res = false;
+
+        if ((c1.getZ() == c2.getZ()) && (c2.getZ() == c3.getZ())) {
+            std::vector<double> vecX{c1.getX(), c2.getX(), c3.getX()};
+            std::sort(vecX.begin(), vecX.end());
+            if ((vecX[0] == (vecX[1] - 1)) && (vecX[1] == (vecX[2] - 1))) {
+                res = true;
+            } else {
+                std::vector<double> vecY{c1.getX(), c2.getX(), c3.getX()};
+                std::sort(vecY.begin(), vecY.end());
+                res = (vecY[0] == (vecY[1] - 1)) && (vecY[1] == (vecY[2] - 1));
+            }
+            if (res) {
+                Rand_Int<> rand(0, 100);
+                return rand() > 80;
+            }
+            return false;
+        }
+   }
     return false;
 }
 

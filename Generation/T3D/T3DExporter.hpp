@@ -46,6 +46,7 @@ class T3DExporter {
 
         bool pathNeedStairs(std::vector<std::tuple<long, long, long>>& path, unsigned int cellNb);
         bool pathNeedWallPlatform(std::vector<std::tuple<long, long, long>>& path, unsigned int cellNb);
+        bool pathNeedTrap(std::vector<std::tuple<long, long, long>>& path, unsigned int cellNb);
 
     private:
         World *mWorld;

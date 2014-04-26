@@ -584,7 +584,7 @@ defaultproperties
 	//Ajouts TER
 	bIsSprinting=false
 	 
-	/*bNotifyFallingHitWall=true 
+	bNotifyFallingHitWall=true 
 	// Crawling configuration
-    bCanCrawl=true*/
+    /*bCanCrawl=true*/
 }

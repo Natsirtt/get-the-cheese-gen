@@ -31,8 +31,9 @@ std::string DoorActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     stream << indentation << "Begin Actor Class=TERDoor Name=" << mName << " Archetype=TERDoor'ter.Default__TERDoor'" << std::endl;
     stream << indentation << "   Begin Object Class=StaticMeshComponent Name=MyStaticMeshComponent ObjName=" << smcn << " Archetype=StaticMeshComponent'ter.Default__TERDoor:MyStaticMeshComponent'" << std::endl;
     stream << indentation << "      StaticMesh=StaticMesh'NEC_WALLS.SM.Mesh.S_NEC_Walls_SM_CAWall_STRc'" << std::endl;
+    //stream << indentation << "      StaticMesh=StaticMesh'LT_Doors.SM.Mesh.S_LT_Doors_SM_DoorWay04'" << std::endl;
     stream << indentation << "      ReplacementPrimitive=None" << std::endl;
-    stream << indentation << "      bAcceptsLights=true" << std::endl;
+    //stream << indentation << "      bAcceptsLights=true" << std::endl;
     stream << indentation << "      LightingChannels=(bInitialized=True,Dynamic=True)" << std::endl;
     stream << indentation << "      Name=\"" << smcn << "\"" << std::endl;
     stream << indentation << "      ObjectArchetype=StaticMeshComponent'ter.Default__TERDoor:MyStaticMeshComponent'" << std::endl;

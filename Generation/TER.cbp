@@ -122,6 +122,8 @@
 		<Unit filename="T3D/StaticMeshActor.hpp" />
 		<Unit filename="T3D/T3DExporter.cpp" />
 		<Unit filename="T3D/T3DExporter.hpp" />
+		<Unit filename="T3D/TrapBrushActor.cpp" />
+		<Unit filename="T3D/TrapBrushActor.hpp" />
 		<Unit filename="T3D/TriggerActor.cpp" />
 		<Unit filename="T3D/TriggerActor.hpp" />
 		<Unit filename="T3D/TurretActor.cpp" />
