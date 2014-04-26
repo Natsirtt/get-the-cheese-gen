@@ -91,6 +91,24 @@ int main(int argc, char* argv[]) {
     });
     gui.add(&deleteButton);
 
+    GuiButton regenerateButton(deleteButton.getX() + deleteButton.getWidth() + 10, 40, 100, 25, "Regenerer");
+    regenerateButton.setAction([&]{
+        gw.clear();
+        g.clear();
+        generator();
+        gw.reset(&g);
+    });
+    gui.add(&regenerateButton);
+
+    GuiButton exportButton(regenerateButton.getX(), saveButton.getY(), regenerateButton.getWidth(), regenerateButton.getHeight(), "Exporter");
+    exportButton.setAction([&]{
+        World w(&g);
+        w.build();
+        T3DExporter exporter(&w);
+        exporter.exportT3D("result.t3d");
+    });
+    gui.add(&exportButton);
+
     bool running = true;
     SDL_Event event;
     while (running) {
