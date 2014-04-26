@@ -139,6 +139,47 @@ std::vector<std::vector<Vector>> T3DExporter::getWall(float sizeLen, float reduc
     return polyList;
 }
 
+std::vector<std::vector<Vector>> T3DExporter::getWall(float sizeX, float sizeY, float sizeZ) {
+    std::vector<std::vector<Vector>> polyList;
+    std::vector<Vector> f1;
+    f1.push_back(Vector(-sizeX, -sizeY, sizeZ));
+    f1.push_back(Vector(-sizeX, -sizeY, -sizeZ));
+    f1.push_back(Vector(sizeX, -sizeY, -sizeZ));
+    f1.push_back(Vector(sizeX, -sizeY, sizeZ));
+    polyList.push_back(f1);
+    std::vector<Vector> f2;
+    f2.push_back(Vector(sizeX, -sizeY, sizeZ));
+    f2.push_back(Vector(sizeX, -sizeY, -sizeZ));
+    f2.push_back(Vector(sizeX, sizeY, -sizeZ));
+    f2.push_back(Vector(sizeX, sizeY, sizeZ));
+    polyList.push_back(f2);
+    std::vector<Vector> f3;
+    f3.push_back(Vector(sizeX, sizeY, sizeZ));
+    f3.push_back(Vector(sizeX, sizeY, -sizeZ));
+    f3.push_back(Vector(-sizeX, sizeY, -sizeZ));
+    f3.push_back(Vector(-sizeX, sizeY, sizeZ));
+    polyList.push_back(f3);
+    std::vector<Vector> f4;
+    f4.push_back(Vector(-sizeX, -sizeY, sizeZ));
+    f4.push_back(Vector(-sizeX, sizeY, sizeZ));
+    f4.push_back(Vector(-sizeX, sizeY, -sizeZ));
+    f4.push_back(Vector(-sizeX, -sizeY, -sizeZ));
+    polyList.push_back(f4);
+    std::vector<Vector> f5;
+    f5.push_back(Vector(-sizeX, -sizeY, -sizeZ));
+    f5.push_back(Vector(-sizeX, sizeY, -sizeZ));
+    f5.push_back(Vector(sizeX, sizeY, -sizeZ));
+    f5.push_back(Vector(sizeX, -sizeY, -sizeZ));
+    polyList.push_back(f5);
+    std::vector<Vector> f6;
+    f6.push_back(Vector(-sizeX, -sizeY, sizeZ));
+    f6.push_back(Vector(sizeX, -sizeY, sizeZ));
+    f6.push_back(Vector(sizeX, sizeY, sizeZ));
+    f6.push_back(Vector(-sizeX, sizeY, sizeZ));
+    polyList.push_back(f6);
+    return polyList;
+}
+
 std::vector<std::vector<Vector>> T3DExporter::getCube(float sizeLen) {
     return getWall(sizeLen, REDUCED_SIZE, false, false, false);
 }

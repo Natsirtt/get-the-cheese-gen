@@ -19,12 +19,12 @@ Vector WallPlatformActor::getLocation() {
 
 std::string WallPlatformActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     std::stringstream stream;
-    int platformHeight = 20;
-    int platformLength = 75;
-    std::vector<std::vector<Vector>> polyList = T3DExporter::getWall(platformLength, platformHeight,
-                                                                    mDirection.getX() == 0.0,
-                                                                    mDirection.getY() == 0.0,
-                                                                    true);
+    float platformHeight = 20;
+    float platformLength = 75;
+    float sizeX = (mDirection.getX() == 0.0) ? T3DExporter::DEMI_CUBE_SIZE / 4 : platformLength;
+    float sizeY = (mDirection.getY() == 0.0) ? T3DExporter::DEMI_CUBE_SIZE / 4 : platformLength;
+
+    std::vector<std::vector<Vector>> polyList = T3DExporter::getWall(sizeX, sizeY, platformHeight);
     int nbPlatforms = (T3DExporter::DEMI_CUBE_SIZE * 2) / MAX_JUMP_HEIGHT;
     Vector start = mLocation - Vector(0, 0, T3DExporter::DEMI_CUBE_SIZE) +
                     mDirection * (T3DExporter::DEMI_CUBE_SIZE - platformLength);
@@ -37,6 +37,7 @@ std::string WallPlatformActor::getT3D(int indentLevel, NameFactory *nameFactory)
             location = location - normalDir * (T3DExporter::DEMI_CUBE_SIZE / 2);
         }
         BrushActor ba(location, polyList, false);
+        ba.setTexture(mTextureName);
         stream << ba.getT3D(indentLevel, nameFactory);
     }
     return stream.str();

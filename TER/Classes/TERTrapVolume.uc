@@ -26,7 +26,7 @@ event simulated PostBeginPlay()
 }
 
 event simulated Touch(Actor Other, PrimitiveComponent OtherComp, Vector Hit, Vector HitNormal)
-{	
+{
 	super.Touch(Other, OtherComp, Hit, HitNormal);
 	`Log("Touche TrapVolume");
 	if ((triggerable != none) && (!Touched))
