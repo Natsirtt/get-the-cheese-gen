@@ -515,6 +515,11 @@ function SetPreviousSpeed()
     }
 }
 
+exec function ExitGame()
+{
+	QuitToMainMenu();
+}
+
 function GetTriggerUseList(float interactDistanceToCheck, float crosshairDist, float minDot, bool bUsuableOnly, out array<Trigger> out_useList)
 {
     //local int Idx;

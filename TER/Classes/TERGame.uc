@@ -6,7 +6,7 @@ var() bool gameFinished;
 
 function bool CheckModifiedEndGame(PlayerReplicationInfo Winner, string Reason)
 {
-	return gameFinished;
+	return false;
 }
 
 
@@ -31,8 +31,8 @@ function EndGame(PlayerReplicationInfo Winner, string Reason )
 	{
 		if ( bGameEnded )
 		{
-
 			GotoState('MatchOver');
+			setTimer(1);
 		}
 	}
 }
@@ -46,6 +46,16 @@ static event class<GameInfo> SetGameType(string MapName, string Options, string 
 {
 	return class'TERGame';
 }
+/*
+function string GetNextMap()
+{
+	return "";
+}
+*/
+static function bool AllowMutator( string MutatorClassName )
+{
+	return false;
+}
 
 defaultproperties
 {
@@ -57,8 +67,8 @@ defaultproperties
 	PlayerReplicationInfoClass=class'TER.TERPlayerReplicationInfo'
 	GameReplicationInfoClass=class'UTGame.UTGameReplicationInfo'
 	DeathMessageClass=class'UTDeathMessage'
-	PopulationManagerClass=class'UTPopulationManager'
-	BotClass=class'UTBot'
+	/*PopulationManagerClass=class'UTPopulationManager'
+	BotClass=class'UTBot'*/
 
 	bAllowKeyboardAndMouse=true
 	bRestartLevel=False
@@ -69,7 +79,7 @@ defaultproperties
 
 	bAutoNumBots=false
 	CountDown=4
-	bPauseable=False
+	bPauseable=true
 	EndMessageWait=1
 	DefaultMaxLives=0
 
@@ -101,6 +111,9 @@ defaultproperties
 	SpreeStatEvents.Add(SPREE_UNSTOPPABLE)
 	SpreeStatEvents.Add(SPREE_GODLIKE)
 	SpreeStatEvents.Add(SPREE_MASSACRE)
+	
+	EndTimeDelay=0
+	bPlayersVsBots=false
 
 	//TER
 	gameTime=0.0
