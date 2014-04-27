@@ -12,8 +12,8 @@
 class MovableBrushActor : public IActor {
     public:
         //BrushActor();
-        MovableBrushActor(Vector location, std::vector<std::vector<Vector>> polyList, bool sub = false);
-        MovableBrushActor(double xLocation, double yLocation, double zLocation, std::vector<std::vector<Vector>> polyList, bool sub = false);
+        MovableBrushActor(Vector location);
+        MovableBrushActor(double xLocation, double yLocation, double zLocation);
         MovableBrushActor(Grid *g);
         virtual ~MovableBrushActor() {};
 
@@ -23,8 +23,6 @@ class MovableBrushActor : public IActor {
     protected:
     private:
         Vector mLocation;
-        std::vector<std::vector<Vector>> mPolyList;
-        bool mSub;
 
         const std::string mBaseName = "MovableBrushActor";
 };

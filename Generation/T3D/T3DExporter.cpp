@@ -501,10 +501,9 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                     }
                     //**********************MOVING PLATFORMS**********************//
                     else if (itZ.second == Grid::MOVING_PLATFORM_CELL) {
-                        // MARCHE PAS !!
-                        //std::cout << "Detecting a MOVING_PLATFORM_CELL" << std::endl;
-                        //MovableBrushActor brush((areaPositon + pos) * DEMI_CUBE_SIZE * 2.0 + Vector(0, 0, DEMI_CUBE_SIZE / 4.), getWall(DEMI_CUBE_SIZE, DEMI_CUBE_SIZE / 4., false, false, true));
-                        //output << brush.getT3D(2, nameFactory) << std::endl;
+                        std::cout << "Detecting a MOVING_PLATFORM_CELL" << std::endl;
+                        MovableBrushActor brush((areaPositon + pos) * DEMI_CUBE_SIZE * 2.0 - Vector(0, 0, DEMI_CUBE_SIZE));
+                        output << brush.getT3D(2, nameFactory) << std::endl;
                     }
                     //********************CLIMBING AREAS*******************//
                     else if (itZ.second == Grid::CLIMB_CELL) {
