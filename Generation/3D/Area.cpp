@@ -104,6 +104,8 @@ void Area::save(std::string filename) {
         file << std::get<0>(t) << " " << std::get<1>(t) << " " << std::get<2>(t) << "\n";
     }
     file << mGrid;
+    file.close();
+    std::cout << "File " << filename << " saved." << std::endl;
 }
 
 void Area::addInCell(std::tuple<long, long, long> in) {

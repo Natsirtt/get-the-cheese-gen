@@ -53,6 +53,7 @@ void T3DExporter::exportT3D(std::string filepath) {
     std::string buffer;
 
     //int i = 0;
+    std::cout << "Initializing t3d file..." << std::endl;
     std::getline(input1, buffer);
     while (!buffer.empty()) {
         //buffer = buffer.substr(0, buffer.size()-1);
@@ -65,13 +66,21 @@ void T3DExporter::exportT3D(std::string filepath) {
     }
     input1.close();
 
+    std::cout << "Exporting graph..." << std::endl;
+
     NameFactory nameFactory;
 
     //staticCubesRepresentation(output, mWorld->getGrid(), nameFactory); //Legacy
+    std::cout << "Exporting paths..." << std::endl;
     exportPathsBrushes(output, &nameFactory);
+    std::cout << "Exporting rooms..." << std::endl;
     exportRoomsBrushes(output, &nameFactory);
+    std::cout << "Exporting player start/finish..." << std::endl;
     exportPlayerStart(output, &nameFactory);
+    std::cout << "Exporting special cells" << std::endl;
     exportSpecialsCells(output, &nameFactory);
+
+    std::cout << "Finalizing t3d file..." << std::endl;
 
     std::getline(input2, buffer);
     while (!buffer.empty()) {
@@ -232,6 +241,7 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
                     output << brush2.getT3D(2, nameFactory) << std::endl;
                 }
             }
+
             bool needPlatform = false;
             Vector wallDirection;
             if (!needStair) {
@@ -240,7 +250,7 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
             if ((!needPlatform) && pathNeedTrap(path, i)) {
                 if ((g->get(origin.getX(), origin.getY(), origin.getZ() - 1) == Grid::EMPTY_CELL) ||
                     (g->get(origin.getX(), origin.getY(), origin.getZ() - 1) == Grid::FULLED_IDLE_CELL)) {
-                     TrapBrushActor tba(pos - Vector(0, 0, DEMI_CUBE_SIZE * 2));
+                    TrapBrushActor tba(pos - Vector(0, 0, DEMI_CUBE_SIZE * 2));
                     output << tba.getT3D(2, nameFactory) << std::endl;
                     needFloor[i] = false;
                 }
@@ -252,7 +262,6 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
             Vector nextY(origin.getX(), origin.getY() + 1, origin.getZ());
             Vector predZ(origin.getX(), origin.getY(), origin.getZ() - 1);
             Vector nextZ(origin.getX(), origin.getY(), origin.getZ() + 1);
-
             if ((!isFirstOrLast && (predX != pred) && (predX != next) && (predX != stairLocation)) ||
                 (isFirstOrLast && g->get(x - 1, y, z) == Grid::EMPTY_CELL)) {
                 BrushActor brush(pos - Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, true, false, false));
@@ -353,13 +362,12 @@ bool T3DExporter::pathNeedWallPlatform(std::vector<std::tuple<long, long, long>>
 }
 
 bool T3DExporter::pathNeedTrap(std::vector<std::tuple<long, long, long>>& path, unsigned int cellNb) {
-   if (((cellNb + 1) < path.size()) && ((cellNb - 1) > 0)) {
+   if (((cellNb + 1) < path.size()) && (cellNb != 0)) {
         Vector c1 = Vector(path[cellNb - 1]);
         Vector c2 = Vector(path[cellNb]);
         Vector c3 = Vector(path[cellNb + 1]);
 
         bool res = false;
-
         if ((c1.getZ() == c2.getZ()) && (c2.getZ() == c3.getZ())) {
             std::vector<double> vecX{c1.getX(), c2.getX(), c3.getX()};
             std::sort(vecX.begin(), vecX.end());
