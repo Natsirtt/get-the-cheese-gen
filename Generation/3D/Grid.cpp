@@ -1,5 +1,6 @@
 #include "Grid.hpp"
 
+#include <vector>
 
 Grid::Grid() : mMinX{}, mMaxX{}, mMinY{}, mMaxY{}, mMinZ{}, mMaxZ{}, mCellsCount{} {
 
@@ -62,6 +63,22 @@ bool Grid::canAdd(Grid& g, long x, long y, long z) {
             for (auto& itZ : itY.second) {
                 if (get(itX.first + x, itY.first + y, itZ.first + z) != EMPTY_CELL) {
                     return false;
+                }
+                if ((itZ.second == IN_CELL) || (itZ.second == OUT_CELL)) {
+                    std::vector<std::tuple<long, long, long>> neighbors{
+                        std::make_tuple(itX.first + x + 1, itY.first + y, itZ.first + z),
+                        std::make_tuple(itX.first + x - 1, itY.first + y, itZ.first + z),
+                        std::make_tuple(itX.first + x, itY.first + y + 1, itZ.first + z),
+                        std::make_tuple(itX.first + x, itY.first + y - 1, itZ.first + z),
+                        std::make_tuple(itX.first + x, itY.first + y, itZ.first + z + 1),
+                        std::make_tuple(itX.first + x, itY.first + y, itZ.first + z - 1),
+                    };
+                    for (auto& t : neighbors) {
+                        long type = get(t);
+                        if ((type == IN_CELL) || (type == OUT_CELL)) {
+                            return false;
+                        }
+                    }
                 }
             }
         }
