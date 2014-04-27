@@ -4,6 +4,8 @@ var float gameTime;
 var() bool gameStarted;
 var() bool gameFinished;
 
+var float StartTime;
+
 function bool CheckModifiedEndGame(PlayerReplicationInfo Winner, string Reason)
 {
 	return false;
@@ -21,27 +23,51 @@ event simulated PostBeginPlay()
 	super.PostBeginPlay();
 	SetTimer( 1, true);
 	gameTime = 0;
+	StartTime = 0;
 }
 
 function EndGame(PlayerReplicationInfo Winner, string Reason )
 {
 	super.EndGame(Winner, Reason);
+	gameTime = WorldInfo.TimeSeconds - StartTime;
 	bGameEnded = true;
 	if ((Reason == "Game Finished"))
 	{
 		if ( bGameEnded )
 		{
-			GotoState('MatchOver');
-			setTimer(1);
+			ConsoleCommand("Disconnect");
+			//GotoState('MatchOver');
+			//setTimer(1);
 		}
 	}
 }
 
 function int GetGameTime()
 {
-	return gameTime;
+	return 0;
+}
+	
+state MatchInProgress
+{
+	function int GetGameTime()
+	{
+		return WorldInfo.TimeSeconds - StartTime;
+	}
+	
+	function BeginState(Name PreviousStateName)
+	{
+		super.BeginState(PreviousStateName);
+		StartTime = WorldInfo.TimeSeconds;
+	}
 }
 
+State MatchOver
+{
+	function int GetGameTime()
+	{
+		return gameTime;
+	}
+}
 static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)
 {
 	return class'TERGame';
