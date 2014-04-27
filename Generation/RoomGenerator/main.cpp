@@ -235,11 +235,26 @@ void genLaser() {
         }
     }
 
-    g.set(Grid::LASER_Z_STICKED_CELL, 0, 0, 0);
-    g.set(Grid::LASER_X_STICKED_CELL, 2, 2, 0);
+    for (int x = -xSize / 2; x <= xSize / 2; ++x) {
+        for (int y = -ySize / 2; y <= ySize / 2; ++y) {
+            g.set(Grid::LASER_Z_STICKED_CELL, x, y, zSize - 1);
+        }
+    }
+
+    for (int x = -xSize / 2; x <= xSize / 2; ++x) {
+        g.set(Grid::LASER_Y_STICKED_CELL, x, -ySize / 2, 0);
+        g.set(Grid::LASER_Y_STICKED_CELL, x, ySize / 2, 0);
+    }
+
+    for (int y = -ySize / 2; y <= ySize / 2; ++y) {
+        g.set(Grid::LASER_X_STICKED_CELL, -xSize / 2, y, 0);
+        g.set(Grid::LASER_X_STICKED_CELL, xSize / 2, y, 0);
+    }
 
     a.addInCell(std::make_tuple(0, 3, 0));
+    g.set(1, 0, 2, 0);
     a.addOutCell(std::make_tuple(0, -3, 0));
+    g.set(1, 0, -2, 0);
 
     a.save(std::string("Area/LaserRoom/Laser.area"));
 }
