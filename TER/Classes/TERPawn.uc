@@ -324,7 +324,7 @@ defaultproperties
 
 	CamOffset=(X=4.0,Y=16.0,Z=-13.0)
 
-	WallJumpBoostXY=100.0
-	WallJumpBoostZ=10.0
+	/*WallJumpBoostXY=100.0
+	WallJumpBoostZ=10.0*/
 	bDirectHitWall=true
 }

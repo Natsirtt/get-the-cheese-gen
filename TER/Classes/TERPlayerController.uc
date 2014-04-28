@@ -171,6 +171,11 @@ function GetTriggerUseList(float interactDistanceToCheck, float crosshairDist, f
     }
 }
 
+exec function RestartGame()
+{
+	TERGame(WorldInfo.Game).RestartGame();
+}
+
 defaultproperties
 {
 	DesiredFOV=90.000000
@@ -209,13 +214,9 @@ defaultproperties
 
 
 	//Ajouts TER
-<<<<<<< HEAD
-	 bIsSprinting=false
-=======
 	bIsSprinting=false
 	 
 	bNotifyFallingHitWall=true 
 	// Crawling configuration
     /*bCanCrawl=true*/
->>>>>>> 55ad14d4d81ee1ae240d18aee2a9cd3c43391f40
 }

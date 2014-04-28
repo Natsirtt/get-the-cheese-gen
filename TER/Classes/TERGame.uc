@@ -82,6 +82,14 @@ static function bool AllowMutator( string MutatorClassName )
 	return false;
 }
 
+exec function AddBots(int Num)
+{
+	// RIEN
+}
+function UTBot AddBot(optional string BotName, optional bool bUseTeamIndex, optional int TeamIndex)
+{
+	return none;
+}
 defaultproperties
 {
 	bUseClassicHUD = true;
