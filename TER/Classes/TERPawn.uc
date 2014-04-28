@@ -3,9 +3,6 @@ class TERPawn extends UTPawn;
 var int normalSpeed;
 var int sprintSpeed;
 
-var float WallJumpBoostXY;
-var float WallJumpBoostZ;
-
 //override to make player mesh visible by default
 simulated event BecomeViewTarget( PlayerController PC )
 {
@@ -74,53 +71,6 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
    }
 
    return true;
-}
-
-function bool DoWallJump( bool bUpdating )
-{
-    local Vector HitLocation, HitNormal, End, Start;
-    local Actor HitActor;
-     
-    //Perform trace
-    Start = Location + (Vector(Rotation) * GetCollisionRadius()/2);
-    End = Start + (vector(Rotation) * GetCollisionRadius() * 2.5);
-    HitActor = Trace(HitLocation, HitNormal, End, Start, true,);
-    `Log("Player try to jump on " @ HitActor);
-     
-    //check on what we want to jump, we jump only on world surfaces
-    if (HitActor == WorldInfo || HitActor.isA('StaticMeshActor'))
-    {
-        `Log("-Player jump on the wall !");
-         
-        FaceRotation(rotator(HitNormal), 0);
-        Controller.SetRotation( rotator(HitNormal) );
-         
-		if (HitNormal.X != 0)
-		{
-			Velocity.X = HitNormal.X * WallJumpBoostXY;
-		}
-		 
-		if (HitNormal.Y != 0)
-		{
-			Velocity.Y = HitNormal.Y * WallJumpBoostXY;
-		}
-         
-        //PlayerController(Controller).PlaySound(playerSoundWallJump, false, true);
- 
-        Velocity.Z = JumpZ + WallJumpBoostZ;
- 
-        return true;
-    }
-     
-    return false;
-}
-
-event Bump(Actor Other, PrimitiveComponent OtherComp, Vector HitNormal)
-{
-	if ((TERPawn(Other) != none) && (Controller != none))
-	{
-		TERPlayerController(Controller).TryMerge(TERPawn(Other));
-	}
 }
 
 defaultproperties
@@ -318,7 +268,4 @@ defaultproperties
 	FallingDamageWaveForm=ForceFeedbackWaveformFall
 
 	CamOffset=(X=4.0,Y=16.0,Z=-13.0)
-	
-	WallJumpBoostXY=100.0
-	WallJumpBoostZ=10.0
 }

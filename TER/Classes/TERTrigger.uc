@@ -68,25 +68,6 @@ event Tick(float DeltaTime)
 	super.Tick(DeltaTime);
 }
 
-event TakeDamage(int DamageAmount, Controller EventInstigator, vector HitLocation, vector Momentum, class<DamageType> DamageType, optional TraceHitInfo HitInfo, optional Actor DamageCauser)
-{
-	if (triggerable != none)
-	{
-		triggerable.Trigger();
-		if (triggerable.IsActivated())
-		{
-			BlueLight.SetHidden(false);
-			RedLight.SetHidden(true);
-		} else {
-			BlueLight.SetHidden(true);
-			RedLight.SetHidden(false);
-		}
-	} else {
-		BlueLight.SetHidden(!BlueLight.HiddenGame);
-		RedLight.SetHidden(!RedLight.HiddenGame);
-	}
-}
-
 defaultproperties
 {
 	//triggerableName='none'
