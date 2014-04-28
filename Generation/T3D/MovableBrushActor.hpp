@@ -17,12 +17,19 @@ class MovableBrushActor : public IActor {
         MovableBrushActor(Grid *g);
         virtual ~MovableBrushActor() {};
 
+        static const Vector X_DIR;
+        static const Vector Y_DIR;
+
+        void setDirection(Vector dir);
+
         Vector getLocation();
         virtual std::string getT3D(int indentLevel, NameFactory *nameFactory);
         virtual void writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition, Vector gridTranslation);
     protected:
     private:
         Vector mLocation;
+
+        Vector mDirection;
 
         const std::string mBaseName = "MovableBrushActor";
 };

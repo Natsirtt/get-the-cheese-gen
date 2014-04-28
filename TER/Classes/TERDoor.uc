@@ -2,7 +2,14 @@ class TERDoor extends TERTriggerable
 	placeable;
 	
 var(CUSTOM) StaticMeshComponent CustomMesh; // Le Mesh de la porte
-	
+var() float Size;
+
+event simulated PostBeginPlay()
+{
+	super.PostBeginPlay();
+	SetDrawScale(Size / 320);
+}
+
 function Trigger()
 {
 	super.Trigger();
@@ -23,4 +30,6 @@ defaultproperties
 	CustomMesh=MyStaticMeshComponent
 	CollisionComponent=MyStaticMeshComponent
  	Components.Add(MyStaticMeshComponent)
+	
+	Size=256
 }

@@ -504,13 +504,21 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                     //**********************PLATFORMS**********************//
                     else if (itZ.second == Grid::PLATFORM_CELL) {
                         std::cout << "Detecting a PLATFORM_CELL" << std::endl;
-                        BrushActor brush((areaPositon + pos) * DEMI_CUBE_SIZE * 2.0 + Vector(0, 0, DEMI_CUBE_SIZE / 4.), getWall(DEMI_CUBE_SIZE, DEMI_CUBE_SIZE / 4., false, false, true));
+                        BrushActor brush((areaPositon + pos) * DEMI_CUBE_SIZE * 2.0 - Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, DEMI_CUBE_SIZE / 4., false, false, true));
                         output << brush.getT3D(2, nameFactory) << std::endl;
                     }
                     //**********************MOVING PLATFORMS**********************//
-                    else if (itZ.second == Grid::MOVING_PLATFORM_CELL) {
-                        std::cout << "Detecting a MOVING_PLATFORM_CELL" << std::endl;
+                    else if (itZ.second == Grid::MOVING_X_PLATFORM_CELL) {
+                        std::cout << "Detecting a MOVING_X_PLATFORM_CELL" << std::endl;
                         MovableBrushActor brush((areaPositon + pos) * DEMI_CUBE_SIZE * 2.0 - Vector(0, 0, DEMI_CUBE_SIZE));
+                        brush.setDirection(MovableBrushActor::X_DIR);
+                        output << brush.getT3D(2, nameFactory) << std::endl;
+                    }
+                    //**********************MOVING PLATFORMS**********************//
+                    else if (itZ.second == Grid::MOVING_Y_PLATFORM_CELL) {
+                        std::cout << "Detecting a MOVING_Y_PLATFORM_CELL" << std::endl;
+                        MovableBrushActor brush((areaPositon + pos) * DEMI_CUBE_SIZE * 2.0 - Vector(0, 0, DEMI_CUBE_SIZE));
+                        brush.setDirection(MovableBrushActor::Y_DIR);
                         output << brush.getT3D(2, nameFactory) << std::endl;
                     }
                     //********************CLIMBING AREAS*******************//
@@ -599,6 +607,18 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                         StairBrushActor sba(&g);
                         sba.setDirection(Vector(0, -1, 0));
                         sba.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                    }
+                    //********************Piege**************************//
+                    else if (itZ.second == Grid::TRAP_CELL) {
+                        std::cout << "Detecting a TRAP_CELL" << std::endl;
+                        TrapBrushActor tba(&g);
+                        tba.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                    }
+                    //********************Lumière**************************//
+                    else if (itZ.second == Grid::LIGHT_CELL) {
+                        std::cout << "Detecting a LIGHT_CELL" << std::endl;
+                        PointLightActor pla(&g, 1000);
+                        pla.writeT3D(output, 2, nameFactory, pos, areaPositon);
                     }
                 }
             }

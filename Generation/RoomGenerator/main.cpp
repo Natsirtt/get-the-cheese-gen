@@ -20,6 +20,7 @@ void genTurret2();
 void genGridDoor();
 void genClimbRoom();
 void genDeathRoom();
+void genDeathRoom_2();
 
 int main(int argc, char* argv[]) {
     genStartRoom();
@@ -37,6 +38,7 @@ int main(int argc, char* argv[]) {
     genGridDoor();
     genClimbRoom();
     genDeathRoom();
+    genDeathRoom_2();
 
     std::cout << "Rooms generated" << std::endl;
     return 0;
@@ -309,7 +311,7 @@ void genTurret2() {
 void genDoor() {
     Area a(false);
     int ySize = 4;
-    int zSize = 2;
+    int zSize = 1;
 
     Grid& g = a.getGrid();
     for (int z = 0; z < zSize; ++z) {
@@ -323,10 +325,11 @@ void genDoor() {
         }
     }
 
-    g.set(Grid::DOOR_CELL, 0, 0, 0);
+    g.set(Grid::LIGHT_CELL, 0, -ySize / 2, 0);
+    g.set(Grid::LIGHT_CELL, 0, ySize / 2, 0);
 
-    a.addInCell(std::make_tuple(0, 3, 0));
-    a.addOutCell(std::make_tuple(0, -3, 0));
+    a.addInCell(std::make_tuple(0, (ySize / 2) + 1, 0));
+    a.addOutCell(std::make_tuple(0, -(ySize / 2) - 1, 0));
 
     a.save(std::string("Area/DoorRoom/Door.area"));
 }
@@ -400,4 +403,65 @@ void genDeathRoom() {
     a.addOutCell(std::make_tuple(0, 6, 0));
 
     a.save(std::string("Area/DeathRoom/DeathRoom.area"));
+}
+
+
+void genDeathRoom_2() {
+    Area a(false);
+    int xSize = 6;
+    int ySize = 6;
+    int zSize = 10;
+
+    Grid& g = a.getGrid();
+    for (int x = -xSize / 2; x <= xSize / 2; ++x) {
+        for (int z = 0; z < zSize; ++z) {
+            for (int y = -ySize / 2; y <= ySize / 2; ++y) {
+                if (z == 0) {
+                    g.set(Grid::DEATH_CELL, x, y, z);
+                } else {
+                    g.set(Grid::BLOCK_CELL, x, y, z);
+                }
+            }
+        }
+    }
+    g.set(Grid::LIGHT_CELL, -2, 3, 4);
+    g.set(Grid::LIGHT_CELL, 2, -1, 4);
+    g.set(Grid::PLATFORM_CELL, -2, 3, 3);
+    g.set(Grid::PLATFORM_CELL, -2, -1, 3);
+    g.set(Grid::PLATFORM_CELL, 2, -1, 3);
+    g.set(Grid::PLATFORM_CELL, 2, 3, 3);
+
+    g.set(Grid::MOVING_Y_PLATFORM_CELL, -2, 1, 3);
+    g.set(Grid::MOVING_X_PLATFORM_CELL, 0, -1, 3);
+    g.set(Grid::MOVING_Y_PLATFORM_CELL, 2, 1, 3);
+
+    g.set(Grid::LIGHT_CELL, 1, 3, 4);
+    g.set(Grid::LIGHT_CELL, -1, 3, 6);
+    g.set(Grid::STAIRS_XNEG_CELL, 1, 3, 3);
+    g.set(Grid::STAIRS_XNEG_CELL, 0, 3, 4);
+    g.set(Grid::STAIRS_XNEG_CELL, -1, 3, 5);
+
+    g.set(Grid::LIGHT_CELL, -2, 1, 7);
+    g.set(Grid::LIGHT_CELL, -3, 1, 7);
+    g.set(Grid::PLATFORM_CELL, -2, 3, 6);
+    g.set(Grid::PLATFORM_CELL, -2, 1, 6);
+    g.set(Grid::MOVING_X_PLATFORM_CELL, 0, 1, 6);
+
+    g.set(Grid::LIGHT_CELL, 3, -3, 7);
+    g.set(Grid::PLATFORM_CELL, 3, 1, 6);
+    g.set(Grid::TRAP_CELL, 3, 0, 5);
+    g.set(Grid::TRAP_CELL, 3, -1, 5);
+    g.set(Grid::TRAP_CELL, 3, -2, 5);
+    g.set(Grid::PLATFORM_CELL, 3, -3, 6);
+    g.set(Grid::PLATFORM_CELL, 2, -2, 6);
+
+    g.set(Grid::LIGHT_CELL, -3, -3, 7);
+    g.set(Grid::PLATFORM_CELL, -3, -3, 6);
+    g.set(Grid::PLATFORM_CELL, -3, -2, 6);
+    g.set(Grid::MOVING_X_PLATFORM_CELL, 0, -2, 6);
+
+    a.addInCell(std::make_tuple(-2, 4, 3));
+    a.addOutCell(std::make_tuple(-3, -4, 6));
+
+    a.save(std::string("Area/DeathRoom/DeathRoom2.area"));
 }

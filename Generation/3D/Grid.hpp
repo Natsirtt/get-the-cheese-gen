@@ -85,11 +85,14 @@ public:
     static const long LASER_X_STICKED_CELL = 16;
     static const long LASER_Y_STICKED_CELL = 17;
     static const long LASER_Z_STICKED_CELL = 18;
-    static const long MOVING_PLATFORM_CELL = 19;
-    static const long STAIRS_XPOS_CELL = 20;
-    static const long STAIRS_XNEG_CELL = 21;
-    static const long STAIRS_YPOS_CELL = 22;
-    static const long STAIRS_YNEG_CELL = 23;
+    static const long MOVING_X_PLATFORM_CELL = 19;
+    static const long MOVING_Y_PLATFORM_CELL = 20;
+    static const long STAIRS_XPOS_CELL = 21;
+    static const long STAIRS_XNEG_CELL = 22;
+    static const long STAIRS_YPOS_CELL = 23;
+    static const long STAIRS_YNEG_CELL = 24;
+    static const long TRAP_CELL = 25;
+    static const long LIGHT_CELL = 26;
 
 private:
     //  x -> y -> z -> type

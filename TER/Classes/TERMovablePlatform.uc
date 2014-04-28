@@ -13,8 +13,6 @@ event simulated PostBeginPlay()
 {
 	super.PostBeginPlay();
 	SetDrawScale(Size / 256);
-	`Log("Je suis vivant !!!");
-	//CalcNewTarget();
 }
 	
 function Tick(float dt)

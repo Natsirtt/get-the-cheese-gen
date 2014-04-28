@@ -5,17 +5,24 @@
 #include <sstream>
 #include <vector>
 
+const Vector MovableBrushActor::X_DIR(1.0, 0.0, 0.0);
+const Vector MovableBrushActor::Y_DIR(0.0, 1.0, 0.0);
 
-MovableBrushActor::MovableBrushActor(Vector location) : mLocation{location} {
+
+MovableBrushActor::MovableBrushActor(Vector location) : mLocation{location}, mDirection{X_DIR} {
 }
 
-MovableBrushActor::MovableBrushActor(double xLocation, double yLocation, double zLocation) : mLocation{Vector(xLocation, yLocation, zLocation)} {
+MovableBrushActor::MovableBrushActor(double xLocation, double yLocation, double zLocation) : mLocation{Vector(xLocation, yLocation, zLocation)}, mDirection{X_DIR}  {
 }
 
-MovableBrushActor::MovableBrushActor(Grid *g) : IActor(g) {}
+MovableBrushActor::MovableBrushActor(Grid *g) : IActor(g), mDirection{X_DIR}  {}
 
 Vector MovableBrushActor::getLocation() {
     return mLocation;
+}
+
+void MovableBrushActor::setDirection(Vector dir) {
+    mDirection = dir;
 }
 
 std::string MovableBrushActor::getT3D(int indentLevel, NameFactory *nameFactory) {
@@ -41,6 +48,7 @@ std::string MovableBrushActor::getT3D(int indentLevel, NameFactory *nameFactory)
     stream << indentation << "   End Object" << std::endl;
     stream << indentation << "   CustomMesh=StaticMeshComponent'" << bcn << "'" << std::endl;
     stream << indentation << "   Components(0)=StaticMeshComponent'" << bcn << "'" << std::endl;
+    stream << indentation << "   BaseDir=(X=" << mDirection.getX() << ",Y=" << mDirection.getY() << ",Z=" << mDirection.getZ() << ")" << std::endl;
     stream << indentation << "   Location=(X=" << mLocation.getX() << ",Y=" << mLocation.getY() << ",Z=" << mLocation.getZ() << ")" << std::endl;
     stream << indentation << "   Tag=\"" << actorName << "\"" << std::endl;
     stream << indentation << "   CollisionComponent=StaticMeshComponent'" << bcn << "'" << std::endl;
