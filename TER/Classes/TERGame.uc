@@ -4,9 +4,11 @@ var float gameTime;
 var() bool gameStarted;
 var() bool gameFinished;
 
+var float StartTime;
+
 function bool CheckModifiedEndGame(PlayerReplicationInfo Winner, string Reason)
 {
-	return gameFinished;
+	return false;
 }
 
 
@@ -21,30 +23,64 @@ event simulated PostBeginPlay()
 	super.PostBeginPlay();
 	SetTimer( 1, true);
 	gameTime = 0;
+	StartTime = 0;
 }
 
 function EndGame(PlayerReplicationInfo Winner, string Reason )
 {
 	super.EndGame(Winner, Reason);
+	gameTime = WorldInfo.TimeSeconds - StartTime;
 	bGameEnded = true;
 	if ((Reason == "Game Finished"))
 	{
 		if ( bGameEnded )
 		{
-
-			GotoState('MatchOver');
+			ConsoleCommand("Disconnect");
+			//GotoState('MatchOver');
+			//setTimer(1);
 		}
 	}
 }
 
 function int GetGameTime()
 {
-	return gameTime;
+	return 0;
+}
+	
+state MatchInProgress
+{
+	function int GetGameTime()
+	{
+		return WorldInfo.TimeSeconds - StartTime;
+	}
+	
+	function BeginState(Name PreviousStateName)
+	{
+		super.BeginState(PreviousStateName);
+		StartTime = WorldInfo.TimeSeconds;
+	}
 }
 
+State MatchOver
+{
+	function int GetGameTime()
+	{
+		return gameTime;
+	}
+}
 static event class<GameInfo> SetGameType(string MapName, string Options, string Portal)
 {
 	return class'TERGame';
+}
+/*
+function string GetNextMap()
+{
+	return "";
+}
+*/
+static function bool AllowMutator( string MutatorClassName )
+{
+	return false;
 }
 
 defaultproperties
@@ -57,8 +93,8 @@ defaultproperties
 	PlayerReplicationInfoClass=class'TER.TERPlayerReplicationInfo'
 	GameReplicationInfoClass=class'UTGame.UTGameReplicationInfo'
 	DeathMessageClass=class'UTDeathMessage'
-	PopulationManagerClass=class'UTPopulationManager'
-	BotClass=class'UTBot'
+	/*PopulationManagerClass=class'UTPopulationManager'
+	BotClass=class'UTBot'*/
 
 	bAllowKeyboardAndMouse=true
 	bRestartLevel=False
@@ -69,7 +105,7 @@ defaultproperties
 
 	bAutoNumBots=false
 	CountDown=4
-	bPauseable=False
+	bPauseable=true
 	EndMessageWait=1
 	DefaultMaxLives=0
 
@@ -101,6 +137,9 @@ defaultproperties
 	SpreeStatEvents.Add(SPREE_UNSTOPPABLE)
 	SpreeStatEvents.Add(SPREE_GODLIKE)
 	SpreeStatEvents.Add(SPREE_MASSACRE)
+	
+	EndTimeDelay=0
+	bPlayersVsBots=false
 
 	//TER
 	gameTime=0.0

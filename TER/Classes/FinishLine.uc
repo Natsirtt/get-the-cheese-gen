@@ -5,13 +5,11 @@ simulated singular event Touch( Actor Other, PrimitiveComponent OtherComp, vecto
 {
 	`log("Finish line touched");
 
-    if (TERPawn(Other) != None && TERPawn(Other).Controller.bIsPlayer) //We wouldn't want potential NPCs to get coins.
+    if (TERPawn(Other) != None && TERPawn(Other).Controller.bIsPlayer)
     {
-		`log("Finish line touched2");
         if (TERGame(WorldInfo.Game) != None)
         {
-			`log("Finish line touched3");
-            TERGame(WorldInfo.Game).EndGame(None,"Game Finished"); //Do the actual collecting in the game class.
+            TERGame(WorldInfo.Game).EndGame(PlayerController(TERPawn(Other).Controller).PlayerReplicationInfo, "Game Finished"); 
         }
     }
 }

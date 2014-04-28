@@ -12,10 +12,15 @@
 class MovableBrushActor : public IActor {
     public:
         //BrushActor();
-        MovableBrushActor(Vector location, std::vector<std::vector<Vector>> polyList, bool sub = false);
-        MovableBrushActor(double xLocation, double yLocation, double zLocation, std::vector<std::vector<Vector>> polyList, bool sub = false);
+        MovableBrushActor(Vector location);
+        MovableBrushActor(double xLocation, double yLocation, double zLocation);
         MovableBrushActor(Grid *g);
         virtual ~MovableBrushActor() {};
+
+        static const Vector X_DIR;
+        static const Vector Y_DIR;
+
+        void setDirection(Vector dir);
 
         Vector getLocation();
         virtual std::string getT3D(int indentLevel, NameFactory *nameFactory);
@@ -23,8 +28,8 @@ class MovableBrushActor : public IActor {
     protected:
     private:
         Vector mLocation;
-        std::vector<std::vector<Vector>> mPolyList;
-        bool mSub;
+
+        Vector mDirection;
 
         const std::string mBaseName = "MovableBrushActor";
 };

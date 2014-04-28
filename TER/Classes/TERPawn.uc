@@ -115,6 +115,21 @@ function bool DoWallJump( bool bUpdating )
     return false;
 }
 
+simulated function TakeFallingDamage()
+{
+	if (Velocity.Z < -0.5 * MaxFallSpeed)
+	{
+		if ( Role == ROLE_Authority )
+		{
+			MakeNoise(1.0);
+		}
+	}
+	else if (Velocity.Z < -1.4 * JumpZ)
+		MakeNoise(0.5);
+	else if ( Velocity.Z < -0.8 * JumpZ )
+		MakeNoise(0.2);
+}
+
 defaultproperties
 {
 	//Components.Remove(Sprite)

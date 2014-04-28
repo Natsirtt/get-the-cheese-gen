@@ -44,6 +44,8 @@ std::string DoorActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     stream << indentation << "   Tag=\"" << mName << "\"" << std::endl;
     stream << indentation << "   CollisionComponent=StaticMeshComponent'" << smcn << "'" << std::endl;
     stream << indentation << "   Name=\"" << mName << "\"" << std::endl;
+    stream << indentation << "   Size=" << T3DExporter::DEMI_CUBE_SIZE * 2 << std::endl;
+    stream << indentation << "   DrawScale=" << T3DExporter::DEMI_CUBE_SIZE * 2 / 320 << std::endl;
     stream << indentation << "   ObjectArchetype=TERDoor'ter.Default__TERDoor'" << std::endl;
     stream << indentation << "End Actor" << std::endl;
 
