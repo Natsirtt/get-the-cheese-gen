@@ -35,5 +35,5 @@ defaultproperties
  	Components.Add(MyStaticMeshComponent)
 
 	Size=256
-	TimeToDestroy = 1
+	TimeToDestroy = 0.5
 }

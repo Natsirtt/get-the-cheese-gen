@@ -2,6 +2,7 @@
 
 #include <sstream>
 
+#include "T3DExporter.hpp"
 
 PointLightActor::PointLightActor(Vector location, float radius) : mLocation{location}, mRadius{radius} {
 }
@@ -85,7 +86,7 @@ std::string PointLightActor::getT3D(int indentLevel, NameFactory *nameFactory) {
 
 void PointLightActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition, Vector gridTranslation) {
     if (mGrid != nullptr) {
-        mLocation = gridPosition;
+        mLocation = (gridPosition + gridTranslation) * T3DExporter::DEMI_CUBE_SIZE * 2.0;
+        output << getT3D(indentLevel, nameFactory);
     }
-    output << getT3D(indentLevel, nameFactory);
 }

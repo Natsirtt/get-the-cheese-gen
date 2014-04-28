@@ -138,7 +138,6 @@ defaultproperties
 	SpreeStatEvents.Add(SPREE_GODLIKE)
 	SpreeStatEvents.Add(SPREE_MASSACRE)
 	
-	EndTimeDelay=0
 	bPlayersVsBots=false
 
 	//TER

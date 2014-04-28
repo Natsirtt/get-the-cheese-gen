@@ -617,7 +617,7 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                     //********************Lumière**************************//
                     else if (itZ.second == Grid::LIGHT_CELL) {
                         std::cout << "Detecting a LIGHT_CELL" << std::endl;
-                        PointLightActor pla(&g, 1000);
+                        PointLightActor pla(&g, DEMI_CUBE_SIZE * 3);
                         pla.writeT3D(output, 2, nameFactory, pos, areaPositon);
                     }
                 }

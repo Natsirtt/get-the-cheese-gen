@@ -22,6 +22,7 @@ void genGridDoor();
 void genClimbRoom();
 void genDeathRoom();
 void genDeathRoom_2();
+void genDeathRoom_3();
 
 int main(int argc, char* argv[]) {
     genStartRoom();
@@ -41,6 +42,7 @@ int main(int argc, char* argv[]) {
     genClimbRoom();
     genDeathRoom();
     genDeathRoom_2();
+    genDeathRoom_3();
 
     std::cout << "Rooms generated" << std::endl;
     return 0;
@@ -513,4 +515,36 @@ void genDeathRoom_2() {
     a.addOutCell(std::make_tuple(-3, -4, 6));
 
     a.save(std::string("Area/DeathRoom/DeathRoom2.area"));
+}
+
+void genDeathRoom_3() {
+    Area a(false);
+    int xSize = 10;
+    int ySize = 10;
+    int zSize = 4;
+
+    Grid& g = a.getGrid();
+    for (int x = -xSize / 2; x <= xSize / 2; ++x) {
+        for (int z = 0; z < zSize; ++z) {
+            for (int y = -ySize / 2; y <= ySize / 2; ++y) {
+                if (((x == (-(xSize / 2) + 1)) || (x == ((xSize / 2) - 1)) ||
+                    (y == (-(ySize / 2) + 1)) || (y == ((ySize / 2) - 1))) && (z == 0)) {
+                    g.set(Grid::TRAP_CELL, x, y, z);
+                } else if (z == 0) {
+                    g.set(Grid::DEATH_CELL, x, y, z);
+                } else if ((x >= -xSize / 4) && (x <= xSize / 4) && (y >= -ySize / 4) && (y <= ySize / 4)) {
+                    g.set(Grid::EMPTY_CELL, x, y, z);
+                } else {
+                    g.set(Grid::BLOCK_CELL, x, y, z);
+                }
+            }
+        }
+    }
+
+    g.set(Grid::TRAP_CELL, 0, 5, 0);
+    a.addInCell(std::make_tuple(0, 6, 1));
+    g.set(Grid::TRAP_CELL, 0, -5, 0);
+    a.addOutCell(std::make_tuple(0, -6, 1));
+
+    a.save(std::string("Area/DeathRoom/DeathRoom3.area"));
 }
