@@ -3,9 +3,6 @@ class TERPawn extends UTPawn;
 var int normalSpeed;
 var int sprintSpeed;
 
-var float WallJumpBoostXY;
-var float WallJumpBoostZ;
-
 //override to make player mesh visible by default
 simulated event BecomeViewTarget( PlayerController PC )
 {
@@ -75,7 +72,7 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 
    return true;
 }
-
+/*
 function bool DoWallJump( bool bUpdating )
 {
     local Vector HitLocation, HitNormal, End, Start;
@@ -86,7 +83,7 @@ function bool DoWallJump( bool bUpdating )
     End = Start + (vector(Rotation) * GetCollisionRadius() * 2.5);
     HitActor = Trace(HitLocation, HitNormal, End, Start, true,);
     `Log("Player try to jump on " @ HitActor);
-     
+
     //check on what we want to jump, we jump only on world surfaces
     if (HitActor == WorldInfo || HitActor.isA('StaticMeshActor'))
     {
@@ -114,6 +111,7 @@ function bool DoWallJump( bool bUpdating )
      
     return false;
 }
+*/
 
 simulated function TakeFallingDamage()
 {
@@ -325,7 +323,7 @@ defaultproperties
 	FallingDamageWaveForm=ForceFeedbackWaveformFall
 
 	CamOffset=(X=4.0,Y=16.0,Z=-13.0)
-	
+
 	WallJumpBoostXY=100.0
 	WallJumpBoostZ=10.0
 	bDirectHitWall=true

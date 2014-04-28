@@ -1,6 +1,6 @@
 class TERGame extends UTGame;
 
-var float gameTime;
+var int gameTime;
 var() bool gameStarted;
 var() bool gameFinished;
 
@@ -11,11 +11,10 @@ function bool CheckModifiedEndGame(PlayerReplicationInfo Winner, string Reason)
 	return false;
 }
 
-
-function Tick(float dt)
+function simulated Timer()
 {
-	super.Tick(dt);
-	gameTime = gameTime + dt;
+	super.Timer();
+	gameTime++;
 }
 
 event simulated PostBeginPlay()
