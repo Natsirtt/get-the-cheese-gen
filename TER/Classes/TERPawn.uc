@@ -72,9 +72,7 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
 
    return true;
 }
-
-<<<<<<< HEAD
-=======
+/*
 function bool DoWallJump( bool bUpdating )
 {
     local Vector HitLocation, HitNormal, End, Start;
@@ -85,7 +83,7 @@ function bool DoWallJump( bool bUpdating )
     End = Start + (vector(Rotation) * GetCollisionRadius() * 2.5);
     HitActor = Trace(HitLocation, HitNormal, End, Start, true,);
     `Log("Player try to jump on " @ HitActor);
-     
+
     //check on what we want to jump, we jump only on world surfaces
     if (HitActor == WorldInfo || HitActor.isA('StaticMeshActor'))
     {
@@ -113,6 +111,7 @@ function bool DoWallJump( bool bUpdating )
      
     return false;
 }
+*/
 
 simulated function TakeFallingDamage()
 {
@@ -129,7 +128,6 @@ simulated function TakeFallingDamage()
 		MakeNoise(0.2);
 }
 
->>>>>>> 55ad14d4d81ee1ae240d18aee2a9cd3c43391f40
 defaultproperties
 {
 	//Components.Remove(Sprite)
@@ -325,11 +323,8 @@ defaultproperties
 	FallingDamageWaveForm=ForceFeedbackWaveformFall
 
 	CamOffset=(X=4.0,Y=16.0,Z=-13.0)
-<<<<<<< HEAD
-=======
-	
+
 	WallJumpBoostXY=100.0
 	WallJumpBoostZ=10.0
 	bDirectHitWall=true
->>>>>>> 55ad14d4d81ee1ae240d18aee2a9cd3c43391f40
 }
