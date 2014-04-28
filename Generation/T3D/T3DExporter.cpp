@@ -634,10 +634,14 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                 for (auto& itZ : itY.second) {
                     Vector pos = Vector(itX.first, itY.first, itZ.first);
                      if (itZ.second == Grid::TRIGGER_CELL) {
-                        std::cout << "Trigger at " << itX.first << " " << itY.first << " " << itZ.first << " with id = " << i
-                                    << " and door name = " << triggerPositionDoorNameMap.at(i) << std::endl;
-                        TriggerActor trigger(&g, triggerPositionDoorNameMap.at(i));
-                        trigger.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                        try {
+                            std::cout << "Trigger at " << itX.first << " " << itY.first << " " << itZ.first << " with id = " << i
+                                        << " and door name = " << triggerPositionDoorNameMap.at(i) << std::endl;
+                            TriggerActor trigger(&g, triggerPositionDoorNameMap.at(i));
+                            trigger.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                        } catch(...) {
+                            std::cout << "Impossible de trouver le triggerable pour le trigger : " << i << std::endl;
+                        }
                     }
                 }
             }

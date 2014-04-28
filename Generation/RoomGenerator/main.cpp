@@ -328,6 +328,8 @@ void genDoor() {
     g.set(Grid::LIGHT_CELL, 0, -ySize / 2, 0);
     g.set(Grid::LIGHT_CELL, 0, ySize / 2, 0);
 
+    g.set(Grid::DOOR_CELL, 0, 0, 0);
+
     a.addInCell(std::make_tuple(0, (ySize / 2) + 1, 0));
     a.addOutCell(std::make_tuple(0, -(ySize / 2) - 1, 0));
 
