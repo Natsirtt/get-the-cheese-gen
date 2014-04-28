@@ -73,6 +73,63 @@ simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out
    return true;
 }
 
+<<<<<<< HEAD
+=======
+function bool DoWallJump( bool bUpdating )
+{
+    local Vector HitLocation, HitNormal, End, Start;
+    local Actor HitActor;
+     
+    //Perform trace
+    Start = Location + (Vector(Rotation) * GetCollisionRadius()/2);
+    End = Start + (vector(Rotation) * GetCollisionRadius() * 2.5);
+    HitActor = Trace(HitLocation, HitNormal, End, Start, true,);
+    `Log("Player try to jump on " @ HitActor);
+     
+    //check on what we want to jump, we jump only on world surfaces
+    if (HitActor == WorldInfo || HitActor.isA('StaticMeshActor'))
+    {
+        `Log("-Player jump on the wall !");
+         
+        FaceRotation(rotator(HitNormal), 0);
+        Controller.SetRotation( rotator(HitNormal) );
+         
+		if (HitNormal.X != 0)
+		{
+			Velocity.X = HitNormal.X * WallJumpBoostXY;
+		}
+		 
+		if (HitNormal.Y != 0)
+		{
+			Velocity.Y = HitNormal.Y * WallJumpBoostXY;
+		}
+         
+        //PlayerController(Controller).PlaySound(playerSoundWallJump, false, true);
+ 
+        Velocity.Z = JumpZ + WallJumpBoostZ;
+ 
+        return true;
+    }
+     
+    return false;
+}
+
+simulated function TakeFallingDamage()
+{
+	if (Velocity.Z < -0.5 * MaxFallSpeed)
+	{
+		if ( Role == ROLE_Authority )
+		{
+			MakeNoise(1.0);
+		}
+	}
+	else if (Velocity.Z < -1.4 * JumpZ)
+		MakeNoise(0.5);
+	else if ( Velocity.Z < -0.8 * JumpZ )
+		MakeNoise(0.2);
+}
+
+>>>>>>> 55ad14d4d81ee1ae240d18aee2a9cd3c43391f40
 defaultproperties
 {
 	//Components.Remove(Sprite)
@@ -268,4 +325,11 @@ defaultproperties
 	FallingDamageWaveForm=ForceFeedbackWaveformFall
 
 	CamOffset=(X=4.0,Y=16.0,Z=-13.0)
+<<<<<<< HEAD
+=======
+	
+	WallJumpBoostXY=100.0
+	WallJumpBoostZ=10.0
+	bDirectHitWall=true
+>>>>>>> 55ad14d4d81ee1ae240d18aee2a9cd3c43391f40
 }

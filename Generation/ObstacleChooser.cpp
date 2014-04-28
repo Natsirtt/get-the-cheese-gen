@@ -23,24 +23,24 @@
 
 ObstacleChooser::ObstacleChooser() {
     mObstacles.push_back(std::unique_ptr<IGate>{new ClimbWall{}});
-    mObstacles.push_back(std::unique_ptr<IGate>{new Crusher{}});
+    //mObstacles.push_back(std::unique_ptr<IGate>{new Crusher{}});
     mObstacles.push_back(std::unique_ptr<IGate>{new DeathZone{}});
     mObstacles.push_back(std::unique_ptr<IGate>{new Door{}});
     mObstacles.push_back(std::unique_ptr<IGate>{new HeightHole{}});
     mObstacles.push_back(std::unique_ptr<IGate>{new Laser{}});
-    mObstacles.push_back(std::unique_ptr<IGate>{new MetalGate{}});
-    mObstacles.push_back(std::unique_ptr<IGate>{new MetalGateDoor{}});
-    mObstacles.push_back(std::unique_ptr<IGate>{new MovingPlatform{}});
-    mObstacles.push_back(std::unique_ptr<IGate>{new MovingSideWalk{}});
-    mObstacles.push_back(std::unique_ptr<IGate>{new SlideObstacle{}});
-    mObstacles.push_back(std::unique_ptr<IGate>{new Trap{}});
+    //mObstacles.push_back(std::unique_ptr<IGate>{new MetalGate{}});
+    //mObstacles.push_back(std::unique_ptr<IGate>{new MetalGateDoor{}});
+    //mObstacles.push_back(std::unique_ptr<IGate>{new MovingPlatform{}});
+    //mObstacles.push_back(std::unique_ptr<IGate>{new MovingSideWalk{}});
+    //mObstacles.push_back(std::unique_ptr<IGate>{new SlideObstacle{}});
+    //mObstacles.push_back(std::unique_ptr<IGate>{new Trap{}});
     mObstacles.push_back(std::unique_ptr<IGate>{new Turret{}});
-    mObstacles.push_back(std::unique_ptr<IGate>{new WallJumpZone{}});
+    //mObstacles.push_back(std::unique_ptr<IGate>{new WallJumpZone{}});
     mObstacles.push_back(std::unique_ptr<IGate>{new WidthHole{}});
 }
 
 IGate* ObstacleChooser::chooseWithoutTrigger(IGraph* graph, Id first, Id second, Perso p) {
-    int tryCount = 500; // Sécurité
+    int tryCount = 500; // Sécurité pour éviter une boucle infinie
     Rand_Int<> rand(0, mObstacles.size() - 1);
     while (tryCount-- > 0) {
         unsigned int r = rand();
@@ -65,7 +65,7 @@ IGate* ObstacleChooser::chooseWithTrigger(IGraph* graph, Id first, Id second, Pe
     }
     throw std::runtime_error("ObstacleChooser::choose -> Impossible de choisir une transition");
     return nullptr;*/
-    return mObstacles[3]->allocate(graph, first, second);
+    return new Door(graph, first, second);
 }
 
 IGate* ObstacleChooser::getGateByName(IGraph* graph, Id first, Id second, std::string name) {

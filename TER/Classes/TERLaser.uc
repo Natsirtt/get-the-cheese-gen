@@ -44,7 +44,7 @@ function Tick(float dt)
 		player = TERPawn(nearestActor);
 		if (player != none) // Si l'Actor est un joueur
 		{
-			player.TakeDamage(Degat * dt, none, NearestHitLoc, vect(0, 0, 0), class'DmgType_Fell');
+			player.TakeDamage(Degat, none, NearestHitLoc, vect(0, 0, 0), class'DmgType_Fell');
 			NearestHitLoc = player.location;
 		}
 		// On modifie le point d'arrivée du laser 

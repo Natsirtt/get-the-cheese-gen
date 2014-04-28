@@ -6,7 +6,9 @@
 #include <tuple>
 #include <map>
 #include <cmath>
+#include <algorithm>
 
+#include "../Utils/Random.hpp"
 #include "../3D/Grid.hpp"
 #include "IActor.hpp"
 #include "StaticMeshActor.hpp"
@@ -25,6 +27,7 @@
 #include "MovableBrushActor.hpp"
 #include "StairBrushActor.hpp"
 #include "WallPlatformActor.hpp"
+#include "TrapBrushActor.hpp"
 
 #define LIGHTS_MODULO 6
 
@@ -50,6 +53,7 @@ void T3DExporter::exportT3D(std::string filepath) {
     std::string buffer;
 
     //int i = 0;
+    std::cout << "Initializing t3d file..." << std::endl;
     std::getline(input1, buffer);
     while (!buffer.empty()) {
         //buffer = buffer.substr(0, buffer.size()-1);
@@ -62,13 +66,21 @@ void T3DExporter::exportT3D(std::string filepath) {
     }
     input1.close();
 
+    std::cout << "Exporting graph..." << std::endl;
+
     NameFactory nameFactory;
 
     //staticCubesRepresentation(output, mWorld->getGrid(), nameFactory); //Legacy
+    std::cout << "Exporting paths..." << std::endl;
     exportPathsBrushes(output, &nameFactory);
+    std::cout << "Exporting rooms..." << std::endl;
     exportRoomsBrushes(output, &nameFactory);
+    std::cout << "Exporting player start/finish..." << std::endl;
     exportPlayerStart(output, &nameFactory);
+    std::cout << "Exporting special cells" << std::endl;
     exportSpecialsCells(output, &nameFactory);
+
+    std::cout << "Finalizing t3d file..." << std::endl;
 
     std::getline(input2, buffer);
     while (!buffer.empty()) {
@@ -136,6 +148,47 @@ std::vector<std::vector<Vector>> T3DExporter::getWall(float sizeLen, float reduc
     return polyList;
 }
 
+std::vector<std::vector<Vector>> T3DExporter::getWall(float sizeX, float sizeY, float sizeZ) {
+    std::vector<std::vector<Vector>> polyList;
+    std::vector<Vector> f1;
+    f1.push_back(Vector(-sizeX, -sizeY, sizeZ));
+    f1.push_back(Vector(-sizeX, -sizeY, -sizeZ));
+    f1.push_back(Vector(sizeX, -sizeY, -sizeZ));
+    f1.push_back(Vector(sizeX, -sizeY, sizeZ));
+    polyList.push_back(f1);
+    std::vector<Vector> f2;
+    f2.push_back(Vector(sizeX, -sizeY, sizeZ));
+    f2.push_back(Vector(sizeX, -sizeY, -sizeZ));
+    f2.push_back(Vector(sizeX, sizeY, -sizeZ));
+    f2.push_back(Vector(sizeX, sizeY, sizeZ));
+    polyList.push_back(f2);
+    std::vector<Vector> f3;
+    f3.push_back(Vector(sizeX, sizeY, sizeZ));
+    f3.push_back(Vector(sizeX, sizeY, -sizeZ));
+    f3.push_back(Vector(-sizeX, sizeY, -sizeZ));
+    f3.push_back(Vector(-sizeX, sizeY, sizeZ));
+    polyList.push_back(f3);
+    std::vector<Vector> f4;
+    f4.push_back(Vector(-sizeX, -sizeY, sizeZ));
+    f4.push_back(Vector(-sizeX, sizeY, sizeZ));
+    f4.push_back(Vector(-sizeX, sizeY, -sizeZ));
+    f4.push_back(Vector(-sizeX, -sizeY, -sizeZ));
+    polyList.push_back(f4);
+    std::vector<Vector> f5;
+    f5.push_back(Vector(-sizeX, -sizeY, -sizeZ));
+    f5.push_back(Vector(-sizeX, sizeY, -sizeZ));
+    f5.push_back(Vector(sizeX, sizeY, -sizeZ));
+    f5.push_back(Vector(sizeX, -sizeY, -sizeZ));
+    polyList.push_back(f5);
+    std::vector<Vector> f6;
+    f6.push_back(Vector(-sizeX, -sizeY, sizeZ));
+    f6.push_back(Vector(sizeX, -sizeY, sizeZ));
+    f6.push_back(Vector(sizeX, sizeY, sizeZ));
+    f6.push_back(Vector(-sizeX, sizeY, sizeZ));
+    polyList.push_back(f6);
+    return polyList;
+}
+
 std::vector<std::vector<Vector>> T3DExporter::getCube(float sizeLen) {
     return getWall(sizeLen, REDUCED_SIZE, false, false, false);
 }
@@ -151,6 +204,7 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
             long y = std::get<1>(v);
             long z = std::get<2>(v);
             Vector origin(x, y, z);
+            Vector pos = origin * 2.0 * DEMI_CUBE_SIZE;
             Vector pred = origin;
             Vector next = origin;
             if (i > 0) {
@@ -187,10 +241,19 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
                     output << brush2.getT3D(2, nameFactory) << std::endl;
                 }
             }
+
             bool needPlatform = false;
             Vector wallDirection;
             if (!needStair) {
                 needPlatform = pathNeedWallPlatform(path, i);
+            }
+            if ((!needPlatform) && pathNeedTrap(path, i)) {
+                if ((g->get(origin.getX(), origin.getY(), origin.getZ() - 1) == Grid::EMPTY_CELL) ||
+                    (g->get(origin.getX(), origin.getY(), origin.getZ() - 1) == Grid::FULLED_IDLE_CELL)) {
+                    TrapBrushActor tba(pos - Vector(0, 0, DEMI_CUBE_SIZE * 2));
+                    output << tba.getT3D(2, nameFactory) << std::endl;
+                    needFloor[i] = false;
+                }
             }
 
             Vector predX(origin.getX() - 1, origin.getY(), origin.getZ());
@@ -199,9 +262,6 @@ void T3DExporter::exportPathsBrushes(std::ofstream& output, NameFactory *nameFac
             Vector nextY(origin.getX(), origin.getY() + 1, origin.getZ());
             Vector predZ(origin.getX(), origin.getY(), origin.getZ() - 1);
             Vector nextZ(origin.getX(), origin.getY(), origin.getZ() + 1);
-
-            Vector pos = origin * 2.0 * DEMI_CUBE_SIZE;
-
             if ((!isFirstOrLast && (predX != pred) && (predX != next) && (predX != stairLocation)) ||
                 (isFirstOrLast && g->get(x - 1, y, z) == Grid::EMPTY_CELL)) {
                 BrushActor brush(pos - Vector(DEMI_CUBE_SIZE, 0, 0), getWall(DEMI_CUBE_SIZE, REDUCED_SIZE, true, false, false));
@@ -298,6 +358,33 @@ bool T3DExporter::pathNeedWallPlatform(std::vector<std::tuple<long, long, long>>
 
         return c1.getZ() < c2.getZ();
     }
+    return false;
+}
+
+bool T3DExporter::pathNeedTrap(std::vector<std::tuple<long, long, long>>& path, unsigned int cellNb) {
+   if (((cellNb + 1) < path.size()) && (cellNb != 0)) {
+        Vector c1 = Vector(path[cellNb - 1]);
+        Vector c2 = Vector(path[cellNb]);
+        Vector c3 = Vector(path[cellNb + 1]);
+
+        bool res = false;
+        if ((c1.getZ() == c2.getZ()) && (c2.getZ() == c3.getZ())) {
+            std::vector<double> vecX{c1.getX(), c2.getX(), c3.getX()};
+            std::sort(vecX.begin(), vecX.end());
+            if ((vecX[0] == (vecX[1] - 1)) && (vecX[1] == (vecX[2] - 1))) {
+                res = true;
+            } else {
+                std::vector<double> vecY{c1.getX(), c2.getX(), c3.getX()};
+                std::sort(vecY.begin(), vecY.end());
+                res = (vecY[0] == (vecY[1] - 1)) && (vecY[1] == (vecY[2] - 1));
+            }
+            if (res) {
+                Rand_Int<> rand(0, 100);
+                return rand() > 80;
+            }
+            return false;
+        }
+   }
     return false;
 }
 
@@ -417,15 +504,22 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                     //**********************PLATFORMS**********************//
                     else if (itZ.second == Grid::PLATFORM_CELL) {
                         std::cout << "Detecting a PLATFORM_CELL" << std::endl;
-                        BrushActor brush((areaPositon + pos) * DEMI_CUBE_SIZE * 2.0 + Vector(0, 0, DEMI_CUBE_SIZE / 4.), getWall(DEMI_CUBE_SIZE, DEMI_CUBE_SIZE / 4., false, false, true));
+                        BrushActor brush((areaPositon + pos) * DEMI_CUBE_SIZE * 2.0 - Vector(0, 0, DEMI_CUBE_SIZE), getWall(DEMI_CUBE_SIZE, DEMI_CUBE_SIZE / 4., false, false, true));
                         output << brush.getT3D(2, nameFactory) << std::endl;
                     }
                     //**********************MOVING PLATFORMS**********************//
-                    else if (itZ.second == Grid::MOVING_PLATFORM_CELL) {
-                        // MARCHE PAS !!
-                        //std::cout << "Detecting a MOVING_PLATFORM_CELL" << std::endl;
-                        //MovableBrushActor brush((areaPositon + pos) * DEMI_CUBE_SIZE * 2.0 + Vector(0, 0, DEMI_CUBE_SIZE / 4.), getWall(DEMI_CUBE_SIZE, DEMI_CUBE_SIZE / 4., false, false, true));
-                        //output << brush.getT3D(2, nameFactory) << std::endl;
+                    else if (itZ.second == Grid::MOVING_X_PLATFORM_CELL) {
+                        std::cout << "Detecting a MOVING_X_PLATFORM_CELL" << std::endl;
+                        MovableBrushActor brush((areaPositon + pos) * DEMI_CUBE_SIZE * 2.0 - Vector(0, 0, DEMI_CUBE_SIZE));
+                        brush.setDirection(MovableBrushActor::X_DIR);
+                        output << brush.getT3D(2, nameFactory) << std::endl;
+                    }
+                    //**********************MOVING PLATFORMS**********************//
+                    else if (itZ.second == Grid::MOVING_Y_PLATFORM_CELL) {
+                        std::cout << "Detecting a MOVING_Y_PLATFORM_CELL" << std::endl;
+                        MovableBrushActor brush((areaPositon + pos) * DEMI_CUBE_SIZE * 2.0 - Vector(0, 0, DEMI_CUBE_SIZE));
+                        brush.setDirection(MovableBrushActor::Y_DIR);
+                        output << brush.getT3D(2, nameFactory) << std::endl;
                     }
                     //********************CLIMBING AREAS*******************//
                     else if (itZ.second == Grid::CLIMB_CELL) {
@@ -514,6 +608,18 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                         sba.setDirection(Vector(0, -1, 0));
                         sba.writeT3D(output, 2, nameFactory, pos, areaPositon);
                     }
+                    //********************Piege**************************//
+                    else if (itZ.second == Grid::TRAP_CELL) {
+                        std::cout << "Detecting a TRAP_CELL" << std::endl;
+                        TrapBrushActor tba(&g);
+                        tba.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                    }
+                    //********************Lumière**************************//
+                    else if (itZ.second == Grid::LIGHT_CELL) {
+                        std::cout << "Detecting a LIGHT_CELL" << std::endl;
+                        PointLightActor pla(&g, 1000);
+                        pla.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                    }
                 }
             }
         }
@@ -528,10 +634,14 @@ void T3DExporter::exportSpecialsCells(std::ofstream& output, NameFactory *nameFa
                 for (auto& itZ : itY.second) {
                     Vector pos = Vector(itX.first, itY.first, itZ.first);
                      if (itZ.second == Grid::TRIGGER_CELL) {
-                        std::cout << "Trigger at " << itX.first << " " << itY.first << " " << itZ.first << " with id = " << i
-                                    << " and door name = " << triggerPositionDoorNameMap.at(i) << std::endl;
-                        TriggerActor trigger(&g, triggerPositionDoorNameMap.at(i));
-                        trigger.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                        try {
+                            std::cout << "Trigger at " << itX.first << " " << itY.first << " " << itZ.first << " with id = " << i
+                                        << " and door name = " << triggerPositionDoorNameMap.at(i) << std::endl;
+                            TriggerActor trigger(&g, triggerPositionDoorNameMap.at(i));
+                            trigger.writeT3D(output, 2, nameFactory, pos, areaPositon);
+                        } catch(...) {
+                            std::cout << "Impossible de trouver le triggerable pour le trigger : " << i << std::endl;
+                        }
                     }
                 }
             }

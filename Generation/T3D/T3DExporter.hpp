@@ -17,6 +17,7 @@ class T3DExporter {
 
         void exportT3D(std::string filepath);
         static std::vector<std::vector<Vector>> getWall(float sizeLen, float reducedSize, bool reducedX, bool reducedY, bool reducedZ);
+        static std::vector<std::vector<Vector>> getWall(float sizeX, float sizeY, float sizeZ);
         static std::vector<std::vector<Vector>> getCube(float sizeLen);
 
         static const int DEMI_CUBE_SIZE = 200;
@@ -46,6 +47,7 @@ class T3DExporter {
 
         bool pathNeedStairs(std::vector<std::tuple<long, long, long>>& path, unsigned int cellNb);
         bool pathNeedWallPlatform(std::vector<std::tuple<long, long, long>>& path, unsigned int cellNb);
+        bool pathNeedTrap(std::vector<std::tuple<long, long, long>>& path, unsigned int cellNb);
 
     private:
         World *mWorld;

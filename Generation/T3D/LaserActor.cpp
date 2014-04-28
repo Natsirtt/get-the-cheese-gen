@@ -81,7 +81,7 @@ std::string LaserActor::getT3D(int indentLevel, NameFactory *nameFactory) {
     stream << indentation << indent << "Components(1)=StaticMeshComponent'" << staticMeshComponent << "'" << std::endl;
     stream << indentation << indent << "Components(2)=UTParticleSystemComponent'" << particleSystemComponent << "'" << std::endl;
     stream << indentation << indent << "Location=(X=" << mLocation.getX() << ",Y=" << mLocation.getY() << ",Z=" << mLocation.getZ() << ")" << std::endl;
-    stream << indentation << indent << indent << "Rotation=(Pitch=" << mRotation.getY() << ",Yaw=" << mRotation.getZ() << ",Roll=" << mRotation.getX() << ")" << std::endl;
+    stream << indentation << indent << indent << "Rotation=(Pitch=" << (long long) mRotation.getY() << ",Yaw=" << (long long) mRotation.getZ() << ",Roll=" << (long long) mRotation.getX() << ")" << std::endl;
     stream << indentation << indent << "Tag=\"TERLaser\"" << std::endl;
     stream << indentation << indent << "CollisionComponent=StaticMeshComponent'" << staticMeshComponent << "'" << std::endl;
     stream << indentation << indent << "Name=\"" << name << "\"" << std::endl;
@@ -95,6 +95,7 @@ std::string LaserActor::getT3D(int indentLevel, NameFactory *nameFactory) {
 void LaserActor::writeT3D(std::ofstream& output, int indentLevel, NameFactory *nameFactory, Vector gridPosition, Vector gridTranslation) {
     if (mGrid != nullptr) {
         mLocation = (gridPosition + gridTranslation) * T3DExporter::DEMI_CUBE_SIZE * 2.0;
+        mLocation = mLocation - Vector(0, 0, 3. * T3DExporter::DEMI_CUBE_SIZE / 4.);
         long predX = mGrid->get(gridPosition.getX() - 1, gridPosition.getY(), gridPosition.getZ());
         long predY = mGrid->get(gridPosition.getX(), gridPosition.getY() - 1, gridPosition.getZ());
         long predZ = mGrid->get(gridPosition.getX(), gridPosition.getY(), gridPosition.getZ() - 1);

@@ -31,6 +31,8 @@ class WallPlatformActor : public IActor {
         Vector mGridPosition;
         Vector mGridTranslation;
         Vector mDirection;
+
+        const std::string mTextureName = "Castle_Assets.Textures.M_CastleRockTile_01";
 };
 
 //const std::string BrushActor::mBaseName = std::string("BrushActor");
