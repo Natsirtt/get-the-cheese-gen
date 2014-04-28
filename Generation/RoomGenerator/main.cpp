@@ -14,6 +14,7 @@ void genRoom2_2();
 void genRoom3();
 void genRoom4();
 void genLaser();
+void genLaser2();
 void genDoor();
 void genTurret();
 void genTurret2();
@@ -31,6 +32,7 @@ int main(int argc, char* argv[]) {
     genRoom3();
     genRoom4();
     genLaser();
+    genLaser2();
     genDoor();
     genTurret();
     genTurret2();
@@ -257,6 +259,51 @@ void genLaser() {
     g.set(1, 0, -2, 0);
 
     a.save(std::string("Area/LaserRoom/Laser.area"));
+}
+
+void genLaser2() {
+    Area a(false);
+    int xSize = 4;
+    int zSize = 6;
+    int ySize = 6;
+
+    Grid& g = a.getGrid();
+    for (int x = -xSize / 2; x <= xSize / 2; ++x) {
+        for (int z = 0; z < zSize; ++z) {
+            for (int y = -ySize / 2; y <= ySize / 2; ++y) {
+                g.set(1, x, y, z);
+            }
+        }
+    }
+
+    for (int x = -xSize / 2; x <= xSize / 2; ++x) {
+        g.set(Grid::LASER_Y_STICKED_CELL, x, -3, 0);
+        g.set(Grid::LASER_Y_STICKED_CELL, x, -3, 1);
+        g.set(Grid::LASER_Y_STICKED_CELL, x, -3, 2);
+        g.set(Grid::LASER_Y_STICKED_CELL, x, -3, 3);
+    }
+    for (int y = -ySize / 2; y <= ySize / 2; ++y) {
+        g.set(Grid::LASER_X_STICKED_CELL, 2, y, 0);
+        g.set(Grid::LASER_X_STICKED_CELL, 2, y, 1);
+        g.set(Grid::LASER_X_STICKED_CELL, 2, y, 2);
+        g.set(Grid::LASER_X_STICKED_CELL, 2, y, 3);
+    }
+
+    g.set(Grid::FULLED_IDLE_CELL, 2, 2, 1);
+    for (int x = 0; x <= 2; ++x) {
+        for (int y = 1; y <= 3; ++y) {
+            g.set(Grid::FULLED_IDLE_CELL, x, y, 0);
+            g.set(Grid::LASER_X_STICKED_CELL, -1, y, 0);
+        }
+        g.set(Grid::LASER_Y_STICKED_CELL, x, 0, 0);
+    }
+
+    a.addOutCell(std::make_tuple(3, 2, 2));
+    g.set(1, 2, 2, 2);
+    a.addInCell(std::make_tuple(0, -4, 0));
+    g.set(1, 0, -3, 0);
+
+    a.save(std::string("Area/LaserRoom/Laser2.area"));
 }
 
 void genTurret() {
